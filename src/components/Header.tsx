@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           {/* Remove mx-auto class and add justify-content-start to align items to the left */}
           <ul className="navbar-nav items justify-content-start " >
             <li className="nav-item">
-              <Link className="nav-link"  target="_blank" href="https://github.com/cashbunny" isExternal >
+              <Link className="nav-link"  target="_blank" href="https://github.com/cashbunnydotfun" isExternal >
                   Github
               </Link>
             </li>
