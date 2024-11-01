@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                         <i className="fa-brands fa-telegram"></i>
                             <Link 
                               className="discord"
-                              to="https://discord.gg/"
+                              to="https://t.me/CashBunnyFun"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
                           <i className="fa-brands fa-github"></i>
                           <Link 
                           className="github"
-                          to="https://github.com/"
+                          to="https://github.com/cashbunnydotfun"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
                             <i className="fa fa-envelope"></i>
                             <Link 
                               className="twitter"
-                              to="https://twitter.com/"
+                              to="mailto:info@cashbunny.fun"
                               target="_blank"
                               rel="noopener noreferrer"
                             >

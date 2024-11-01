@@ -35,7 +35,11 @@ const Header: React.FC = () => {
                   Medium
               </Link>
             </li>        
-
+            <li className="nav-item">
+              <Link className="nav-link" href="https://t.me/CashBunnyFun" target="_blank" isExternal>
+                  Telegram
+              </Link>
+            </li>   
             <li className="nav-item">
               <Link className="nav-link" href="https://discord.gg/cashbunny" target="_blank" isExternal>
                   Discord
