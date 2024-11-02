@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
                             <i className="fa-brands fa-twitter"></i>
                             <Link 
                               className="twitter"
-                              to="https://twitter.com/"
+                              to="https://x.com/CashBunnydotfun"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
