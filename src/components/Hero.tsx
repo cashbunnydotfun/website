@@ -48,19 +48,19 @@ const Hero: React.FC = () => {
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain and coming soon on Solana.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
-                    <a href="https://#" onClick={()=>gaEventTracker('deadbeef')} target="_blank">
+                    {/* <a href="https://#" onClick={()=>gaEventTracker('deadbeef')} target="_blank">
                       <Button p={15} minW={100} minH={60} fontWeight={600} background={"black"} color={"#FFFDB8"}>
-                          Join the whitelist
+                          Trade mpw
                       </Button>
-                    </a>              
-                  {/* <Button p={15} bg={'#fe9eb4'} minW={100}  fontWeight={600} isDisabled>
+                    </a>               */}
+                  <Button p={15} bg={'#fe9eb4'} minW={100} minH={60} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
                   <div style={{ textAlign: 'center' }} minH={60}>
-                      <Text as={'span'} color={"white"}>
-                         Trade now <br />
+                      <Text as={'span'}  >
+                         Trade Now <br />
                       </Text>
-                    <div style={{ fontSize: '10px', marginTop: '5px', color: "gray" }}>Coming Soon</div>
+                    <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
                   </div>
-                </Button>                   */}
+                </Button>                  
               </HStack>
               </Stack>
 
