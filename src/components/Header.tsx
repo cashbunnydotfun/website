@@ -40,11 +40,11 @@ const Header: React.FC = () => {
                   Telegram
               </Link>
             </li>   
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" href="https://discord.gg/cashbunny" target="_blank" isExternal>
                   Discord
               </Link>
-            </li>                         
+            </li>                          */}
           </ul>
 
           {/* Wallet Connect */}
@@ -120,16 +120,6 @@ const Header: React.FC = () => {
                     >
                       <a className="btn ml-lg-auto btn-bordered-white" href="https://cashbunny.medium.com/" target="_blank">
                         Medium
-                      </a>
-                    </li>
-
-                    <li
-                      className="nav-item"
-                      data-bs-dismiss="modal"
-                      style={{ fontSize: "20px", marginTop:"20px"}}
-                    >
-                      <a className="btn ml-lg-auto btn-bordered-white" href="https://discord.gg/" target="_blank">
-                        Discord
                       </a>
                     </li>
 
