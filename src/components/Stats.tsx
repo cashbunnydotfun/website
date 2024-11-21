@@ -59,7 +59,7 @@ import { isMobile } from "react-device-detect";
                   gap={4}
                   w={isMobile ? "full" : "auto"}
                 >
-                  <a href="https://discord.gg/" target="_blank" >
+                  <a href="https://www.pinksale.finance/" target="_blank" >
                   <Button 
                     p={15} minW={100} 
                     fontWeight={600} 
