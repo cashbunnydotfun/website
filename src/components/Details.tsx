@@ -40,9 +40,9 @@ import {
   
                   </Box>
                   <Box>
-                    <h5>Weekly Prize Entry Requirements</h5>
+                    <h5>Cashbunny: The Token That Burns to Earn! 🐰💸 </h5>
                     <Text>
-                      To enter CashBunny's exciting weekly prize draws, here’s what you need: Hold at least 2.5 million BUNNY in your wallet to qualify.
+                      Get ready to hop into weekly raffles and watch the supply shrink! With 15 billion tokens in total, we’re set to burn at least 10 billion over time. How?
                     </Text>
                   </Box>  
                 </Stack>
@@ -53,10 +53,10 @@ import {
 
                   </Box>
                   <Box>
-                    <h5>Safe and sound</h5>
+                    <h5>Automatic burning</h5>
                     <Text>
-                    Pay a 2,500 BUNNY entry fee – which will be automatically burned! ♻️ This deflationary feature means each entry reduces the total BUNNY supply, helping increase value over time.  
-                    </Text>
+                    Join our Weekly Raffle with just 2,500 Bunny per entry. Each fee is automatically burned, reducing supply and boosting value for holders.
+                  </Text>
                   </Box>
                 </Stack>
 
@@ -66,9 +66,9 @@ import {
 
                   </Box>
                   <Box>
-                    <h5>Fair game</h5>
+                    <h5>Fewer tokens = more potential growth!</h5>
                     <Text>
-                    Your participation not only boosts your chances of winning but also strengthens the CashBunny ecosystem! 🌟 Ready to hop in? 🐰💸
+                      Don't miss your chance to win BIG while helping the Cashbunny community thrive. Let’s burn and earn together! 🔥
                     </Text>
                   </Box>
                 </Stack>
