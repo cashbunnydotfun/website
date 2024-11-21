@@ -15,10 +15,9 @@ import {
           <Flex
             p={'2vh'}
             style={{
-              backgroundImage: `url('https://raw.githubusercontent.com/cashbunnydotfun/assets/refs/heads/master/bunny_art_transparent_background.png')`,
+              backgroundImage: `url('https://raw.githubusercontent.com/cashbunnydotfun/assets/refs/heads/master/bg_opaque.png')`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              opacity: "60%"
+              backgroundPosition: 'center'
             }}
           >
            
