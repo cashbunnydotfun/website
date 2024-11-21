@@ -69,7 +69,12 @@ import { isMobile } from "react-device-detect";
                     mt={20} 
                     onClick={()=>gaEventTracker('deadbeef')} 
                     >
-                      Get whitelisted
+                  <div style={{ textAlign: 'center' }} minH={60}>
+                      <Text as={'span'}  >
+                        Join now <br />
+                      </Text>
+                    <div style={{ fontSize: '10px', marginTop: '5px', color: "gray" }}>Coming Soon</div>
+                  </div>
                     </Button>
                   <br /> 
                   <br />
