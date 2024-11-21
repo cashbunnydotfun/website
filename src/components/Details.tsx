@@ -40,7 +40,7 @@ import {
   
                   </Box>
                   <Box>
-                    <h5>Cashbunny: The Token That Burns to Earn! 🐰💸 </h5>
+                    <h5>A Token That Burns to Earn! </h5>
                     <Text>
                       Get ready to hop into weekly raffles and watch the supply shrink! With 15 billion tokens in total, we’re set to burn at least 10 billion over time. How?
                     </Text>
