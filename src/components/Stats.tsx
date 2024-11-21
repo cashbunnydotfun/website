@@ -82,8 +82,8 @@ import { isMobile } from "react-device-detect";
                 textAlign={'center'}
                 py={10}
                 mx={'auto'}>
-                Raffles powered by<br/> 
-                Chainlink oracles
+                Weekly raffles with<br/> 
+                Rich Prizes
               </chakra.h2>
           </Flex>
           <Flex 
@@ -95,18 +95,19 @@ import { isMobile } from "react-device-detect";
                 base: 2, 
                 sm: 12, 
                 md: 17 
-            }}               
+            }}
+            mb={"150px"}               
           >
             <StatsCard
-              title={'Weekly prizes'} 
-              stat={"$100 are distributed weekly to lucky rafflers 🍀. Go Get $BUNNY now and upgrade your lifestyle by holding and playing 🤑 "}/>
+              title={'Weekly Prize Entry Requirements 🔥 '} 
+              stat={"To enter CashBunny's exciting weekly prize draws, here’s what you need: Hold at least 2.5 million BUNNY in your wallet to qualify."}/>
             <StatsCard 
               title={'Safe and sound'} 
-              stat={"$BUNNY uses Chainlink VDF for fair random number generation ⛓️ which means that cheating our raffle is nearly impossible 🚫"}/> 
+              stat={"Pay a 2,500 BUNNY entry fee – which will be automatically burned! ♻️ This deflationary feature means each entry reduces the total BUNNY supply, helping increase value over time."}/> 
             <StatsCard 
-              title={"Fair tokenomics"} 
-              stat={"Raffle prizes & buy-backs are factored in. 60% of the presale funds destined to the liquidity 💵 with LP rights renounced"}/>
-        </Flex>          
+              title={"Fair game"} 
+              stat={"Your participation not only boosts your chances of winning but also strengthens the CashBunny ecosystem! 🌟 Ready to hop in? 🐰💸"}/>
+        </Flex>      
         </>
     );
   }

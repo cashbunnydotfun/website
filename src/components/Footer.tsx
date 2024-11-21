@@ -1,21 +1,32 @@
 import { Link } from "react-router-dom";
-import { SimpleGrid, Box, HStack, Center } from '@chakra-ui/react';
+import { SimpleGrid, Box, HStack, Center, VStack } from '@chakra-ui/react';
 import { isMobile } from "react-device-detect";
 
 const Footer: React.FC = () => {
   return (
     <footer>
-      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <Box mt={250}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 p-10 text-center">
             <div className="footer-items">
               <Center fontSize={isMobile ? "small" : "medium"}>
+                <VStack>
                 <HStack>
                   <p className="cashbunnyLogo">Cash </p>
-                  <p className="cashbunnyLogo" style={{marginTop:-1, color:'#fe9eb4'}}>Bunny</p>
-                  <p className="goldtext" style={{fontWeight:'bold', marginTop:-20, fontSize:'14px'}}>(Binance Smart Chain)</p>
+                  <p className="cashbunnyLogo" style={{marginTop: -23, color:'#fe9eb4'}}>Bunny</p>
                 </HStack>
+
+                <HStack>
+                  <p 
+                    className="goldtext" 
+                    style={{fontWeight:'bold', marginTop:-20, fontSize:'14px'}}
+                  >
+                    <a href="https://bscscan.com/address/0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945">0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945</a> (Binance Smart Chain)</p>
+                </HStack>
+                </VStack>
+
+
               </Center>
               <div className="social-icons d-flex justify-content-center my-4">
                   <Box  w="65vh" h="2vh">
@@ -81,6 +92,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
+      </Box>
     </footer>
   );
 };
