@@ -83,7 +83,7 @@ import { isMobile } from "react-device-detect";
                 py={10}
                 mx={'auto'}>
                 Weekly raffles with<br/> 
-                Rich Prizes
+                Rich Prizes 💰
               </chakra.h2>
           </Flex>
           <Flex 

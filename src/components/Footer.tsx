@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
                     className="goldtext" 
                     style={{fontWeight:'bold', marginTop:-20, fontSize:'14px'}}
                   >
-                    <a href="https://bscscan.com/address/0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945">0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945</a> (Binance Smart Chain)</p>
+                    <a href="https://bscscan.com/address/0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945" target="_blank">0x7a4d4C9ab336D7e8f59194DF13c4cB5AA9c93945</a> (Binance Smart Chain)</p>
                 </HStack>
                 </VStack>
 
