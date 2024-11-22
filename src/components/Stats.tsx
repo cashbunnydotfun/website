@@ -1,7 +1,8 @@
 import { Box, Button, Flex, Text, Stat, StatLabel, StatNumber, chakra } from '@chakra-ui/react';
 import { isMobile } from "react-device-detect";
-  
-  interface StatsCardProps {
+import { Link } from "react-router-dom";
+
+interface StatsCardProps {
     title: string;
     stat: string;
   }
@@ -70,10 +71,12 @@ import { isMobile } from "react-device-detect";
                     onClick={()=>gaEventTracker('deadbeef')} 
                     >
                   <div style={{ textAlign: 'center' }} minH={60}>
-                      <Text as={'span'}  >
-                       <a href="https://www.pinksale.finance/launchpad/bsc/0x3Bd1cc34ea42bFF165049EcFf524E8Eed008692F?refId=0x6ab5B9deD8E7c77F1Ade9399f912041159569a0A" target="_blank">Join now</a> <br />
-                      </Text>
-                    <div style={{ fontSize: '10px', marginTop: '5px', color: "gray" }}>Live now</div>
+                       <Link  style={{color: "#000000"}} to="https://www.pinksale.finance/launchpad/bsc/0x3Bd1cc34ea42bFF165049EcFf524E8Eed008692F?refId=0x6ab5B9deD8E7c77F1Ade9399f912041159569a0A" target="_blank"></Link>
+                    <div style={{ color: "gray"}}> 
+                    Join
+                    </div>
+                    <div style={{ fontSize: '12px', marginTop: '5px', color: "red" }}>Live now</div>
+
                   </div>
                     </Button>
                   <br /> 
