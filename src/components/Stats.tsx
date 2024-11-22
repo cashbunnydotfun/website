@@ -71,9 +71,9 @@ import { isMobile } from "react-device-detect";
                     >
                   <div style={{ textAlign: 'center' }} minH={60}>
                       <Text as={'span'}  >
-                        Join now <br />
+                       <a href="https://www.pinksale.finance/launchpad/bsc/0x3Bd1cc34ea42bFF165049EcFf524E8Eed008692F?refId=0x6ab5B9deD8E7c77F1Ade9399f912041159569a0A" target="_blank">Join now</a> <br />
                       </Text>
-                    <div style={{ fontSize: '10px', marginTop: '5px', color: "gray" }}>Coming Soon</div>
+                    <div style={{ fontSize: '10px', marginTop: '5px', color: "gray" }}>Live now</div>
                   </div>
                     </Button>
                   <br /> 
