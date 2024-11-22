@@ -42,7 +42,7 @@ interface StatsCardProps {
             position={"absolute"}
             left={0}
             right={0}
-            height={isMobile? 480 : 300}
+            height={isMobile? 520 : 400}
             p={4}
             backgroundColor={"black"}
             backgroundSize={"100%"}
@@ -75,7 +75,7 @@ interface StatsCardProps {
                     <div style={{ color: "gray"}}> 
                     Join
                     </div>
-                    <div style={{ fontSize: '12px', marginTop: '5px', color: "red" }}>Live now</div>
+                    <div style={{ fontSize: '12px', marginTop: '1px', color: "red" }}>Live now</div>
 
                   </div>
                     </Button>
