@@ -38,7 +38,7 @@ import {
         backgroundSize={"100%"}     
       >
       <Heading>Roadmap</Heading>
-        <center>
+        <center style={{marginTop:"50px"}}>
 
         <Stack gap="4" maxW={"80%"}>
         <StepsRoot 
@@ -80,7 +80,7 @@ import {
             justifyContent="center"
             textAlign="center"
             position={isMobile ? "relative" : "absolute"}
-            top={200}
+            top={250}
             left={0}
           >
             <br /><br />
