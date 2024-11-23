@@ -8,6 +8,13 @@ const Footer: React.FC = () => {
   return (
     <footer>
       <Box mt={250}>
+        {isMobile ? 
+        <>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        </>: 
+        <>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        </>}
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 p-10 text-center">

@@ -12,6 +12,7 @@ const Hero: React.FC = () => {
       as="section" 
       p={ isMobile ? '8vh' : '10vh' } 
       minH={'100vh'} 
+      ml={isMobile ? "5%" : "10%"}
     >
       <Box 
         p={isMobile ? "10vw" : "5vw"} 
@@ -19,11 +20,8 @@ const Hero: React.FC = () => {
         gap={20} 
         className="container"
       >
-
-
         <Box className="row align-items-center justify-content-center" >
           <Flex direction={{ base: "column", md: "row" }} align="center" justify="center" width="full">
-            
             <Box className="col-md">
               <Stack spacing={0}>
                 <Heading 
@@ -53,8 +51,8 @@ const Hero: React.FC = () => {
                           Trade mpw
                       </Button>
                     </a>               */}
-                  <Button p={15} bg={'#fe9eb4'} minW={100} minH={60} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
-                  <div style={{ textAlign: 'center' }} minH={60}>
+                  <Button ml={isMobile? -145 : 0} p={15} bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
+                  <div style={{ textAlign: 'center' }} minH={20}>
                       <Text as={'span'}  >
                          Trade Now <br />
                       </Text>

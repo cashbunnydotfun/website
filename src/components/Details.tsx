@@ -19,6 +19,7 @@ import {
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
+            ml={isMobile ? 0 : "15%"}
           >
            
             <SimpleGrid 
@@ -32,6 +33,7 @@ import {
               style={{
                 opacity: "100%"
               }}
+ 
             >          
               {/* Feature 1 */}
                 <Stack direction={ isMobile ? 'row' :'column'} backgroundColor={"black"} p={25}>
@@ -76,6 +78,8 @@ import {
               {/* <Box bg='tomato' height='80px'></Box> */}
             </SimpleGrid>
           </Flex>
+          <br /><br /> <br /><br />
+
         </Box>
     );
   }

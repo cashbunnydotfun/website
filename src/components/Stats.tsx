@@ -1,4 +1,6 @@
-import { Box, Button, Flex, Text, Stat, StatLabel, StatNumber, chakra } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, chakra } from '@chakra-ui/react';
+import { StatLabel, StatRoot, StatValueText } from "../components/ui/stat"
+
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 
@@ -10,19 +12,19 @@ interface StatsCardProps {
   function StatsCard(props: StatsCardProps) {
     const { title, stat } = props;
     return (
-      <Stat
+      <StatRoot
         p={'2vw'}
         shadow={'xl'}
         border={'4px solid'}
         rounded={'lg'}
         backgroundColor={'rgba(0,0,0,0.5)'}>
-          <StatLabel color={'white'} fontWeight={'medium'}>
+          <StatLabel color={'white'} fontWeight={'medium'} fontSize={"22px"}>
             {title}
           </StatLabel>
-          <StatNumber color={'white'} fontSize={'2xl'} fontWeight={'medium'}>
+          <StatValueText color={'white'} fontWeight={'medium'} fontSize={"16px"}>
             {stat}
-          </StatNumber>
-      </Stat>
+          </StatValueText>
+      </StatRoot>
     );
   }
 
@@ -47,8 +49,10 @@ interface StatsCardProps {
             backgroundColor={"black"}
             backgroundSize={"100%"}
           >
-          <Flex direction="column" align="center" justify="center" w="full">
+            
+          <Flex direction="column" align="center" justify="center" w="full" minW={isMobile ? "auto" : "50vh"}>
               <br />
+              <Box maxW={isMobile?"auto" : "80vh"} justifyContent={"left"} textAlign={"left"} ml={isMobile? "25%" : 0}>
               <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"} mt={isMobile ? 120 : 60}>
                 Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
               </chakra.h2>
@@ -69,8 +73,9 @@ interface StatsCardProps {
                     mb={isMobile ? 120 : 60} 
                     mt={20} 
                     onClick={()=>gaEventTracker('deadbeef')} 
+                    minH={20}
                     >
-                  <div style={{ textAlign: 'center' }} minH={60}>
+                  <div style={{ textAlign: 'center' }} minH={20}>
                        <Link  style={{color: "#000000"}} to="https://www.pinksale.finance/launchpad/bsc/0x3Bd1cc34ea42bFF165049EcFf524E8Eed008692F?refId=0x6ab5B9deD8E7c77F1Ade9399f912041159569a0A" target="_blank"></Link>
                     <div style={{ color: "gray"}}> 
                     Join
@@ -83,9 +88,10 @@ interface StatsCardProps {
                   <br />
                 </a>
               </Flex>
+              </Box>
             </Flex>
           </Box>
-          <Flex mt={isMobile ? "125%" : "30%"}>
+          <Flex mt={isMobile ? "125%" : "30%"} ml={isMobile ? 0 : "15%"}>
               <chakra.h2
                 textAlign={'center'}
                 py={10}
@@ -96,7 +102,8 @@ interface StatsCardProps {
           </Flex>
           <Flex 
             direction={isMobile? "column" : "row"}
-            maxW={isMobile ? "" : "50%" }
+            minW={isMobile ? "100%" : "80vh"}
+            maxW={isMobile ? 0 : "50%" }
             mx={'auto'} 
             p={'5vh'} 
             px={{ 
@@ -104,7 +111,8 @@ interface StatsCardProps {
                 sm: 12, 
                 md: 17 
             }}
-            mb={"150px"}               
+            mb={"150px"}   
+            ml={isMobile ? 0 : "25%"}
           >
             <StatsCard
               title={'Weekly Prize Entry Requirements 🔥 '} 

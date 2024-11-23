@@ -5,6 +5,7 @@ import { Container } from "@chakra-ui/react";
 import Stats from "../components/Stats.tsx";
 import Hero from "../components/Hero.tsx";
 import Details from "../components/Details.tsx";
+import Roadmap from "../components/Roadmap.tsx";
 
 const HomePage: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ const HomePage: React.FC = () => {
       <Container>
         <Hero />
         <Stats />
-         <Details />     
+        <Details />   
+        <Roadmap />  
       </Container>
     </>
   );
