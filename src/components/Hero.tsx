@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
                      &nbsp;Bunny
                   </Text>
                 </Heading>
-                  <Text color={"white"} maxW={{ sm: "100%", md: "65%", lg: "45%" }}>
+                  <Text color={"white"} maxW={{ sm: "100%", md: "65%", lg: "80%" }}>
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain and coming soon on Solana.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
