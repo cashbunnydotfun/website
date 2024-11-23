@@ -3,6 +3,7 @@ import { StatLabel, StatRoot, StatValueText } from "../components/ui/stat"
 
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
+import useAnalyticsEventTracker from '../hooks/useAnalyticsEventTracker';
 
 interface StatsCardProps {
     title: string;
@@ -29,6 +30,8 @@ interface StatsCardProps {
   }
 
   export default function Stats() {
+    const gaEventTracker = useAnalyticsEventTracker('presale');
+
     return (
         <>
           <Box
@@ -72,7 +75,7 @@ interface StatsCardProps {
                     color={"black"} 
                     mb={isMobile ? 120 : 60} 
                     mt={20} 
-                    onClick={()=>gaEventTracker('deadbeef')} 
+                    onClick={()=>gaEventTracker('presale_link1')} 
                     minH={20}
                     >
                   <div style={{ textAlign: 'center' }} minH={20}>
