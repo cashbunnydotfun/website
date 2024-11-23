@@ -21,19 +21,17 @@ import {
             }}
             ml={isMobile ? 0 : "15%"}
           >
-           
             <SimpleGrid 
               columns={isMobile ? 1 : 3}
-              spacing='40px' 
+              gap={10}
               color={'white'}
-              maxW={isMobile ? "" : "50%" }
+              maxW={isMobile ? "auto" : "80%" }
               mx={'auto'} 
               padding={'20vh 0'}
               fontWeight={'bold'}
               style={{
                 opacity: "100%"
               }}
- 
             >          
               {/* Feature 1 */}
                 <Stack direction={ isMobile ? 'row' :'column'} backgroundColor={"black"} p={25}>

@@ -113,6 +113,7 @@ interface StatsCardProps {
             }}
             mb={"150px"}   
             ml={isMobile ? 0 : "25%"}
+            gap={10}
           >
             <StatsCard
               title={'Weekly Prize Entry Requirements 🔥 '} 
