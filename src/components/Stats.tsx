@@ -115,7 +115,7 @@ interface StatsCardProps {
                 md: 17 
             }}
             mb={"150px"}   
-            ml={isMobile ? 0 : "25%"}
+            ml={{ sm: 0, md: "15%", lg: "25%" }}
             gap={10}
           >
             <StatsCard
