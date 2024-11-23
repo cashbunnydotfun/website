@@ -7,6 +7,7 @@ import { bsc, localhost } from "viem/chains";
 // import { ToastContainer } from "react-toastify";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
+import { Provider } from "./components/ui/provider"
 
 import React from "react";
 import ReactGA from 'react-ga';
@@ -54,9 +55,11 @@ function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
       <LanguageProvider>
-        <Header />
-        <Outlet />
-        <Footer />
+        <Provider>
+          <Header />
+          <Outlet />
+          <Footer />
+        </Provider>
       </LanguageProvider>
     </WagmiConfig>
   );
