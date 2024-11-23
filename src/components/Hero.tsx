@@ -12,15 +12,18 @@ const Hero: React.FC = () => {
       as="section" 
       p={ isMobile ? '8vh' : '10vh' } 
       minH={'100vh'} 
-      ml={isMobile ? "5%" : "10%"}
+      ml={{ sm: "5%", md: "15%", lg: "15%" }}
+      alignItems={"left"}
+      textAlign={"left"}
+      backgroundSize={"140%"}
+      backdropOpacity={"60%"}
     >
       <Box 
         p={isMobile ? "10vw" : "5vw"} 
         flex={1}
         gap={20} 
-        className="container"
       >
-        <Box className="row align-items-center justify-content-center" >
+        <Box className="row align-items-center" >
           <Flex direction={{ base: "column", md: "row" }} align="center" justify="center" width="full">
             <Box className="col-md">
               <Stack spacing={0}>
@@ -42,7 +45,7 @@ const Hero: React.FC = () => {
                      &nbsp;Bunny
                   </Text>
                 </Heading>
-                  <Text color={"white"}>
+                  <Text color={"white"} maxW={{ sm: "100%", md: "65%", lg: "45%" }}>
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain and coming soon on Solana.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
@@ -51,14 +54,21 @@ const Hero: React.FC = () => {
                           Trade mpw
                       </Button>
                     </a>               */}
-                  <Button ml={isMobile? -145 : 0} p={15} bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
-                  <div style={{ textAlign: 'center' }} minH={20}>
-                      <Text as={'span'}  >
-                         Trade Now <br />
-                      </Text>
-                    <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
-                  </div>
-                </Button>                  
+                  <Box
+                    alignItems="left"
+                    justifyContent="left"
+                    textAlign="left"
+                    w="50vh"
+                    >
+                    <Button bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
+                      <div style={{ textAlign: 'center' }} minH={20}>
+                          <Text as={'span'}  >
+                            Trade Now <br />
+                          </Text>
+                          <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
+                      </div>
+                  </Button>                         
+                </Box>               
               </HStack>
               </Stack>
 

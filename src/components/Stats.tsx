@@ -106,7 +106,7 @@ interface StatsCardProps {
           <Flex 
             direction={isMobile? "column" : "row"}
             minW={isMobile ? "100%" : "80vh"}
-            maxW={isMobile ? 0 : "50%" }
+            maxW={{ sm: 0, md: "10%", lg: "65%" }}
             mx={'auto'} 
             p={'5vh'} 
             px={{ 
@@ -115,7 +115,7 @@ interface StatsCardProps {
                 md: 17 
             }}
             mb={"150px"}   
-            ml={{ sm: 0, md: "15%", lg: "25%" }}
+            ml={{ sm: 0, md: "10%", lg: "25%" }}
             gap={10}
           >
             <StatsCard
