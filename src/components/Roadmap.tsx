@@ -57,7 +57,8 @@ import {
             <StepsItem index={3} title="Q3 2025 - Lending launch" />
           </StepsList>
 
-          <StepsContent index={0}>
+          <Box mt={25}>
+          <StepsContent index={0} >
             Mainnet launch
           </StepsContent>
           <StepsContent index={0}>
@@ -76,6 +77,8 @@ import {
           <StepsCompletedContent>
             $BUNNY to the moon! 🚀
           </StepsCompletedContent>
+
+          </Box>
 
           <Box
             alignItems="center"
