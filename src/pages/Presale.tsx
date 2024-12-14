@@ -351,7 +351,7 @@ const Presale: React.FC = () => {
                 <Box w="160px">
                   <StatRoot>
                     <StatLabel fontSize="sm" lineHeight="5px">
-                      <Box ml={-25}>
+                      <Box ml={isMobile?0:-25}>
                       Time Left
                       </Box>
                     </StatLabel>
