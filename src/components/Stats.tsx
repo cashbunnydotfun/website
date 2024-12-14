@@ -1,9 +1,14 @@
 import { Box, Button, Flex, Text, chakra } from '@chakra-ui/react';
 import { StatLabel, StatRoot, StatValueText } from "../components/ui/stat"
+import React, { useEffect, useState } from "react";
 
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 import useAnalyticsEventTracker from '../hooks/useAnalyticsEventTracker';
+import PresaleStats from "../components/PresaleStats";
+import usePresaleContract from '../hooks/usePresaleContract';
+
+ import {ethers} from 'ethers';
 
 interface StatsCardProps {
     title: string;
@@ -11,7 +16,8 @@ interface StatsCardProps {
   }
 
   function StatsCard(props: StatsCardProps) {
-    const { title, stat } = props;
+     const { title, stat } = props;
+
     return (
       <StatRoot
         p={'2vw'}
@@ -31,6 +37,33 @@ interface StatsCardProps {
 
   export default function Stats() {
     const gaEventTracker = useAnalyticsEventTracker('presale');
+    const targetDate = new Date("2025-01-13T00:00:00Z").getTime();
+    const hardCap = 100;
+
+    const [progress, setProgress] = useState(null);
+    const [timeLeft, setTimeLeft] = useState("00:00:00"); // Example default
+
+
+    let { 
+      totalRaised,
+      participantCount,
+      finalized,
+      softCapReached,
+      contributions,
+      totalReferred,
+      referralCount
+    } = usePresaleContract(
+      "bsc",
+      "0x0000000000000000000000000000000000000000",
+      "0xdeadbeef"
+    );
+
+    useEffect(() => {
+      const progress = (totalRaised / hardCap) * 100;
+  
+      setProgress(progress);
+    }
+    , [totalRaised]);
 
     return (
         <>
@@ -51,22 +84,20 @@ interface StatsCardProps {
             // p={4}
             backgroundColor={"black"}
             backgroundSize={"100%"}
-          >
             
-          <Flex direction="column" align="center" justify="center" w="full" minW={isMobile ? "auto" : "50vh"}>
-              <br />
-              <Box maxW={isMobile?"auto" : "80vh"} justifyContent={"left"} textAlign={"left"} ml={isMobile? "10%" : 0}>
-              <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"} mt={isMobile ? 120 : 60}>
+          >
+            <Box ml={isMobile?"2%":"15%"} w={"600px"} pl={isMobile? 3:10}>
+            <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"}>
                 Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
               </chakra.h2>
-              <Text fontSize={isMobile ? "sm" : "md"} w={isMobile ? "90%" : "60%"} align={"left"}>
-                A <label color={'yellow'}>$BUNNY</label> presale will be conducted in order to ensure a fair distribution at launch. Join our community and stay tuned for more information.
-              </Text>
-                <Flex
-                  direction={isMobile ? "column" : "row"}
-                  gap={4}
-                  w={isMobile ? "full" : "auto"}
-                >
+              <PresaleStats
+                    totalRaised={totalRaised}
+                    participantCount={participantCount}
+                    targetDate={targetDate}
+                    progress={progress}
+                    timeLeft={timeLeft}
+                    isMobile={isMobile}
+                  />
                   <a href="/presale" >
                   <Button 
                     border={"1px solid white"}
@@ -76,9 +107,9 @@ interface StatsCardProps {
                     background={"gray.900"} 
                     color={"black"} 
                     mb={isMobile ? 120 : 60} 
-                    mt={20} 
+                    mt={10} 
                     onClick={()=>gaEventTracker('presale_link1')} 
-                    minH={20}
+                    h={20}
                     >
                   <div style={{ textAlign: 'center' }} minH={20}>
                        <Link  style={{color: "#000000"}} to="/presale"></Link>
@@ -91,12 +122,11 @@ interface StatsCardProps {
                     </Button>
                   <br /> 
                   <br />
-                </a>
-              </Flex>
-              </Box>
-            </Flex>
-          </Box>
-          <Flex mt={isMobile ? "125%" : "30%"} ml={isMobile ? 0 : "15%"}>
+                </a>                  
+            </Box>
+            </Box>
+
+          <Flex mt={isMobile ? "75%" : "30%"} ml={isMobile ? 0 : "15%"}>
               <chakra.h2
                 textAlign={'center'}
                 py={10}

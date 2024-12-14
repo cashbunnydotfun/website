@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, HStack, Text } from "@chakra-ui/react";
 
-const Countdown = ({ targetDate }) => {
+const Countdown = ({ targetDate, isMobile }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: "00",
     hours: "00",
@@ -44,25 +44,25 @@ const Countdown = ({ targetDate }) => {
   return (
     <HStack>
       <Box display="flex" alignItems="baseline" >
-        <Text fontWeight="bold">{timeLeft.days}</Text>
-        <Text fontSize="11px" color="white">
+        <Text fontWeight="bold" fontSize={isMobile?"11px": "16px"}>{timeLeft.days}</Text>
+        <Text fontSize={isMobile?"8px": "11px"} color="white">
           <b>(d)</b>:
         </Text>
       </Box>
       <Box display="flex" alignItems="baseline" >
-        <Text fontWeight="bold">{timeLeft.hours}</Text>
-        <Text fontSize="11px"  color="white">
+        <Text fontWeight="bold" fontSize={isMobile?"11px": "16px"}>{timeLeft.hours}</Text>
+        <Text fontSize="11px" fontSize={isMobile?"8px": "11px"}  color="white">
           <b>(h)</b>:
         </Text>
       </Box>
       <Box display="flex" alignItems="baseline">
-        <Text fontWeight="bold">{timeLeft.minutes}</Text>
-        <Text fontSize="11px" color="white">
+        <Text fontWeight="bold" fontSize={isMobile?"11px": "16px"}>{timeLeft.minutes}</Text>
+        <Text fontSize="11px" fontSize={isMobile?"8px": "11px"} color="white">
           <b>(m):</b>
         </Text>
       </Box>
       <Box display="flex" alignItems="baseline" mt={"-5px"}>
-        <Text fontWeight="bold" >{timeLeft.seconds}</Text>
+        <Text fontWeight="bold" fontSize={isMobile?"11px": "16px"} >{timeLeft.seconds}</Text>
       </Box>
     </HStack>
   );
