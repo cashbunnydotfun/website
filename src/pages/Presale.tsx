@@ -32,7 +32,11 @@ import usePresaleContract from '../hooks/usePresaleContract';
 import { set } from "react-ga";
 import bnbLogo from "../assets/images/bnb.png";
 import tokenArtifact from "../assets/IBEP20.json";
-
+import {
+  NumberInputField,
+  NumberInputLabel,
+  NumberInputRoot,
+} from "../components/ui/number-input"
 import config from '../config';
 
 const { environment, presaleContractAddress, tokenAddress } = config;
@@ -359,32 +363,59 @@ const Presale: React.FC = () => {
                     <StatRoot>
                     <StatLabel fontSize="md" lineHeight="5px" ml={2}>
                     Contribution Amount
-                  </StatLabel>
-                  <Text fontSize={13}  fontStyle={"italic"} m={2} mt={-2}>
-                    Choose your contribution amount {isMobile?<br />:<></>} (no minimum, max 5 BNB)
-                  </Text>
+                    </StatLabel>
+                    <Text fontSize={13}  fontStyle={"italic"} m={2} mt={-2}>
+                      Choose your contribution amount {isMobile?<br />:<></>} (no minimum, max 5 BNB)
+                    </Text>
                     </StatRoot>
-                    <HStack spacing={4} align="center" justify="center">
-                    <Slider
-                      step={0.000001}
-                      defaultValue={[0]}
-                      variant="outline"
-                      w={{ base: "140px", sm: "140px", md: "250px", lg: "250px" }} // Responsive widths
-                      marks={[
-                        { value: 0, label: "0" },
-                        { value: 5, label: "5" },
-                      ]}
-                      min={0}
-                      max={5.0}
-                      ml={isMobile? 4 : 2}
-                      mt="5%"
-                      onValueChange={(e) => {
-
-                        return setContributionAmount(e.value);
+                    <HStack spacing={4} align="center" justify="center" mt={2}>
+                    <VStack>
+                      <Box>
+                        <NumberInputRoot 
+                          mt={5}
+                          w={isMobile ? "140px": 60}
+                          h={"40px"} 
+                          resize={"none"} 
+                          size="sm" 
+                          variant="outline" 
+                          value={contributionAmount}
+                        >
+                          <NumberInputField
+                            h={'30px'}
+                            defaultValue={0.25}
+                            onChange={(e) => {
+                                return setContributionAmount(e.target.value);
+                              }
+                            }
+                          />
+                        </NumberInputRoot>
+                      </Box>
+                      <Box>
+                      <Slider
+                        step={0.001}
+                        defaultValue={[0.5]}
+                        variant="outline"
+                        w={{ base: "140px", sm: "140px", md: "250px", lg: "250px" }} // Responsive widths
+                        marks={[
+                          { value: 0, label: "0.25" },
+                          { value: 5, label: "5" },
+                        ]}
+                        min={0}
+                        max={5.0}
+                        ml={isMobile? 4 : 2}
+                        mt="3%"
+                        onValueChange={(e) => {
+                          if (e.value < 0.25) {
+                            return setContributionAmount(0.25);
+                          }
+                          return setContributionAmount(e.value);
                       }}
                     />
+                    <br />
+                      </Box>  
+                    </VStack>
                     {allowance === 0 ? (
-                    <>
+                    <Box mt={-5}>
                     <VStack h={"100px"} p={2} w={"100px"} ml={4} mt={2}>
                       <HStack>
                       <Box>
@@ -409,39 +440,39 @@ const Presale: React.FC = () => {
                       </Box>
                       </HStack>
                       <Box>
-                        <Button
-                            ml={1}
-                            variant={"outline"}
-                            colorScheme="blue"
-                            w={"100px"}
-                            fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
-                            maxH={40}
-                            backgroundColor={"gray.900"}
-                            borderRadius={10}
-                            disabled={!isConnected || contributionAmount == 0 || contributing}
-                            onClick={() => {
-                              if (contributionAmount > 5) {
-                                setErrorMessage("Contribution must not exceed 5 BNB.");
-                                return;
-                              }
-                              setErrorMessage(""); // Clear any previous error
-                              try {
-                                contribute({
-                                  args: [generateBytes32String(urlReferralCode)],
-                                  from: address,
-                                  value: parseEther(contributionAmount.toString()),
-                                });
-                              } catch (error) {
-                                console.error("Failed to contribute:", error);
-                              }
-                            }}
-                          >
-                          {contributing ? "Loading..." : "Deposit"}
-                        </Button>
-                      </Box>
-                      </VStack>
+                      <Button
+                        ml={1}
+                        variant={"outline"}
+                        colorScheme="blue"
+                        w={"100px"}
+                        fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
+                        maxH={40}
+                        backgroundColor={"gray.900"}
+                        borderRadius={10}
+                        disabled={!isConnected || contributionAmount === 0 || contributing}
+                        onClick={() => {
+                          if (contributionAmount < 0.25 || contributionAmount > 5) {
+                            setErrorMessage("Contribution must be between 0.25 and 5 ETH.");
+                            return;
+                          }
+                          setErrorMessage(""); // Clear any previous error
+                          try {
+                            contribute({
+                              args: [generateBytes32String(urlReferralCode)],
+                              from: address,
+                              value: parseEther(contributionAmount.toString()),
+                            });
+                          } catch (error) {
+                            console.error("Failed to contribute:", error);
+                          }
+                        }}
+                      >
+                      {contributing ? "Loading..." : "Deposit"}
+                    </Button>
+                    </Box>
+                    </VStack>
                     <Toaster />
-                    </>
+                    </Box>
 
                   ) : <></>}
                   </HStack>
