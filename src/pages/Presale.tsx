@@ -306,7 +306,7 @@ const Presale: React.FC = () => {
               pr={10}
               pl={5}
             >
-            <Flex flexWrap="wrap" justifyContent="flex-start" gap={"15px"} mt={isMobile? 5:0}>
+            <Flex flexWrap="wrap" justifyContent="flex-start" gap={"20px"} mt={isMobile? 5:0}>
               <Box w="auto" >
                 <StatRoot>
                   <StatLabel fontSize="sm" lineHeight="5px">
@@ -347,7 +347,7 @@ const Presale: React.FC = () => {
             </Flex>
             </Box>
           </SimpleGrid>
-            <Box w={isMobile?"88%":"auto"} ml={isMobile?5:"52%"} mt={5} >
+            <Box w={isMobile?"88%":"auto"} ml={isMobile?5:"52%"} mt={2} >
               <ProgressRoot value={timeLeft != "00:00:00:00" ? progress : null} max={100}  maxW="sm" size="lg">
                 <HStack gap="5">
                   <Box mt={5} >
