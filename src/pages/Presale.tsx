@@ -51,7 +51,7 @@ const Presale: React.FC = () => {
   const urlReferralCode = searchParams.get("r") || ""; // Fallback to empty string
 
   const tokenPrice = 0.000000067;
-  const targetDate = new Date("2025-01-14T00:00:00Z").getTime();
+  const targetDate = new Date("2025-01-13T00:00:00Z").getTime();
   const hardCap = 100;
   const softCap = 25;
   // State for contribution and presale data
