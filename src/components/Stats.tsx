@@ -24,11 +24,12 @@ interface StatsCardProps {
         shadow={'xl'}
         border={'4px solid'}
         rounded={'lg'}
-        backgroundColor={'rgba(0,0,0,0.5)'}>
+        backgroundColor={'rgba(0,0,0,0.5)'}
+        >
           <StatLabel color={'white'} fontWeight={'medium'} fontSize={"22px"}>
             {title}
           </StatLabel>
-          <StatValueText color={'white'} fontWeight={'medium'} fontSize={"16px"}>
+          <StatValueText color={'white'} fontWeight={'medium'} fontSize={"16px"} lineHeight={"short"}>
             {stat}
           </StatValueText>
       </StatRoot>
