@@ -46,7 +46,7 @@ const Presale: React.FC = () => {
   const urlReferralCode = searchParams.get("r") || ""; // Fallback to empty string
 
   const tokenPrice = 0.000000067;
-  const targetDate = new Date("2025-03-14T00:00:00Z").getTime();
+  const targetDate = new Date("2025-01-14T00:00:00Z").getTime();
   const hardCap = 100;
   const softCap = 280;
   // State for contribution and presale data
@@ -70,6 +70,22 @@ const Presale: React.FC = () => {
       setTimeout(() => setHasCopied(false), 2000); // Reset after 2 seconds
     });
   };
+
+  const handleAddAmount = () => {
+    const number = (Number(contributionAmount) + 0.0001).toFixed(4);
+    if (number > 5) {
+      return;
+    }
+    setContributionAmount(number);
+  }
+
+  const handleSubtractAmount = () => {
+    const number = (Number(contributionAmount) - 0.0001).toFixed(4);
+    if (number <= 0) {
+      return;
+    }
+    setContributionAmount(number);
+  }
 
   let { 
     totalRaised,
@@ -334,26 +350,6 @@ const Presale: React.FC = () => {
                   <ProgressValueText color="#fe9eb4">{Number(progress).toFixed(2)}%</ProgressValueText>
                 </HStack>
               </ProgressRoot>
-
-              {/* <Flex justify="space-between" align="center" w="140px" mt={3}>
-                <Box>
-                  <Text fontSize="sm" color="#a1a1aa" fontWeight={"bold"}>Current</Text>
-                </Box>
-                <Box>
-                  <Text fontStyle="italic" color="#fe9eb4">
-                     &nbsp;<b>{Number(progress).toFixed(2)}</b>%
-                  </Text>
-                </Box>
-                <Box ml={5}>
-                  <Text fontSize="sm" color="#a1a1aa">Softcap&nbsp;</Text>
-                </Box>
-                <Box>
-                <Text fontStyle="italic" color="#fe9eb4">
-                  &nbsp;<b>{Number(progressSc).toFixed(2)}</b>%
-                </Text>
-                </Box>
-              </Flex> */}
-
               </Box>
 
               <Box mt={10} ></Box>
@@ -389,37 +385,61 @@ const Presale: React.FC = () => {
                     />
                     {allowance === 0 ? (
                     <>
-                      <Button
-                        ml={4}
-                        variant={"outline"}
-                        colorScheme="blue"
-                        w={{ base: "60px", sm: "60px", md: "100px", lg: "100px" }}
-                        fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
-                        maxH={40}
-                        backgroundColor={"gray.900"}
-                        borderRadius={10}
-                        mt={10}
-                        mb={5}
-                        disabled={!isConnected || contributionAmount == 0 || contributing}
-                        onClick={() => {
-                          if (contributionAmount > 5) {
-                            setErrorMessage("Contribution must not exceed 5 BNB.");
-                            return;
-                          }
-                          setErrorMessage(""); // Clear any previous error
-                          try {
-                            contribute({
-                              args: [generateBytes32String(urlReferralCode)],
-                              from: address,
-                              value: parseEther(contributionAmount.toString()),
-                            });
-                          } catch (error) {
-                            console.error("Failed to contribute:", error);
-                          }
-                        }}
-                      >
-                      {contributing ? "Loading..." : "Deposit"}
-                    </Button>
+                    <VStack h={"100px"} p={2} w={"100px"} ml={4} mt={2}>
+                      <HStack>
+                      <Box>
+                        <Button 
+                          backgroundColor={"gray.900"}
+                          variant={"outline"}
+                          colorScheme="blue"
+                          h={"40px"} 
+                          borderRadius={10}
+                          onClick={handleAddAmount}
+                        >+</Button>
+                      </Box>
+                      <Box>
+                        <Button 
+                          backgroundColor={"gray.900"}
+                          variant={"outline"}
+                          colorScheme="blue"
+                          h={"40px"} 
+                          borderRadius={10}
+                          onClick={handleSubtractAmount}
+                        >-</Button>
+                      </Box>
+                      </HStack>
+                      <Box>
+                        <Button
+                            ml={1}
+                            variant={"outline"}
+                            colorScheme="blue"
+                            w={"100px"}
+                            fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
+                            maxH={40}
+                            backgroundColor={"gray.900"}
+                            borderRadius={10}
+                            disabled={!isConnected || contributionAmount == 0 || contributing}
+                            onClick={() => {
+                              if (contributionAmount > 5) {
+                                setErrorMessage("Contribution must not exceed 5 BNB.");
+                                return;
+                              }
+                              setErrorMessage(""); // Clear any previous error
+                              try {
+                                contribute({
+                                  args: [generateBytes32String(urlReferralCode)],
+                                  from: address,
+                                  value: parseEther(contributionAmount.toString()),
+                                });
+                              } catch (error) {
+                                console.error("Failed to contribute:", error);
+                              }
+                            }}
+                          >
+                          {contributing ? "Loading..." : "Deposit"}
+                        </Button>
+                      </Box>
+                      </VStack>
                     <Toaster />
                     </>
 
