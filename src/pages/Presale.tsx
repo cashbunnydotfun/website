@@ -370,7 +370,7 @@ const Presale: React.FC = () => {
                     </StatRoot>
                     <HStack spacing={4} align="center" justify="center">
                     <Slider
-                      step={0.001}
+                      step={0.000001}
                       defaultValue={[0]}
                       variant="outline"
                       w={{ base: "140px", sm: "140px", md: "250px", lg: "250px" }} // Responsive widths
