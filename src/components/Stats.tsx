@@ -41,21 +41,21 @@ interface StatsCardProps {
             bg="gray.800"
             color="white"
             display="flex"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="center"
+            alignItems="left"
+            justifyContent="left"
+            textAlign="left"
             position={"absolute"}
             left={0}
             right={0}
             height={isMobile? 520 : 400}
-            p={4}
+            // p={4}
             backgroundColor={"black"}
             backgroundSize={"100%"}
           >
             
           <Flex direction="column" align="center" justify="center" w="full" minW={isMobile ? "auto" : "50vh"}>
               <br />
-              <Box maxW={isMobile?"auto" : "80vh"} justifyContent={"left"} textAlign={"left"} ml={isMobile? "25%" : 0}>
+              <Box maxW={isMobile?"auto" : "80vh"} justifyContent={"left"} textAlign={"left"} ml={isMobile? "10%" : 0}>
               <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"} mt={isMobile ? 120 : 60}>
                 Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
               </chakra.h2>

@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
     <Box 
       alignContent={'center'}
       as="section" 
-      p={ isMobile ? '8vh' : '10vh' } 
+      p={ isMobile ? '1vh' : '10vh' } 
       minH={'100vh'} 
       ml={{ sm: "5%", md: "15%", lg: "15%" }}
       alignItems={"left"}
@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
       backdropOpacity={"60%"}
     >
       <Box 
-        p={isMobile ? "10vw" : "5vw"} 
+        p={isMobile ? "10vw" : "2vw"} 
         flex={1}
         gap={20} 
       >
