@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { LanguageProvider } from "./core/LanguageProvider";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiConfig } from "wagmi";
-import { bsc, bscTestnet, localhost } from "viem/chains";
+import { bsc, bscTestnet } from "viem/chains";
 // import { ToastContainer } from "react-toastify";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +29,7 @@ function App() {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  const chains = [bsc, localhost];
+  const chains = [bsc];
   const wagmiConfig = defaultWagmiConfig({
     chains,
     projectId,
