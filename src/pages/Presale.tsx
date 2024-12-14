@@ -373,6 +373,7 @@ const Presale: React.FC = () => {
                       <Box>
                         <NumberInputRoot 
                           mt={5}
+                          ml={isMobile ? 4 : 0}
                           w={isMobile ? "140px": 60}
                           h={"40px"} 
                           resize={"none"} 
