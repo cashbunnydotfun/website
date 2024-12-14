@@ -19,11 +19,16 @@ const Header: React.FC = () => {
           <Image
             src={Logo}
             alt="CashBunny logo"
-            style={{ width: "150px", height: "150px" }}
+            style={{ width: "95px", height: "auto" }}
           />
           
           {/* Remove mx-auto class and add justify-content-start to align items to the left */}
           <ul className="navbar-nav items justify-content-start " >
+            <li className="nav-item">
+              <Link className="nav-link" href="/presale" >
+                  Presale
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link"  target="_blank" href="https://github.com/cashbunnydotfun" isExternal >
                   Github
@@ -101,6 +106,9 @@ const Header: React.FC = () => {
                       data-bs-dismiss="modal"
                       style={{ fontSize: "20px" }}
                     >
+                    <a className="btn ml-lg-auto btn-bordered-white" href="/presale" >
+                        Presale
+                      </a>
                     </li>
 
                     <li
