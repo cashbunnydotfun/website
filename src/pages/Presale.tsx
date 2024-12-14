@@ -488,7 +488,7 @@ const Presale: React.FC = () => {
                         fontWeight="bold"
                         fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
                     >
-                        {commify(Number(formatEther(bunnyBalance)).toFixed(4))}
+                        {commify(Number(formatEther(bunnyBalance || "0")).toFixed(4))}
                     </Text>
                 </Box>
                 <Box w={"auto"}>
@@ -513,7 +513,7 @@ const Presale: React.FC = () => {
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                     >
-                         {commify(Number(formatEther(bunnyBalance)).toFixed(4))}
+                         {commify(Number(formatEther(bunnyBalance || "0")).toFixed(4))}
                     </Text>
                 </Box>
                 <Box w={"auto"}>
