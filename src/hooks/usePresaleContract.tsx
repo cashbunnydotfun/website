@@ -25,11 +25,7 @@ const usePresaleContract = (network, userAddress, referralCode) => {
     // Setup Provider
     const provider = useMemo(
         () =>
-            new JsonRpcProvider(
-                network === "ganache"
-                    ? "http://localhost:8545"
-                    : process.env.REACT_APP_PROVIDER_URL
-            ),
+            new JsonRpcProvider(process.env.REACT_APP_PROVIDER_URL),
         [network]
     );
 
