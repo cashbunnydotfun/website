@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Flex, Image, Stack, Heading, Text, Button, HStack } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 import bunny_art from "../assets/images/bunny_art.png";
 import bunny_art_2 from "../assets/images/bunny_art_2.png";
 import bunny_art_t from "../assets/images/bunny_art_t.png";
+import { useMenu } from "../hooks/useMenuContext";
+import styled from "styled-components";
+
+const StyledLink = styled.a`
+  color: gray !important; /* Force color to be white */
+  text-decoration: none; /* Remove underline */
+
+  &:visited {
+    color: gray !important; /* Ensure visited links stay white */
+  }
+`;
 
 const Hero: React.FC = () => {
+  const { isMenuOpen } = useMenu(); // Access menu state from context
+  console.log("isMenuOpen in Hero:", isMenuOpen); // Debugging log
+
   return (
     <Box 
       alignContent={'center'}
@@ -18,6 +32,7 @@ const Hero: React.FC = () => {
       backgroundSize={"140%"}
       backdropOpacity={"60%"}
     >
+ 
       <Box 
         p={isMobile ? "10vw" : "2vw"} 
         flex={1}
@@ -45,7 +60,7 @@ const Hero: React.FC = () => {
                      &nbsp;Bunny
                   </Text>
                 </Heading>
-                  <Text color={"white"} w={isMobile? "80vw" : "90vh"}>
+                  <Text color={"white"} w={isMobile? "80vw" : "60vh"}>
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
