@@ -52,7 +52,7 @@ const Presale: React.FC = () => {
   const tokenPrice = 0.000000067;
   const targetDate = new Date("2025-01-14T00:00:00Z").getTime();
   const hardCap = 100;
-  const softCap = 280;
+  const softCap = 25;
   // State for contribution and presale data
   const [timeLeft, setTimeLeft] = useState("00:00:00"); // Example default
 
@@ -382,7 +382,7 @@ const Presale: React.FC = () => {
                         >
                           <NumberInputField
                             h={'30px'}
-                            defaultValue={0.25}
+                            defaultValue={0.1}
                             onChange={(e) => {
                                 return setContributionAmount(e.target.value);
                               }
@@ -397,7 +397,7 @@ const Presale: React.FC = () => {
                         variant="outline"
                         w={{ base: "140px", sm: "140px", md: "250px", lg: "250px" }} // Responsive widths
                         marks={[
-                          { value: 0, label: "0.25" },
+                          { value: 0, label: "0" },
                           { value: 5, label: "5" },
                         ]}
                         min={0}
@@ -405,9 +405,7 @@ const Presale: React.FC = () => {
                         ml={isMobile? 4 : 2}
                         mt="3%"
                         onValueChange={(e) => {
-                          if (e.value < 0.25) {
-                            return setContributionAmount(0.25);
-                          }
+
                           return setContributionAmount(e.value);
                       }}
                     />
@@ -451,8 +449,11 @@ const Presale: React.FC = () => {
                         borderRadius={10}
                         disabled={!isConnected || contributionAmount === 0 || contributing}
                         onClick={() => {
-                          if (contributionAmount < 0.25 || contributionAmount > 5) {
-                            setErrorMessage("Contribution must be between 0.25 and 5 ETH.");
+                          if (contributionAmount < 0.0001 || contributionAmount > 5) {
+                            toaster.create({
+                              title: "Error",
+                              description: "Invalid amount",
+                            })
                             return;
                           }
                           setErrorMessage(""); // Clear any previous error
