@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
       as="section" 
       p={ isMobile ? '1vh' : '10vh' } 
       minH={'100vh'} 
-      ml={{ sm: "5%", md: "15%", lg: "15%" }}
+      ml={{ sm: "5%", md: "10%", lg: "10%" }}
       alignItems={"left"}
       textAlign={"left"}
       backgroundSize={"140%"}
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
                      &nbsp;Bunny
                   </Text>
                 </Heading>
-                  <Text color={"white"} maxW={{ sm: "100%", md: "65%", lg: "80%" }}>
+                  <Text color={"white"} w={isMobile? "80vw" : "90vh"}>
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
@@ -74,7 +74,7 @@ const Hero: React.FC = () => {
 
             </Box>   
 
-            <Box width={ isMobile ? '0' : '50%' } textAlign={"center"}>
+            <Box width={ isMobile ? '0' : '40%' } textAlign={"center"} ml={"-500px"}>
                 <Image 
                   objectFit={'cover'}
                   src={bunny_art_t}

@@ -59,7 +59,7 @@ interface StatsCardProps {
               <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"} mt={isMobile ? 120 : 60}>
                 Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
               </chakra.h2>
-              <Text fontSize={isMobile ? "small" : "medium"} w={isMobile ? "90%" : "60%"} align={"left"}>
+              <Text fontSize={isMobile ? "sm" : "md"} w={isMobile ? "90%" : "60%"} align={"left"}>
                 A <label color={'yellow'}>$BUNNY</label> presale will be conducted in order to ensure a fair distribution at launch. Join our community and stay tuned for more information.
               </Text>
                 <Flex
