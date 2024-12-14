@@ -16,11 +16,9 @@ const Header: React.FC = () => {
       <nav className="navbar navbar-expand navbar-fixed-top" >
         <div className="container header">
           
-          <Image
-            src={Logo}
-            alt="CashBunny logo"
-            style={{ width: "95px", height: "auto" }}
-          />
+          <Link className="navbar-brand" href="/">
+            <Image src={Logo} alt="CashBunny Logo" />
+          </Link>
           
           {/* Remove mx-auto class and add justify-content-start to align items to the left */}
           <ul className="navbar-nav items justify-content-start " >
