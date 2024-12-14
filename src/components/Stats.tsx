@@ -86,7 +86,7 @@ interface StatsCardProps {
             backgroundSize={"100%"}
             
           >
-            <Box ml={isMobile?"2%":"15%"} w={"600px"} pl={isMobile? 3:10}>
+            <Box ml={isMobile?"2%":"15%"} w={"600px"} pl={isMobile? 3:10} pt={isMobile? 10:4}>
             <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"}>
                 Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
               </chakra.h2>

@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image } from "@chakra-ui/react";
 import { StatRoot, StatLabel, StatValueText } from "../components/ui/stat";
 import { ProgressRoot, ProgressLabel, ProgressBar, ProgressValueText } from "../components/ui/progress";
 import Countdown from "../components/Countdown";
+import bnbLogo from "../assets/images/bnb.png";
 
 const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, timeLeft, isMobile }) => {
   return (
@@ -13,7 +14,12 @@ const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, tim
             <StatLabel fontSize="sm" lineHeight="5px">
               Contributed
             </StatLabel>
+            <HStack>
             <StatValueText value={totalRaised} fontSize="md" lineHeight="5px" color="#fe9eb4" />
+            <Box w={"auto"}>
+                <Image w="20px" src={bnbLogo} />
+            </Box>
+            </HStack>
           </StatRoot>
         </Box>
 
