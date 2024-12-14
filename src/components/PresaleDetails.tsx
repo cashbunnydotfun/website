@@ -113,7 +113,8 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                         &nbsp;$BUNNY
                         </Text>
                     </Box>
-                </HStack>                
+                </HStack> 
+                {isMobile ? <><br /></> : <></>}               
             </Box>
         </Box>
     );
