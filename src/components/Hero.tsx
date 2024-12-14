@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
                      &nbsp;Bunny
                   </Text>
                 </Heading>
-                  <Text color={"white"} w={isMobile? "80vw" : "60vh"}>
+                  <Text color={"white"} w={isMobile? "80vw" : "600px"}>
                     Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
