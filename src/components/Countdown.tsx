@@ -45,19 +45,19 @@ const Countdown = ({ targetDate }) => {
     <HStack>
       <Box display="flex" alignItems="baseline" >
         <Text fontWeight="bold">{timeLeft.days}</Text>
-        <Text fontSize="12px" color="white">
+        <Text fontSize="11px" color="white">
           <b>(d)</b>:
         </Text>
       </Box>
       <Box display="flex" alignItems="baseline" >
         <Text fontWeight="bold">{timeLeft.hours}</Text>
-        <Text fontSize="12px"  color="white">
+        <Text fontSize="11px"  color="white">
           <b>(h)</b>:
         </Text>
       </Box>
       <Box display="flex" alignItems="baseline">
         <Text fontWeight="bold">{timeLeft.minutes}</Text>
-        <Text fontSize="12px" color="white">
+        <Text fontSize="11px" color="white">
           <b>(m):</b>
         </Text>
       </Box>

@@ -77,7 +77,7 @@ const Presale: React.FC = () => {
   };
 
   const handleAddAmount = () => {
-    const number = (Number(contributionAmount) + 0.0001).toFixed(4);
+    const number = (Number(contributionAmount) + 0.001).toFixed(4);
     if (number > 5) {
       return;
     }
@@ -85,7 +85,7 @@ const Presale: React.FC = () => {
   }
 
   const handleSubtractAmount = () => {
-    const number = (Number(contributionAmount) - 0.0001).toFixed(4);
+    const number = (Number(contributionAmount) - 0.001).toFixed(4);
     if (number <= 0) {
       return;
     }
