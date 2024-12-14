@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
 // import { LanguageContext, LanguageContextType } from "../core/LanguageProvider";
-// import { useWeb3Modal } from "@web3modal/wagmi/react";
-// import { useAccount } from "wagmi";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useAccount } from "wagmi";
 import Logo from "../assets/images/logo-clean-200x200.png";
 // import { isMobile } from 'react-device-detect';
 import { Link, Image } from '@chakra-ui/react';
 
 const Header: React.FC = () => {
   // const ctx = useContext<LanguageContextType>(LanguageContext);
-  // const { open } = useWeb3Modal();
-  // const { address, isConnected } = useAccount();
+  const { open } = useWeb3Modal();
+  const { address, isConnected } = useAccount();
 
   return (
     <header id="header">
@@ -53,23 +53,21 @@ const Header: React.FC = () => {
           </ul>
 
           {/* Wallet Connect */}
-          {/* <ul className="navbar-nav action">
+          <ul className="navbar-nav action">
             <li className="nav-item ml-2">
               <a
-                className="btn ml-lg-auto btn-bordered-green"
+                className="btn ml-lg-auto btn-bordered-pink"
                 onClick={() => open()}
               >
-                <p style={{color:"#54ff36"}}>
-                <i className="fa-solid fa-wallet mr-md-2 green-bg"></i>
+                <p style={{color:"#fe9eb4"}}>
+                <i className="fa-solid fa-wallet mr-md-2"></i>
                 {isConnected
                   ? `${address?.slice(0, 6)}...${address?.slice(-6)}`
-                  : !ctx.isSpanishCountry
-                  ? "Wallet Connect"
-                  : "Conectar billetera"}
+                  : "Wallet Connect"}
                 </p>
               </a>
             </li>
-          </ul> */}
+          </ul>
 
           <ul className="navbar-nav toggle">
             <li className="nav-item">
@@ -132,7 +130,7 @@ const Header: React.FC = () => {
                     </li>
 
                     {/* Wallet Connect */}
-                    {/* <li
+                    <li
                       className="nav-item"
                       data-bs-dismiss="modal"
                       style={{ fontSize: "20px", marginTop:"20px"}}
@@ -144,11 +142,9 @@ const Header: React.FC = () => {
                         <i className="fa-solid fa-wallet mr-md-2" ></i>
                         {isConnected
                           ? `${address?.slice(0, 6)}...${address?.slice(-6)}`
-                          : !ctx.isSpanishCountry
-                          ? "Wallet Connect"
-                          : "Conectar billetera"}
+                          : "Connect Wallet"}
                       </a>
-                    </li> */}
+                    </li>
 
                   </ul>
                 </div>

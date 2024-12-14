@@ -12,7 +12,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                 </Box>
                 <Box w={isMobile?"80px":"130px"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                     >
@@ -35,7 +35,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                 </Box>
                 <Box w={isMobile?"80px":"130px"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                     >
@@ -58,7 +58,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                 </Box>
                 <Box w={isMobile?"80px":"130px"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                       >
@@ -83,7 +83,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                 </Box>
                 <Box w={isMobile?"80px":"130px"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                     >

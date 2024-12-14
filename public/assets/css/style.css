@@ -985,6 +985,11 @@ aside {
   border: 2px solid #54ff36;
 }
 
+.btn.btn-bordered-pink {
+  background: transparent none repeat scroll 0 0;
+  border: 2px solid #fe9eb4;
+}
+
 .btn.btn-bordered-white::after {
   position: absolute;
   content: "";

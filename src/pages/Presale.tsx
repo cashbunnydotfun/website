@@ -46,7 +46,7 @@ const Presale: React.FC = () => {
   const urlReferralCode = searchParams.get("r") || ""; // Fallback to empty string
 
   const tokenPrice = 0.000000067;
-  const targetDate = new Date("2024-01-01T00:00:00Z").getTime();
+  const targetDate = new Date("2025-03-14T00:00:00Z").getTime();
   const hardCap = 700;
   const softCap = 280;
   // State for contribution and presale data
@@ -268,7 +268,7 @@ const Presale: React.FC = () => {
                 </Text>
                 </Box>
                 <Box>
-                <Text fontSize={isMobile ? "sm": "lg"} fontWeight="bold" color="#54FF36">
+                <Text fontSize={isMobile ? "sm": "lg"} fontWeight="bold" color="#fe9eb4">
                 {address ? `${address.slice(0, 6)}...${address.slice(-6)}` : "Not connected"}
               </Text>
                 </Box>
@@ -294,7 +294,7 @@ const Presale: React.FC = () => {
                     value={totalRaised}
                     fontSize="md"
                     lineHeight="5px"
-                    color="#54FF36"
+                    color="#fe9eb4"
                   />
                 </StatRoot>
               </Box>
@@ -304,7 +304,7 @@ const Presale: React.FC = () => {
                   <StatLabel fontSize="sm" lineHeight="5px">
                     # Contributors
                   </StatLabel>
-                  <StatValueText fontSize="md" lineHeight="1px" value={participantCount} color="#54FF36" />
+                  <StatValueText fontSize="md" lineHeight="1px" value={participantCount} color="#fe9eb4" />
                 </StatRoot>
               </Box>
 
@@ -313,7 +313,7 @@ const Presale: React.FC = () => {
                   <StatLabel fontSize="sm" lineHeight="5px">
                     Time Left
                   </StatLabel>
-                  <StatValueText w={"90px"} fontSize="md" lineHeight="5px" color="#54FF36">
+                  <StatValueText w={"90px"} fontSize="md" lineHeight="5px" color="#fe9eb4">
                     {timeLeft}
                   </StatValueText>
                 </StatRoot>
@@ -331,7 +331,7 @@ const Presale: React.FC = () => {
                     </ProgressLabel>
                   </Box>
                   <ProgressBar flex="1" defaultValue={0} />
-                  <ProgressValueText color="#54FF36">{Number(progress).toFixed(2)}%</ProgressValueText>
+                  <ProgressValueText color="#fe9eb4">{Number(progress).toFixed(2)}%</ProgressValueText>
                 </HStack>
               </ProgressRoot>
 
@@ -340,7 +340,7 @@ const Presale: React.FC = () => {
                   <Text fontSize="sm" color="#a1a1aa" fontWeight={"bold"}>Current</Text>
                 </Box>
                 <Box>
-                  <Text fontStyle="italic" color="#54FF36">
+                  <Text fontStyle="italic" color="#fe9eb4">
                      &nbsp;<b>{Number(progress).toFixed(2)}</b>%
                   </Text>
                 </Box>
@@ -348,7 +348,7 @@ const Presale: React.FC = () => {
                   <Text fontSize="sm" color="#a1a1aa">Softcap&nbsp;</Text>
                 </Box>
                 <Box>
-                <Text fontStyle="italic" color="#54FF36">
+                <Text fontStyle="italic" color="#fe9eb4">
                   &nbsp;<b>{Number(progressSc).toFixed(2)}</b>%
                 </Text>
                 </Box>
@@ -459,7 +459,7 @@ const Presale: React.FC = () => {
                 </Box>
                 <Box w={isMobile?"20%":"160px"}>
                     <Text
-                      color="#54FF36"
+                      color="#fe9eb4"
                       fontWeight="bold"
                       fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
                     >
@@ -484,7 +484,7 @@ const Presale: React.FC = () => {
               <HStack>
                 <Box w={"60%"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
                     >
@@ -509,7 +509,7 @@ const Presale: React.FC = () => {
                 </Box>
                 <Box w={"160px"}>
                     <Text
-                        color="#54FF36"
+                        color="#fe9eb4"
                         fontWeight="bold"
                         fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
                     >
@@ -542,7 +542,7 @@ const Presale: React.FC = () => {
                   <Box w="80px">
                     <Text>Referred</Text>
                 </Box>
-                <Box color="#54FF36" >
+                <Box color="#fe9eb4" >
                   {Number(referralCount)}
                 </Box><b>users</b>
               </HStack>
@@ -550,7 +550,7 @@ const Presale: React.FC = () => {
                   <Box w="80px">
                   <Text>Earned</Text>
                 </Box>
-                <Box color="#54FF36" >
+                <Box color="#fe9eb4" >
                   {Number(commify(formatEther(totalReferred) * 0.03)).toFixed(4)}
                 </Box><b>BNB</b>
               </HStack>              
