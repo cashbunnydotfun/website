@@ -77,21 +77,42 @@ const Presale: React.FC = () => {
   };
 
   const handleAddAmount = () => {
-    const number = (Number(contributionAmount) + 0.001).toFixed(4);
-    if (number > 5) {
+    // Determine the number of decimals in contributionAmount
+    const decimals = String(contributionAmount).includes(".")
+      ? String(contributionAmount).split(".")[1].length
+      : 0;
+  
+        console.log(`decimals: ${decimals} contributionAmount: ${contributionAmount}`);
+    // Compute the step size based on the number of decimals
+    const step = 1 / Math.pow(10, decimals);
+  
+    // Calculate the new amount and ensure it doesn't exceed 5
+    const number = (Number(contributionAmount) + step).toFixed(decimals <= 10 ? decimals: 10);
+    if (Number(number) > 5) {
       return;
     }
+  
     setContributionAmount(number);
-  }
-
+  };
+  
   const handleSubtractAmount = () => {
-    const number = (Number(contributionAmount) - 0.001).toFixed(4);
-    if (number <= 0) {
+    // Determine the number of decimals in contributionAmount
+    const decimals = String(contributionAmount).includes(".")
+      ? String(contributionAmount).split(".")[1].length
+      : 0;
+  
+    // Compute the step size based on the number of decimals
+    const step = 1 / Math.pow(10, decimals);
+  
+    // Calculate the new amount and ensure it doesn't go below 0
+    const number = (Number(contributionAmount) - step).toFixed(decimals <= 10 ? decimals: 10);
+    if (Number(number) <= 0) {
       return;
     }
+  
     setContributionAmount(number);
-  }
-
+  };
+  
   let { 
     totalRaised,
     participantCount,
