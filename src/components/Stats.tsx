@@ -102,13 +102,13 @@ interface StatsCardProps {
                   <a href="/presale" >
                   <Button 
                     border={"1px solid white"}
-                    p={15} 
+                    p={5} 
                     w={120}
                     fontWeight={600} 
                     background={"gray.900"} 
                     color={"black"} 
                     mb={isMobile ? 120 : 60} 
-                    mt={10} 
+                    mt={5} 
                     onClick={()=>gaEventTracker('presale_link1')} 
                     h={20}
                     >
