@@ -47,7 +47,7 @@ const Presale: React.FC = () => {
 
   const tokenPrice = 0.000000067;
   const targetDate = new Date("2025-03-14T00:00:00Z").getTime();
-  const hardCap = 700;
+  const hardCap = 100;
   const softCap = 280;
   // State for contribution and presale data
   const [timeLeft, setTimeLeft] = useState("00:00:00"); // Example default
