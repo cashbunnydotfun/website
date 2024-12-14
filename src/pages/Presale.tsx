@@ -86,7 +86,7 @@ const Presale: React.FC = () => {
   );
 
   const { refetch: fetchPresaleInfo } = usePresaleContract(
-    "ganache",
+    "bsc",
     address,
     urlReferralCode
   );
