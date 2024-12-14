@@ -430,8 +430,8 @@ const Presale: React.FC = () => {
                           colorScheme="blue"
                           h={"40px"} 
                           borderRadius={10}
-                          onClick={handleAddAmount}
-                        >+</Button>
+                          onClick={handleSubtractAmount}
+                        >-</Button>
                       </Box>
                       <Box>
                         <Button 
@@ -440,8 +440,8 @@ const Presale: React.FC = () => {
                           colorScheme="blue"
                           h={"40px"} 
                           borderRadius={10}
-                          onClick={handleSubtractAmount}
-                        >-</Button>
+                          onClick={handleAddAmount}
+                        >+</Button>
                       </Box>
                       </HStack>
                       <Box>
@@ -595,7 +595,7 @@ const Presale: React.FC = () => {
                 <Text fontSize={isMobile ? "11px" : "14px"} fontStyle={"italic"} mt={-2}>
                   For each user referred you get 3% of their contribution
                 </Text>
-                </StatRoot>
+              </StatRoot>
             </Box>
               <HStack columns={2} p={1} mt={2}>
                   <Box w="80px">
