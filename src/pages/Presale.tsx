@@ -134,7 +134,6 @@ const Presale: React.FC = () => {
   );
 
    contributions = Number(formatEther(contributions)).toFixed(4);
-   console.log({ totalRaised, participantCount, finalized, softCapReached, contributions, totalReferred, referralCount, progress });
 
   const balance =  useBalance({
     address: address,
@@ -161,8 +160,6 @@ const Presale: React.FC = () => {
     functionName: "balanceOf",
     args: [address],
   });
-
-  console.log({ bunnyBalance });
 
   const { 
     isLoading: contributing, 
@@ -298,75 +295,75 @@ const Presale: React.FC = () => {
               // bg="#2d2f33"
               boxShadow="lg"
             >
-          {/* Welcome and Stats Section */}
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
-            <Box 
-              p={2} 
-              // border="1px solid white"
-            >
-              <HStack>
-                <Box>
-                  <Text fontSize="lg" color="white">
-                  Welcome
+            {/* Welcome and Stats Section */}
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+              <Box 
+                p={2} 
+                // border="1px solid white"
+              >
+                <HStack>
+                  <Box>
+                    <Text fontSize="lg" color="white">
+                      Welcome
+                    </Text>
+                  </Box>
+                  <Box>
+                  <Text fontSize={isMobile ? "sm": "lg"} fontWeight="bold" color="#fe9eb4">
+                  {address ? `${address.slice(0, 6)}...${address.slice(-6)}` : "Not connected"}
                 </Text>
+                  </Box>
+                </HStack>
+              </Box>
+              <Box
+                textAlign={{ base: "left", md: "right" }}
+                h={"100%"}
+                // border="1px solid white"
+                display="flex"
+                flexDirection="column"
+                gap={0}
+                pr={10}
+                pl={5}
+              >
+              <Flex flexWrap="wrap" justifyContent="flex-start" gap={"20px"} mt={isMobile? 5:0}>
+                <Box w="auto" >
+                  <StatRoot>
+                    <StatLabel fontSize="sm" lineHeight="5px">
+                      Contributed
+                    </StatLabel>
+                    <StatValueText
+                      value={totalRaised}
+                      fontSize="md"
+                      lineHeight="5px"
+                      color="#fe9eb4"
+                    />
+                  </StatRoot>
                 </Box>
-                <Box>
-                <Text fontSize={isMobile ? "sm": "lg"} fontWeight="bold" color="#fe9eb4">
-                {address ? `${address.slice(0, 6)}...${address.slice(-6)}` : "Not connected"}
-              </Text>
+
+                <Box w="auto">
+                  <StatRoot>
+                    <StatLabel fontSize="sm" lineHeight="5px">
+                      # Contributors
+                    </StatLabel>
+                    <StatValueText fontSize="md" lineHeight="1px" value={participantCount} color="#fe9eb4" />
+                  </StatRoot>
                 </Box>
-              </HStack>
-            </Box>
-            <Box
-              textAlign={{ base: "left", md: "right" }}
-              h={"100%"}
-              // border="1px solid white"
-              display="flex"
-              flexDirection="column"
-              gap={0}
-              pr={10}
-              pl={5}
-            >
-            <Flex flexWrap="wrap" justifyContent="flex-start" gap={"20px"} mt={isMobile? 5:0}>
-              <Box w="auto" >
-                <StatRoot>
-                  <StatLabel fontSize="sm" lineHeight="5px">
-                    Contributed
-                  </StatLabel>
-                  <StatValueText
-                    value={totalRaised}
-                    fontSize="md"
-                    lineHeight="5px"
-                    color="#fe9eb4"
-                  />
-                </StatRoot>
-              </Box>
 
-              <Box w="auto">
-                <StatRoot>
-                  <StatLabel fontSize="sm" lineHeight="5px">
-                    # Contributors
-                  </StatLabel>
-                  <StatValueText fontSize="md" lineHeight="1px" value={participantCount} color="#fe9eb4" />
-                </StatRoot>
+                <Box w="160px">
+                  <StatRoot>
+                    <StatLabel fontSize="sm" lineHeight="5px">
+                      <Box ml={-25}>
+                      Time Left
+                      </Box>
+                    </StatLabel>
+                    <StatValueText w={"90px"} fontSize="md" color="#fe9eb4">
+                      <Box mt="-30px">
+                        <Countdown targetDate={targetDate} />
+                      </Box>
+                    </StatValueText>
+                  </StatRoot>
+                </Box>
+              </Flex>
               </Box>
-
-              <Box w="160px">
-                <StatRoot>
-                  <StatLabel fontSize="sm" lineHeight="5px">
-                    <Box ml={-25}>
-                    Time Left
-                    </Box>
-                  </StatLabel>
-                  <StatValueText w={"90px"} fontSize="md" color="#fe9eb4">
-                    <Box mt="-30px">
-                      <Countdown targetDate={targetDate} />
-                    </Box>
-                  </StatValueText>
-                </StatRoot>
-              </Box>
-            </Flex>
-            </Box>
           </SimpleGrid>
             <Box w={isMobile?"88%":"auto"} ml={isMobile?5:"52%"} mt={2} >
               <ProgressRoot value={timeLeft != "00:00:00:00" ? progress : null} max={100}  maxW="sm" size="lg">
@@ -597,11 +594,11 @@ const Presale: React.FC = () => {
                     </Text>
                 </Box>
                 <Box w={"auto"}>
-                    <center> <Image w={"30px"} src={Logo} /></center>
+                    <center> <Image w={"20px"} src={Logo} /></center>
                 </Box>
                 <Box w={"25%"}>
                     <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
-                        &nbsp;$BUNNY
+                      &nbsp;&nbsp;&nbsp;&nbsp;$BUNNY
                     </Text>
                 </Box>
             </HStack>

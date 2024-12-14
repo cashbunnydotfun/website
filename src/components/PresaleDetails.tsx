@@ -106,7 +106,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                         </Text>
                     </Box>
                     <Box w="60px" >
-                        <Image w={"30px"} src={Logo} />
+                        <Image w={"20px"}  src={Logo} />
                     </Box>
                     <Box w="auto">
                         <Text fontWeight="bold" ml={-8} fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
