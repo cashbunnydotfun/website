@@ -37,6 +37,7 @@ import {
   NumberInputLabel,
   NumberInputRoot,
 } from "../components/ui/number-input"
+import Countdown from "../components/Countdown";
 import config from '../config';
 
 const { environment, presaleContractAddress, tokenAddress } = config;
@@ -218,26 +219,27 @@ const Presale: React.FC = () => {
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const difference = targetDate - now;
-  
+
       if (difference <= 0) {
         clearInterval(interval);
-        setTimeLeft("00:00:00:00");
+        setTimeLeft("--:--:--:--");
         return;
       }
-  
+
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((difference / (1000 * 60)) % 60);
       const seconds = Math.floor((difference / 1000) % 60);
-  
+
       setTimeLeft(
-        `${String(days).padStart(2, "0")}:${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+        `<HStack><Box><Text>${String(days).padStart(2, "0")}</Text></Box><Box><Text fontSize:"8px">(d)</Text></Box>:` +
+        `<Box><Text>${String(hours).padStart(2, "0")}</Text></Box><Box><label style={{fontSize:"11px"}}>(h)</label></Box>:` +
+        `</HStack>`
       );
     }, 1000);
-  
+
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [targetDate]);
-  
 
 
   useEffect(() => {
@@ -304,8 +306,8 @@ const Presale: React.FC = () => {
               pr={10}
               pl={5}
             >
-            <Flex flexWrap="wrap" justifyContent="space-between" gap={4} mt={isMobile? 5:0}>
-              <Box>
+            <Flex flexWrap="wrap" justifyContent="flex-start" gap={"15px"} mt={isMobile? 5:0}>
+              <Box w="auto" >
                 <StatRoot>
                   <StatLabel fontSize="sm" lineHeight="5px">
                     Contributed
@@ -319,7 +321,7 @@ const Presale: React.FC = () => {
                 </StatRoot>
               </Box>
 
-              <Box>
+              <Box w="auto">
                 <StatRoot>
                   <StatLabel fontSize="sm" lineHeight="5px">
                     # Contributors
@@ -328,13 +330,17 @@ const Presale: React.FC = () => {
                 </StatRoot>
               </Box>
 
-              <Box>
+              <Box w="160px">
                 <StatRoot>
                   <StatLabel fontSize="sm" lineHeight="5px">
+                    <Box ml={-25}>
                     Time Left
+                    </Box>
                   </StatLabel>
-                  <StatValueText w={"90px"} fontSize="md" lineHeight="5px" color="#fe9eb4">
-                    {timeLeft}
+                  <StatValueText w={"90px"} fontSize="md" color="#fe9eb4">
+                    <Box mt="-30px">
+                      <Countdown targetDate={targetDate} />
+                    </Box>
                   </StatValueText>
                 </StatRoot>
               </Box>
