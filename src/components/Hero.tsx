@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
                     textAlign="left"
                     w="50vh"
                     >
-                    <Button bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled>
+                    <Button bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
                       <div style={{ textAlign: 'center' }} minH={20}>
                           <Text as={'span'}  >
                             Trade Now <br />

@@ -69,9 +69,11 @@ interface StatsCardProps {
                 >
                   <a href="/presale" >
                   <Button 
-                    p={15} minW={100} 
+                    border={"1px solid white"}
+                    p={15} 
+                    w={120}
                     fontWeight={600} 
-                    background={"#FFFDB8"} 
+                    background={"gray.900"} 
                     color={"black"} 
                     mb={isMobile ? 120 : 60} 
                     mt={20} 
@@ -80,10 +82,10 @@ interface StatsCardProps {
                     >
                   <div style={{ textAlign: 'center' }} minH={20}>
                        <Link  style={{color: "#000000"}} to="/presale"></Link>
-                    <div style={{ color: "gray"}}> 
+                    <div style={{ color: "white"}}> 
                     Join
                     </div>
-                    <div style={{ fontSize: '12px', marginTop: '1px', color: "red" }}>Live now</div>
+                    <div style={{ fontSize: '12px', marginTop: '1px', color: "#fe9eb7" }}>Live now</div>
 
                   </div>
                     </Button>
