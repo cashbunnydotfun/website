@@ -8,6 +8,7 @@ import { bsc, bscTestnet } from "viem/chains";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "./components/ui/provider"
+import { MenuProvider } from "./hooks/useMenuContext"; // Import the MenuProvider
 
 import React from "react";
 import ReactGA from 'react-ga';
@@ -50,11 +51,13 @@ function App() {
   return (
     <WagmiConfig config={wagmiConfig}>
       <LanguageProvider>
+        <MenuProvider> {/* Wrap the MenuProvider around the components */}
         <Provider>
           <Header />
           <Outlet />
           <Footer />
         </Provider>
+        </MenuProvider>
       </LanguageProvider>
     </WagmiConfig>
   );
