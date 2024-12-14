@@ -64,8 +64,7 @@ import {
           <StepsContent index={0}>
           Presale in &nbsp;
             <a 
-              href="https://www.pinksale.finance/launchpad/bsc/0x3Bd1cc34ea42bFF165049EcFf524E8Eed008692F?refId=0x6ab5B9deD8E7c77F1Ade9399f912041159569a0A" 
-              target="_blank"
+              href="/presale" 
               style={{color:"red"}}
             > 
              <b>progress</b>⏳

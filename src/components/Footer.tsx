@@ -1,10 +1,21 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { SimpleGrid, Box, HStack, Center, VStack } from '@chakra-ui/react';
+import { Button, SimpleGrid, Box, HStack, Center, VStack } from '@chakra-ui/react';
 import { isMobile } from "react-device-detect";
 
 const footerFontSize = isMobile ? 10 : 14;
 
 const Footer: React.FC = () => {
+  const [hasCopied, setHasCopied] = useState(false);
+
+  const bscScanUrl = "https://bscscan.com/address/0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
+  const handleCopy = () => {
+    navigator.clipboard.writeText(bscScanUrl).then(() => {
+      setHasCopied(true);
+      setTimeout(() => setHasCopied(false), 2000); // Reset after 2 seconds
+    });
+  };
+
   return (
     <footer>
       <Box mt={250}>
@@ -27,11 +38,12 @@ const Footer: React.FC = () => {
                 </HStack>
 
                 <HStack>
-                  <p 
+            <Box>
+            <p 
                     className="goldtext" 
                     style={{fontWeight:'bold', marginTop:-20, fontSize: footerFontSize}}
                   >
-                    <a href="https://bscscan.com/address/0x2F7c6FCE82a4845726C3744df21Dc87788112B66" target="_blank"
+                    <a href={bscScanUrl} target="_blank"
                     style={{fontSize: footerFontSize}}
                     >
                       &nbsp;&nbsp;
@@ -40,6 +52,26 @@ const Footer: React.FC = () => {
                     {isMobile ? <br /> : <></> }
                     &nbsp;(Binance Smart Chain)
                   </p>
+            </Box>
+            <Box>
+            <Button
+                  h={5}
+                  mt={-5}
+                  w={"50px"}
+                  borderRadius={10}
+                  onClick={handleCopy}
+                  colorScheme="white"
+                  variant="ghost"
+                  bg="transparent"
+                  border="2px solid"
+                  fontSize={"xx-small"}
+                  color="white"
+                  _hover={{ bg: "rgba(0, 0, 255, 0.1)" }}
+                  _active={{ bg: "rgba(0, 0, 255, 0.2)" }}
+                >
+                  {hasCopied ? "Copied!" : "Copy"}
+                </Button>
+            </Box>
                 </HStack>
                 </VStack>
 
