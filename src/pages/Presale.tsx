@@ -326,17 +326,17 @@ const Presale: React.FC = () => {
               >
               <Flex flexWrap="wrap" justifyContent="flex-start" gap={"20px"} mt={isMobile? 5:0}>
                 <Box w="auto" >
-                  <StatRoot>
-                    <StatLabel fontSize="sm" lineHeight="5px">
-                      Contributed
-                    </StatLabel>
-                    <StatValueText
-                      value={totalRaised}
-                      fontSize="md"
-                      lineHeight="5px"
-                      color="#fe9eb4"
-                    />
-                  </StatRoot>
+                <StatRoot>
+                  <StatLabel fontSize="sm" lineHeight="5px">
+                    Contributed
+                  </StatLabel>
+                  <HStack mt={"-8px"}>
+                  <StatValueText value={totalRaised} fontSize="md" lineHeight="5px" color="#fe9eb4" />
+                  <Box w={"auto"}>
+                      <Image w="20px" src={bnbLogo} />
+                  </Box>
+                  </HStack>
+                </StatRoot>
                 </Box>
 
                 <Box w="auto">
@@ -532,27 +532,27 @@ const Presale: React.FC = () => {
                 </StatLabel>
                 <Box bg="gray.600"  p={4}>
                 <HStack mt={"2px"} spacing={4}>
-                <Box w={isMobile ? "40%":"20%"} >
-                    <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>Contributed</Text>
-                </Box>
-                <Box w={isMobile?"20%":"160px"}>
-                    <Text
-                      color="#fe9eb4"
-                      fontWeight="bold"
-                      fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
-                    >
-                      {contributions > 0 ? contributions : contributionAmount}
-                    </Text>
-                </Box>
-                <Box w={"auto"}>
-                    <Image w="20px" src={bnbLogo} />
-                </Box>
-                <Box w={"25%"}>
-                    <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
-                      &nbsp; &nbsp; &nbsp;BNB
-                    </Text>
-                </Box>
-            </HStack>
+                  <Box w={isMobile ? "40%":"20%"} >
+                      <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>Contributed</Text>
+                  </Box>
+                  <Box w={isMobile?"20%":"160px"}>
+                      <Text
+                        color="#fe9eb4"
+                        fontWeight="bold"
+                        fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
+                      >
+                        {contributions > 0 ? contributions : contributionAmount}
+                      </Text>
+                  </Box>
+                  <Box w={"auto"}>
+                      <Image w="20px" src={bnbLogo} />
+                  </Box>
+                  <Box w={"25%"}>
+                      <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
+                        &nbsp; &nbsp; &nbsp;BNB
+                      </Text>
+                  </Box>
+              </HStack>
 
             {isMobile ? 
             <>
