@@ -522,6 +522,7 @@ const Presale: React.FC = () => {
             lineHeight="tall" 
             p={4} 
             w={"auto"} 
+            border={"1px solid white"}
           >
             <Box w={isMobile?"100%":"55%"} p={"2px"}>
               {contributions > 0 ? (
