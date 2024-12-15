@@ -51,7 +51,7 @@ const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, tim
         </Box>
       </Flex>
 
-      <Box w={isMobile ? "88%" : "600px"} mt={2}>
+      <Box w={isMobile ? "88%" : "500px"} mt={2}>
         <ProgressRoot
           value={timeLeft !== "00:00:00:00" ? progress : null}
           max={100}
