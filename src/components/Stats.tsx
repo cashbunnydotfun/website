@@ -152,7 +152,7 @@ interface StatsCardProps {
             gap={10}
           >
             <StatsCard
-              title={'Weekly Prize Entry Requirements 🔥 '} 
+              title={'Weekly Prize Entry Requirements'} 
               stat={"To enter CashBunny's exciting weekly prize draws, here’s what you need: Hold at least $100 in BUNNY in your wallet to qualify."}/>
             <StatsCard 
               title={'Safe and sound'} 
