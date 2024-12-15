@@ -15,7 +15,7 @@ const PresaleDetails = ({ isMobile, balance, tokenPrice, contributions, contribu
                 <StatLabel fontSize="md" lineHeight="5px">
                     Summary
                 </StatLabel>
-                <Text fontSize={13}  fontStyle={"italic"}  mt={-2}>
+                <Text fontSize={isMobile ? "11px" : "13px"}   fontStyle={"italic"}  mt={-2}>
                     Wallet information and presale details
                  </Text>
             </StatRoot>

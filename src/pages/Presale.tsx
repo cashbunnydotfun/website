@@ -388,7 +388,7 @@ const Presale: React.FC = () => {
                     <StatLabel fontSize="md" lineHeight="5px" ml={2}>
                     Contribution Amount
                     </StatLabel>
-                    <Text fontSize={13}  fontStyle={"italic"} m={2} mt={-2}>
+                    <Text fontSize={isMobile ? "11px" : "13px"}   fontStyle={"italic"} m={2} mt={-2}>
                       Choose your contribution amount {isMobile?<br />:<></>} (no minimum, max 5 BNB)
                     </Text>
                     </StatRoot>
