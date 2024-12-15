@@ -611,7 +611,7 @@ const Presale: React.FC = () => {
                 <StatLabel fontSize="md" lineHeight="5px">
                  Referral Program
                 </StatLabel>
-                <Text fontSize={isMobile ? "11px" : "14px"} fontStyle={"italic"} mt={-2}>
+                <Text fontSize={isMobile ? "11px" : "13px"} fontStyle={"italic"} mt={-2}>
                   For each user referred you get 3% of their contribution
                 </Text>
               </StatRoot>
