@@ -386,7 +386,7 @@ const Presale: React.FC = () => {
                     <Box bg="gray.600" border="1px solid white" p={2}>
                     <StatRoot>
                     <StatLabel fontSize="md" lineHeight="5px" ml={2}>
-                    Contribution
+                    Contribution Amount
                     </StatLabel>
                     <Text fontSize={13}  fontStyle={"italic"} m={2} mt={-2}>
                       Choose your contribution amount {isMobile?<br />:<></>} (no minimum, max 5 BNB)
@@ -522,17 +522,100 @@ const Presale: React.FC = () => {
             lineHeight="tall" 
             p={4} 
             w={"auto"} 
-            border={"1px solid white"}
           >
-            <StatRoot ml={1}>
-              <StatLabel fontSize="md" lineHeight="5px">
-                Referrals
-              </StatLabel>
-              <Text fontSize={13}  fontStyle={"italic"}  mt={-2}>
-                For each user referred you get 3% of their contribution
-              </Text>
-            </StatRoot>
-              <HStack columns={2} p={1} mt={4}>
+            <Box w={isMobile?"100%":"55%"} p={"2px"}>
+              {contributions > 0 ? (
+                <StatRoot mb={10}>
+                <StatLabel fontSize="md" lineHeight="5px">
+                  Contribution Details
+                </StatLabel>
+                <Box bg="gray.600"  p={4}>
+                <HStack mt={"2px"} spacing={4}>
+                <Box w={isMobile ? "40%":"20%"} >
+                    <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>Contributed</Text>
+                </Box>
+                <Box w={isMobile?"20%":"160px"}>
+                    <Text
+                      color="#fe9eb4"
+                      fontWeight="bold"
+                      fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
+                    >
+                      {contributions > 0 ? contributions : contributionAmount}
+                    </Text>
+                </Box>
+                <Box w={"auto"}>
+                    <Image w="20px" src={bnbLogo} />
+                </Box>
+                <Box w={"25%"}>
+                    <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
+                      &nbsp; &nbsp; &nbsp;BNB
+                    </Text>
+                </Box>
+            </HStack>
+
+            {isMobile ? 
+            <>
+              <Box mt={4}>
+                <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>Received 👇</Text>
+              </Box>
+              <HStack>
+                <Box w={"60%"}>
+                    <Text
+                        color="#fe9eb4"
+                        fontWeight="bold"
+                        fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}
+                    >
+                        {commify(Number(formatEther(bunnyBalance || "0")).toFixed(4))}
+                    </Text>
+                </Box>
+                <Box w={"auto"}>
+                    <Image w={"20px"} src={Logo} />
+                </Box>
+                <Box w={"25%"}>
+                    <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
+                        &nbsp;$BUNNY
+                    </Text>
+                </Box>
+            </HStack>
+            </>: (
+                <HStack mt={3} spacing={4}>
+                <Box w={"20%"}>
+                    <Text fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
+                        {"Balance"}
+                    </Text>
+                </Box>
+                <Box w={"160px"}>
+                    <Text
+                        color="#fe9eb4"
+                        fontWeight="bold"
+                        fontSize={{ base: "11px", sm: "11px", md: "14px", lg: "14px" }}
+                    >
+                         {commify(Number(formatEther(bunnyBalance || "0")).toFixed(4))}
+                    </Text>
+                </Box>
+                <Box w={"auto"}>
+                    <center> <Image w={"20px"} src={Logo} /></center>
+                </Box>
+                <Box w={"25%"}>
+                    <Text fontWeight="bold" fontSize={{ base: "12px", sm: "12px", md: "14px", lg: "14px" }}>
+                      &nbsp;&nbsp;&nbsp;&nbsp;$BUNNY
+                    </Text>
+                </Box>
+            </HStack>
+            )}
+        </Box>
+                </StatRoot>
+              ) : <></>}
+              <StatRoot>
+                <StatLabel fontSize="md" lineHeight="5px">
+                 Referral Program
+                </StatLabel>
+                <Text fontSize={isMobile ? "11px" : "14px"} fontStyle={"italic"} mt={-2}>
+                  For each user referred you get 3% of their contribution
+                </Text>
+              </StatRoot>
+            </Box>
+              <HStack columns={2} p={1} mt={2}>
                   <Box w="80px">
                     <Text>Referred</Text>
                 </Box>
@@ -586,7 +669,7 @@ const Presale: React.FC = () => {
                   {hasCopied ? "Copied!" : "Copy"}
                 </Button>
                 </Box>
-              </Flex>): <>Please login with your wallet to get your referral URL</>}
+              </Flex>): <>Please login with your wallet to get a referral URL</>}
             </Box>
 
 
