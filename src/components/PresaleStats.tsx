@@ -14,7 +14,7 @@ const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, tim
             <StatLabel fontSize="sm" lineHeight="5px">
               Contributed
             </StatLabel>
-            <HStack>
+            <HStack mt={"-8px"}>
             <StatValueText value={totalRaised} fontSize="md" lineHeight="5px" color="#fe9eb4" />
             <Box w={"auto"}>
                 <Image w="20px" src={bnbLogo} />
