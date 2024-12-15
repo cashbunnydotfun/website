@@ -522,6 +522,7 @@ const Presale: React.FC = () => {
             lineHeight="tall" 
             p={4} 
             w={"auto"} 
+            border={"1px solid white"}
           >
             <StatRoot ml={1}>
               <StatLabel fontSize="md" lineHeight="5px">
