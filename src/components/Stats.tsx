@@ -38,7 +38,7 @@ interface StatsCardProps {
 
   export default function Stats() {
     const gaEventTracker = useAnalyticsEventTracker('presale');
-    const targetDate = new Date("2025-01-13T00:00:00Z").getTime();
+    const targetDate = new Date("2025-01-17T15:00:00Z").getTime();
     const hardCap = 100;
 
     const [progress, setProgress] = useState(null);
