@@ -1,15 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+
 // import { LanguageContext, LanguageContextType } from "../core/LanguageProvider";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount } from "wagmi";
 import Logo from "../assets/images/logo-clean-200x200.png";
 // import { isMobile } from 'react-device-detect';
 import { Link, Image } from '@chakra-ui/react';
+import { useMenu } from "../hooks/useMenuContext"; // Import useMenu hook for context
 
 const Header: React.FC = () => {
-  // const ctx = useContext<LanguageContextType>(LanguageContext);
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
+  const { setIsMenuOpen } = useMenu(); // Access setIsMenuOpen from context
+
+
+  useEffect(() => {
+    const menuModal = document.getElementById("menu");
+    if (menuModal) {
+      menuModal.addEventListener("show.bs.modal", () => {
+        console.log("Menu opened");
+        setIsMenuOpen(true);
+      });
+      menuModal.addEventListener("hide.bs.modal", () => {
+        console.log("Menu closed");
+        setIsMenuOpen(false);
+      });
+    }
+
+    return () => {
+      if (menuModal) {
+        menuModal.removeEventListener("show.bs.modal", () => setIsMenuOpen(true));
+        menuModal.removeEventListener("hide.bs.modal", () => setIsMenuOpen(false));
+      }
+    };
+  }, [setIsMenuOpen]);
 
   return (
     <header id="header">
@@ -22,11 +46,6 @@ const Header: React.FC = () => {
           
           {/* Remove mx-auto class and add justify-content-start to align items to the left */}
           <ul className="navbar-nav items justify-content-start " >
-            <li className="nav-item">
-              <Link className="nav-link" href="/presale" >
-                  Presale
-              </Link>
-            </li>
             <li className="nav-item">
               <Link className="nav-link"  target="_blank" href="https://github.com/cashbunnydotfun" isExternal >
                   Github
@@ -96,16 +115,6 @@ const Header: React.FC = () => {
               <div className="row w-100">
                 <div className="items p-0 col-12 text-center">
                   <ul className="navbar-nav items mx-auto">
-
-                    <li
-                      className="nav-item"
-                      data-bs-dismiss="modal"
-                      style={{ fontSize: "20px" }}
-                    >
-                    <a className="btn ml-lg-auto btn-bordered-white" href="/presale" >
-                        Presale
-                      </a>
-                    </li>
 
                     <li
                       className="nav-item"
