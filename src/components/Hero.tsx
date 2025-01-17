@@ -81,7 +81,16 @@ const Hero: React.FC = () => {
                           </Text>
                           </a>
                       </div>
-                  </Button>                         
+                  </Button> 
+                  &nbsp;&nbsp;&nbsp;
+                  <Button disabled bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
+                      <div style={{ textAlign: 'center' }} minH={20}>
+                          <Text as={'span'}  color={"#fe9eb4"}   >
+                            <b>Play Raffle</b> <br />
+                          </Text>
+                          <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
+                      </div>
+                  </Button>                                            
                 </Box>               
               </HStack>
               </Stack>
