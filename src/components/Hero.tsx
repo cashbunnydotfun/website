@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 import { Box, Flex, Image, Stack, Heading, Text, Button, HStack } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
-import bunny_art from "../assets/images/bunny_art.png";
-import bunny_art_2 from "../assets/images/bunny_art_2.png";
+
 import bunny_art_t from "../assets/images/bunny_art_t.png";
 import { useMenu } from "../hooks/useMenuContext";
 import styled from "styled-components";
@@ -32,7 +31,6 @@ const Hero: React.FC = () => {
       backgroundSize={"140%"}
       backdropOpacity={"60%"}
     >
- 
       <Box 
         p={isMobile ? "10vw" : "2vw"} 
         flex={1}
@@ -77,10 +75,11 @@ const Hero: React.FC = () => {
                     >
                     <Button bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
                       <div style={{ textAlign: 'center' }} minH={20}>
-                          <Text as={'span'}  >
-                            Trade Now <br />
+                          <a href="https://pancakeswap.finance/?outputCurrency=0x2F7c6FCE82a4845726C3744df21Dc87788112B66&inputCurrency=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" target="_blank">
+                          <Text as={'span'}  color={"#fe9eb4"}   >
+                            <b>Trade Now</b> <br />
                           </Text>
-                          <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
+                          </a>
                       </div>
                   </Button>                         
                 </Box>               

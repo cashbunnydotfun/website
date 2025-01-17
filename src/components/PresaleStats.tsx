@@ -53,7 +53,7 @@ const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, tim
 
       <Box w={isMobile ? "88%" : "500px"} mt={2}>
         <ProgressRoot
-          value={timeLeft !== "00:00:00:00" ? progress : null}
+          value={100}
           max={100}
           maxW="600px"
           size="lg"
@@ -68,7 +68,7 @@ const PresaleStats = ({ totalRaised, participantCount, targetDate, progress, tim
             </Box>
             <ProgressBar flex="1" defaultValue={0} />
             <ProgressValueText color="#fe9eb4">
-              {Number(progress).toFixed(2)}%
+              {Number(100).toFixed(2)}%
             </ProgressValueText>
           </HStack>
         </ProgressRoot>

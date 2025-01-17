@@ -89,7 +89,7 @@ interface StatsCardProps {
           >
             <Box ml={isMobile?"2%":"15%"} w={"600px"} pl={isMobile? 3:10} pt={isMobile? 10:4}>
             <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"}>
-                Participate in the <Text color={'#FFFDB8'} as={'span'}>Presale</Text> 
+                Presale has <Text color={'#FFFDB8'} as={'span'}>ended</Text> 
               </chakra.h2>
               <PresaleStats
                     totalRaised={totalRaised}
@@ -99,31 +99,17 @@ interface StatsCardProps {
                     timeLeft={timeLeft}
                     isMobile={isMobile}
                   />
-                  <a href="/presale" >
-                  <Button 
-                    border={"1px solid white"}
-                    p={5} 
-                    w={120}
-                    fontWeight={600} 
-                    background={"gray.900"} 
-                    color={"black"} 
-                    mb={isMobile ? 120 : 60} 
-                    mt={5} 
-                    onClick={()=>gaEventTracker('presale_link1')} 
-                    h={20}
-                    >
-                  <div style={{ textAlign: 'center' }} minH={20}>
-                       <Link  style={{color: "#000000"}} to="/presale"></Link>
-                    <div style={{ color: "white"}}> 
-                    Join
-                    </div>
-                    <div style={{ fontSize: '12px', marginTop: '1px', color: "#fe9eb7" }}>Live now</div>
-
-                  </div>
-                    </Button>
+                  <Button bg={'#fe9eb4'} mt={5} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
+                      <div style={{ textAlign: 'center' }} minH={20}>
+                          <a href="https://pancakeswap.finance/?outputCurrency=0x2F7c6FCE82a4845726C3744df21Dc87788112B66&inputCurrency=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" target="_blank">
+                          <Text as={'span'}  color={"#fe9eb4"}   >
+                            <b>Trade Now</b> <br />
+                          </Text>
+                          </a>
+                      </div>
+                  </Button>    
                   <br /> 
                   <br />
-                </a>                  
             </Box>
             </Box>
 
