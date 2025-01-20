@@ -62,12 +62,12 @@ import {
             Mainnet launch
           </StepsContent>
           <StepsContent index={0}>
-          Presale in &nbsp;
+          Presale has &nbsp;
             <a 
               href="/presale" 
-              style={{color:"red"}}
+              style={{color:"green"}}
             > 
-             <b>progress</b>⏳
+             <b>ended</b> 🎆
             </a>
           </StepsContent>
           <StepsContent index={1}>Decentralized raffle and deflationary fee burning 🔥</StepsContent>
