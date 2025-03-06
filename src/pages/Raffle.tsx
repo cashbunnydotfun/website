@@ -355,7 +355,7 @@ const Raffle: React.FC = () => {
                    </HStack>
                     <HStack w="450px" mt={2}>
                       <Box w="90px"><Text fontSize="small"><b>Your Balance</b></Text></Box>
-                      <Box w="80px" fontSize="small">{formatLargeNumber(commify(`${formatEther(`${bunnyBalance || 0}`)}`))} </Box>
+                      <Box w="80px" fontSize="small">{formatLargeNumber(`${formatEther(`${bunnyBalance || 0}`)}`)} </Box>
                       <Box><Image src={bunnyLogo} w={"18px"}/></Box>
                       <Box><Text fontSize="small" color="ivory">($BUNNY)</Text></Box>
                     </HStack>
