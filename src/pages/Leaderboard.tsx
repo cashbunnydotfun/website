@@ -227,17 +227,9 @@ const LeaderboardPage: React.FC = () => {
 
       {isLoadingLeaderboard && (
         <Box className="loader">
-          <CirclesWithBar
-            height="100"
-            width="100"
-            color="#fff"
-            outerCircleColor="#fff"
-            innerCircleColor="#fff"
-            barColor="#fff"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={isLoadingLeaderboard}
-          />
+          <Spinner
+            size="lg"
+            />
         </Box>
       )}
     </Container>
