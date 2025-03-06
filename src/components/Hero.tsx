@@ -73,24 +73,27 @@ const Hero: React.FC = () => {
                     textAlign="left"
                     w="50vh"
                     >
+                    <a href="https://pancakeswap.finance/?outputCurrency=0x2F7c6FCE82a4845726C3744df21Dc87788112B66&inputCurrency=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" target="_blank">
                     <Button bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
-                      <div style={{ textAlign: 'center' }} minH={20}>
-                          <a href="https://pancakeswap.finance/?outputCurrency=0x2F7c6FCE82a4845726C3744df21Dc87788112B66&inputCurrency=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" target="_blank">
-                          <Text as={'span'}  color={"#fe9eb4"}   >
-                            <b>Trade Now</b> <br />
-                          </Text>
-                          </a>
-                      </div>
-                  </Button> 
+                        <div style={{ textAlign: 'center' }} minH={20}>
+                            <Text as={'span'}  color={"#fe9eb4"}   >
+                              <b>Trade Now</b> <br />
+                            </Text>
+                        </div>
+                    </Button> 
+                  </a>
+
                   &nbsp;&nbsp;&nbsp;
-                  <Button disabled bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
+                  <a href="/raffle">
+                  <Button  bg={'#fe9eb4'} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
                       <div style={{ textAlign: 'center' }} minH={20}>
                           <Text as={'span'}  color={"#fe9eb4"}   >
                             <b>Play Raffle</b> <br />
                           </Text>
-                          <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div>
+                          {/* <div style={{ fontSize: '10px', marginTop: '5px', color: "white" }}>Coming Soon</div> */}
                       </div>
-                  </Button>                                            
+                  </Button> 
+                  </a>                                           
                 </Box>               
               </HStack>
               </Stack>

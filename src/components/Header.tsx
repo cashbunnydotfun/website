@@ -35,6 +35,12 @@ const Header: React.FC = () => {
     };
   }, [setIsMenuOpen]);
 
+  const [linkName, setLinkName] = React.useState("");
+
+  const handleChangeBorderButtonOnClick = (linkName) => {
+    setLinkName(linkName);
+  }
+
   return (
     <header id="header">
       <nav className="navbar navbar-expand navbar-fixed-top" >
@@ -46,6 +52,16 @@ const Header: React.FC = () => {
           
           {/* Remove mx-auto class and add justify-content-start to align items to the left */}
           <ul className="navbar-nav items justify-content-start " >
+          <li className="nav-item" style={{border:window.location.href.indexOf("raffle") > -1 || linkName == "raffle" ? "1px solid #fe9eb4" : "none"}}>
+              <Link className="nav-link" href="/raffle" onClick={() => handleChangeBorderButtonOnClick("raffle")} >
+                  Raffle
+              </Link>
+            </li>      
+            <li className="nav-item" style={{marginLeft:"10px", border:window.location.href.indexOf("leaderboard") > -1 || linkName == "leaderboard" ? "1px solid #fe9eb4" : "none"}}>
+              <Link className="nav-link" href="/leaderboard"  onClick={() => handleChangeBorderButtonOnClick("leaderboard")}>
+                  Leaderboard
+              </Link> 
+            </li>    
             <li className="nav-item">
               <Link className="nav-link"  target="_blank" href="https://github.com/cashbunnydotfun" isExternal >
                   Github
@@ -61,7 +77,7 @@ const Header: React.FC = () => {
               <Link className="nav-link" href="https://t.me/CashBunnyFun" target="_blank" isExternal>
                   Telegram
               </Link>
-            </li>   
+            </li>       
             {/* <li className="nav-item">
               <Link className="nav-link" href="https://discord.gg/cashbunny" target="_blank" isExternal>
                   Discord

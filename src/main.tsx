@@ -5,7 +5,8 @@ import "./index.css";
 import App from "./App";
 import HomePage from "./pages/Home";
 import Presale from "./pages/Presale";
-
+import Raffle from "./pages/Raffle";
+import LeaderBoard from "./pages/Leaderboard";
 
 const router = createBrowserRouter([
   {
@@ -15,11 +16,20 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage  />,
+      },
+      {
+        path: "/raffle",
+        element: <Raffle />,
+      },
+      {
+        path: "/leaderboard",
+        element: <LeaderBoard />,
       }
       // {
       //   path: "/presale",
       //   element: <Presale />,
       // },
+      
     ],
   },
 ]);

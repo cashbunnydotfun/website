@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { LanguageProvider } from "./core/LanguageProvider";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiConfig } from "wagmi";
-import { bsc, bscTestnet } from "viem/chains";
+import { bsc, bscTestnet, localhost } from "viem/chains";
 // import { ToastContainer } from "react-toastify";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,7 @@ import { MenuProvider } from "./hooks/useMenuContext"; // Import the MenuProvide
 
 import React from "react";
 import ReactGA from 'react-ga';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 // Components
 import Header from "./components/Header";
@@ -30,7 +31,7 @@ function App() {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  const chains = [bsc];
+  const chains = [bsc, localhost];
   const wagmiConfig = defaultWagmiConfig({
     chains,
     projectId,
@@ -40,15 +41,15 @@ function App() {
   createWeb3Modal({ wagmiConfig, projectId, chains });
 
   watchNetwork(async (network) => {
-    if (network.chain?.name != "bsc") {
+    if (network.chain?.name == "bsc") {
       await switchNetwork({
-        chainId: 56,
+          chainId: 56,
       });
     }
     console.log(`Network is ${network.chain?.name}`)
   });
 
-  return (
+   return (
     <WagmiConfig config={wagmiConfig}>
       <LanguageProvider>
         <MenuProvider> {/* Wrap the MenuProvider around the components */}

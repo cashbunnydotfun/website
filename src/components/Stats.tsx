@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, chakra } from '@chakra-ui/react';
+import { Image, HStack, Box, Button, Flex, Text, chakra } from '@chakra-ui/react';
 import { StatLabel, StatRoot, StatValueText } from "../components/ui/stat"
 import React, { useEffect, useState } from "react";
 
@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import useAnalyticsEventTracker from '../hooks/useAnalyticsEventTracker';
 import PresaleStats from "../components/PresaleStats";
 import usePresaleContract from '../hooks/usePresaleContract';
+import cardsImage from '../assets/images/cards.png';
 
- import {ethers} from 'ethers';
+import {ethers} from 'ethers';
 
 interface StatsCardProps {
     title: string;
@@ -70,7 +71,7 @@ interface StatsCardProps {
         <>
           <Box
             w="100vw"
-            h="120vh"
+            // h="120vh"
             minH="30vh"
             bg="gray.800"
             color="white"
@@ -81,36 +82,85 @@ interface StatsCardProps {
             position={"absolute"}
             left={0}
             right={0}
-            height={isMobile? 520 : 400}
-            // p={4}
+            height={isMobile? 340 : 400}
+            p={isMobile ? 8 : 0}
             backgroundColor={"black"}
             backgroundSize={"100%"}
             
           >
-            <Box ml={isMobile?"2%":"15%"} w={"600px"} pl={isMobile? 3:10} pt={isMobile? 10:4}>
+            {/* <Box ml={isMobile?"2%":"15%"} w={"700px"} pl={isMobile? 3:10} pt={isMobile? 10:4}>
             <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"}>
-                Presale has <Text color={'#FFFDB8'} as={'span'}>ended</Text> 
+              Our <Text  color={'#fe9eb4'} as={'span'}>decentralized</Text> raffle has <Text color={'#FFFDB8'} as={'span'}>started</Text>
               </chakra.h2>
-              <PresaleStats
-                    totalRaised={totalRaised}
-                    participantCount={participantCount}
-                    targetDate={targetDate}
-                    progress={progress}
-                    timeLeft={timeLeft}
-                    isMobile={isMobile}
-                  />
+              <Box>
+                <HStack>
+                    <Box><Text as="h3">Win</Text></Box>
+                    <Box><Text as="h3" color="#fe9eb4"> unlimited BNB</Text></Box>
+                    <Box><Text as="h3" color="white">while burning</Text></Box>
+                    <Box><Text as="h3" color="#fffdb8">$BUNNY</Text></Box>
+                </HStack>
+              </Box>
+                  <a href="/raffle" target="_blank">
                   <Button bg={'#fe9eb4'} mt={5} minW={100} minH={20} background={"black"} color={"#FFFDB8"} fontWeight={600} isDisabled  border={"1px solid white"}>
                       <div style={{ textAlign: 'center' }} minH={20}>
-                          <a href="https://pancakeswap.finance/?outputCurrency=0x2F7c6FCE82a4845726C3744df21Dc87788112B66&inputCurrency=0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" target="_blank">
                           <Text as={'span'}  color={"#fe9eb4"}   >
-                            <b>Trade Now</b> <br />
+                            <b>Play raffle</b> <br />
                           </Text>
-                          </a>
                       </div>
-                  </Button>    
+                  </Button>     
+                  </a>
                   <br /> 
                   <br />
-            </Box>
+            </Box> */}
+
+            <Flex
+              direction={isMobile ? "column" : "row"}
+              gap={1}
+              ml={2}
+              mt={isMobile ? -50: 0}
+            > 
+            {isMobile ? <></> : 
+              <Box w="300px"  ml={isMobile ? 0 : "3%"} flex="none">
+              <Image src={cardsImage} w="80px" mt={"60px"} ml={40}/>
+              </Box>}
+              <Box w="70%" ml={isMobile ? 0 : "5%"} mt={20} flex="none">
+              <chakra.h2 fontSize={isMobile ? "2xl" : "4xl"}>
+                Our <Text  color={'#fe9eb4'} as={'span'}>decentralized</Text> raffle has <Text color={'#FFFDB8'} as={'span'}>started</Text>
+              </chakra.h2>
+              {!isMobile ? (
+                <HStack>
+                  <Box><Text as="h3">Win</Text></Box>
+                  <Box><Text as="h3" color="#fe9eb4"> unlimited BNB</Text></Box>
+                  <Box><Text as="h3" color="white">while burning</Text></Box>
+                  <Box><Text as="h3" color="#fffdb8">$BUNNY</Text></Box>
+              </HStack>
+              ) : <></>}
+              </Box>
+              <Box w="100%" ml={"10px"} mt={isMobile ? -5 : 110}>
+              <a href="/raffle" target="_blank">
+                  <Button 
+                  // mt={isMobile ? -20 : 20} 
+                  bg={'#fe9eb4'} 
+                  mt={5} 
+                  minW={150} 
+                  minH={20} 
+                  background={"black"} 
+                  color={"#FFFDB8"} 
+                  fontWeight={600} 
+                  isDisabled  
+                  border={"1px solid white"}
+                  ml={isMobile ? 0 : -10}
+                >
+                      <div style={{ textAlign: 'center' }} minH={20}>
+                          <Text as={'span'}  color={"#fe9eb4"}   >
+                            <b>Play Now</b> <br />
+                          </Text>
+                      </div>
+                  </Button>     
+                  </a>
+              </Box>
+            </Flex>
+            
             </Box>
 
           <Flex mt={isMobile ? "75%" : "30%"} ml={isMobile ? 0 : "15%"}>
@@ -134,7 +184,7 @@ interface StatsCardProps {
                 md: 17 
             }}
             mb={"150px"}   
-            ml={{ sm: 0, md: "10%", lg: "25%" }}
+            ml={{ sm: 0, md: "10%", lg: "22%" }}
             gap={10}
           >
             <StatsCard

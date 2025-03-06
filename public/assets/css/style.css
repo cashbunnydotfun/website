@@ -110,7 +110,7 @@ s,
 samp,
 section,
 small,
-span,
+/* span, */
 strike,
 strong,
 sub,
@@ -3327,4 +3327,10 @@ a.page-numbers:hover {
     align-items: start;
   }
   /* #endregion Modal */
+}
+
+
+.rc-anchor-normal {
+  width: 100% !important;
+  height: 100% !important;
 }
