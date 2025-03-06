@@ -632,7 +632,7 @@ const Raffle: React.FC = () => {
                         <div id="recaptchaContainer" className="rc-anchor-normal-mine" style={{marginTop:"20px", border:"2px solid gray.800"}}>
                           <ReCAPTCHA
                             theme="dark"
-                            sitekey={process.env.REACT_APP_SITE_KEY} 
+                            sitekey={process.env.SITE_KEY} 
                             onChange={handleRecaptcha}
                         />
                         </div>
