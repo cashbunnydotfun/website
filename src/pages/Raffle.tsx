@@ -517,7 +517,12 @@ const Raffle: React.FC = () => {
                         </DialogContent>
                         </DialogRoot>
                         </Box>
-
+                        <VStack gap={1} alignItems={"left"} mt={10}>
+                            <Box>
+                                <Text fontSize={"medium"} color="white"><b>No $BUNNY?</b></Text>
+                            </Box>
+                            <FaucetControls handleRequestTokens={handleRequestTokens} isLoading={isRequestingTokens}/>
+                        </VStack>
                         <div id="recaptchaContainer" className="rc-anchor-normal-mine" style={{marginTop:"20px", border:"2px solid gray.800"}}>
                           <ReCAPTCHA
                             theme="dark"
