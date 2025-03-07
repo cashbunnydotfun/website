@@ -41,7 +41,7 @@ function App() {
   createWeb3Modal({ wagmiConfig, projectId, chains });
 
   watchNetwork(async (network) => {
-    if (network.chain?.name == "bsc") {
+    if (network.chain?.name != "bsc") {
       await switchNetwork({
           chainId: 56,
       });
