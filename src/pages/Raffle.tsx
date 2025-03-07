@@ -655,7 +655,7 @@ const Raffle: React.FC = () => {
                         <Box>
                         <HStack>
                             <Box w="220px"><Text fontSize="16px"><b>Total tickets held:</b></Text></Box>
-                            <Box>#{commify(ticketsPerUser?.toString() || 0)} tickets</Box>
+                            <Box >#{commify(ticketsPerUser?.toString() || 0)} tickets</Box>
                         </HStack>
                         </Box>
                         <Box>
@@ -712,7 +712,7 @@ const Raffle: React.FC = () => {
                                 <Box w={"50%"}>
                                     <Text fontWeight="bold" color="gray">💰 Total Prize Pool</Text>
                                 </Box>
-                                <Box>
+                                <Box w="80px">
                                 <Text>{commify(`${totalPrizePool?.formatted || 0}`)}</Text>
                                 </Box>
                                 <Box><Image src={bnbLogo} w="20px" /></Box>
@@ -721,7 +721,7 @@ const Raffle: React.FC = () => {
                                 <Box w={"50%"}>
                                     <Text fontWeight="bold" color="gray">🏆 1st prize</Text>
                                 </Box>
-                                <Box>
+                                <Box  w="80px">
                                 <Text>{commify(`${((totalPrizePool?.formatted * 0.9) * 0.5) || 0}`)}</Text>
                                 </Box>
                                 <Box><Image src={bnbLogo} w="20px" /></Box>
@@ -730,7 +730,7 @@ const Raffle: React.FC = () => {
                                 <Box w={"50%"}>
                                     <Text fontWeight="bold" color="gray">🎖️ 2nd & 3rd prizes</Text>
                                 </Box>
-                                <Box>
+                                <Box  w="80px">
                                 <Text>{commify(`${((totalPrizePool?.formatted * 0.9) * 0.25) || 0}`, 5)}</Text>
                                 </Box>
                                 <Box><Image src={bnbLogo} w="20px" /></Box>
