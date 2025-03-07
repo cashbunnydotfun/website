@@ -31,7 +31,7 @@ function App() {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  const chains = [bsc, localhost];
+  const chains = [bsc];
   const wagmiConfig = defaultWagmiConfig({
     chains,
     projectId,
