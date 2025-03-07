@@ -76,7 +76,7 @@ const LeaderboardPage: React.FC = () => {
                     <th style={{ width: "20px" }} scope="col">
                     <Text color={"#fffdb8"}><b>Rank</b></Text>
                     </th>
-                    <th style={{ width: "90px" }} scope="col">
+                    <th style={{ width: "70px" }} scope="col">
                     <Text color={"#fffdb8"}><b>Address</b></Text>
                     </th>
                     <th style={{ width: "auto" }} scope="col">
@@ -116,7 +116,7 @@ const LeaderboardPage: React.FC = () => {
                             <td style={{ width: "20px" }} >
                               <Text color="white">{index + 1}</Text>
                             </td>
-                            <td style={{ width: "90px" }}>
+                            <td style={{ width: "70px" }}>
                             <>
                             <a href={"https://etherscan.io/address/"+addr.winner} target="_blank" rel="noreferrer">
                                 {addr.winner?.slice(0, 6)}...${addr.winner?.slice(-6)}
