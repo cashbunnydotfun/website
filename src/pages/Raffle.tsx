@@ -497,7 +497,7 @@ const Raffle: React.FC = () => {
                             </HStack>
                             <HStack>
                                 <Box w={"50%"}><Text fontSize="16px"><b>Time left to draw:</b></Text></Box>
-                                <Box>{Number((timeLeftToDraw?.toString()) / 86400).toFixed(3)} days</Box>
+                                <Box fontSize="small">{convertDaysToReadableFormat(Number((timeLeftToDraw?.toString()) / 86400).toFixed(3))}</Box>
                             </HStack>
                             </Box>
                             </VStack>
