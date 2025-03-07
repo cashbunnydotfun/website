@@ -131,7 +131,24 @@ const Header: React.FC = () => {
               <div className="row w-100">
                 <div className="items p-0 col-12 text-center">
                   <ul className="navbar-nav items mx-auto">
-
+                    <li
+                      className="nav-item"
+                      data-bs-dismiss="modal"
+                      style={{ fontSize: "20px", marginTop:"20px"}}
+                    >
+                      <a className="btn ml-lg-auto btn-bordered-white" href="/raffle" target="_blank">
+                        Raffle
+                      </a>
+                    </li>
+                    <li
+                      className="nav-item"
+                      data-bs-dismiss="modal"
+                      style={{ fontSize: "20px", marginTop:"20px"}}
+                    >
+                      <a className="btn ml-lg-auto btn-bordered-white" href="/leaderboard" target="_blank">
+                        Leaderboard
+                      </a>
+                    </li>                    
                     <li
                       className="nav-item"
                       data-bs-dismiss="modal"
