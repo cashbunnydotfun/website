@@ -517,6 +517,14 @@ const Raffle: React.FC = () => {
                         </DialogContent>
                         </DialogRoot>
                         </Box>
+
+                        <div id="recaptchaContainer" className="rc-anchor-normal-mine" style={{marginTop:"20px", border:"2px solid gray.800"}}>
+                          <ReCAPTCHA
+                            theme="dark"
+                            sitekey={"6Lfv6usqAAAAADYXDpnryHtHCtXoO19wXn_aGdWx"} 
+                            onChange={handleRecaptcha}
+                        />
+                        </div>
                     </VStack>
                     </Box>
                     </Flex>
