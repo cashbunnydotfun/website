@@ -288,6 +288,15 @@ const Raffle: React.FC = () => {
 
     const handleClickPlay = () => {
         setIsPlaying(true);
+
+        if (Number(formatEther(`${bunnyBalance || 0}`)) < totalTicketPrice) {
+            setIsPlaying(false);
+            toaster.create({
+                title: "Error",
+                description: "Not enough $BUNNY",
+            });
+            return;
+        }
         approve();
     }
     
