@@ -70,13 +70,13 @@ const LeaderboardPage: React.FC = () => {
                         <Box><Text as="h3" color="#fffdb8"></Text></Box>
                     </HStack>
                 </Box>
-                <table className="table token-content table-borderless" style={{ width: isMobile ? "50%": "100%" }}>
+                <table className="table token-content table-borderless" style={{ width: isMobile ? "100px": "100%" }}>
                   <thead>
                     <tr>
-                    <th style={{ width: "20px" }} scope="col">
+                    <th style={{ width: "1px" }} scope="col">
                     <Text color={"#fffdb8"}><b>Rank</b></Text>
                     </th>
-                    <th style={{ width: "70px" }} scope="col">
+                    <th style={{ width: "5px" }} scope="col">
                     <Text color={"#fffdb8"}><b>Address</b></Text>
                     </th>
                     <th style={{ width: "auto" }} scope="col">
@@ -113,13 +113,13 @@ const LeaderboardPage: React.FC = () => {
                     {leaderboard.length != 0 &&
                         leaderboard.map((addr, index) => (
                         <tr key={index}>
-                            <td style={{ width: "20px" }} >
+                            <td style={{ width: "1px" }} >
                               <Text color="white">{index + 1}</Text>
                             </td>
-                            <td style={{ width: "70px" }}>
+                            <td style={{ width: "5px" }}>
                             <>
                             <a href={"https://etherscan.io/address/"+addr.winner} target="_blank" rel="noreferrer">
-                                {addr.winner?.slice(0, 6)}...${addr.winner?.slice(-6)}
+                                {addr.winner?.slice(0, 4)}...${addr.winner?.slice(-4)}
                             </a>
                               </>
                             </td>
