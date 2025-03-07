@@ -20,8 +20,8 @@ const raffleContractAbi = raffleContractArtifact.abi;
 const IBEP20Artifact =  await import("../assets/IBEP20.json");
 const IBEP20Abi = IBEP20Artifact.abi;
 
-const raffleContractAddress = "0xf2e8Ad186bbD9860AA58FDeA97af858f513ED598";
-const cashBunnyAddress = "0xfefC4fc51924889F788d697e7BC8362F63414B8E";
+const raffleContractAddress = "0xe70195f2da9Dcd4CE982DeF65744e056Da64B728";
+const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 
 const LeaderboardPage: React.FC = () => {
 
