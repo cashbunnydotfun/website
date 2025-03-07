@@ -198,7 +198,7 @@ const LeaderboardPage: React.FC = () => {
                         <td style={{ width: "5%" }}>{index + 1}</td>
                         <td style={{ width: "10%" }}>
                          <>
-                         <a href={"https://etherscan.io/address/"+addr.winner} target="_blank" rel="noreferrer">
+                         <a href={"https://bscscan.com/address/"+addr.winner} target="_blank" rel="noreferrer">
                             {addr.winner?.slice(0, 6)}...${addr.winner?.slice(-6)}
                          </a>
                           </>
