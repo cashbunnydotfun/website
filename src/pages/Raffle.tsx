@@ -213,7 +213,7 @@ const Raffle: React.FC = () => {
         args: [
             numTickets
         ],
-        nonce: currentNonce++,
+        nonce: currentNonce,
         onSuccess(data) {
             setIsPlaying(false);
             toaster.create({
@@ -266,6 +266,7 @@ const Raffle: React.FC = () => {
         abi: faucetContractAbi,
         functionName: "requestTokens",
         args: [],
+        nonce: currentNonce,
         onSuccess(data) {
             setIsRequestingTokens(false);
             toaster.create({
@@ -300,7 +301,7 @@ const Raffle: React.FC = () => {
 
     const handleClickPlay = () => {
         setIsPlaying(true);
-
+        setCurrentNonce(currentNonce++);
         if (Number(formatEther(`${bunnyBalance || 0}`)) < totalTicketPrice) {
             setIsPlaying(false);
             toaster.create({
