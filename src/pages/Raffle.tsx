@@ -45,6 +45,7 @@ import {
     DrawerActionTrigger,
 } from '../components/ui/drawer'; // Ark UI Drawer components
 import ReCAPTCHA from "react-google-recaptcha";
+import {getEthersProvider, getEthersSigner} from "../hooks/clientToProvider";
 
 import { useAccount, useBalance, useContractWrite, useContractRead, usePublicClient } from "wagmi";
 import {ethers } from "ethers";
@@ -53,8 +54,8 @@ import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import useRecaptcha from '../hooks/useRecaptcha';
 
-const { formatEther, parseEther } = ethers.utils;
-const { MaxUint256 } = ethers.constants;
+const { formatEther, parseEther } = ethers;
+const { MaxUint256 } = ethers;
 
 import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
 
@@ -70,6 +71,7 @@ const IBEP20Abi = IBEP20Artifact.abi;
 const raffleContractAddress = "0xe70195f2da9Dcd4CE982DeF65744e056Da64B728";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const faucetContractAddress = "0xFfc581A73815cCA97345F31665A259Ff4cd0C5c3";
+const networkId = 56;
 
 const FaucetControls = ({isLoading, handleRequestTokens, ...props}) => {
     return (
@@ -98,13 +100,51 @@ const Raffle: React.FC = () => {
     // console.log(`Address: ${address} | Connected: ${isConnected} token is ${token}` );
     let [currentNonce, setCurrentNonce] = useState<number | null>(null);
     
-    const enterRaffleUsingEthers = async () => {
-        const signer = publicClient.getSigner();
-        const raffleContract = new ethers.Contract(raffleContractAddress, raffleContractAbi, signer);
-        const tx = await raffleContract.enterRaffle(numTickets);
-        await tx.wait();
-    }
+    const [raffleContract, setRaffleContract] = useState<any>();
+    const [faucetContract, setFaucetContract] = useState<any>();
+    const [tokenContract, setTokenContract] = useState<any>();
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        const fetchContracts = async () => {
+            if (!isConnected || !address) return;
     
+            // const provider = getEthersProvider(networkId);
+            const signer = await getEthersSigner(networkId);
+            console.log({signer})
+            
+            const RaffleContract = new ethers.Contract(
+                raffleContractAddress,
+                raffleContractAbi,
+                signer
+            );
+
+            console.log({RaffleContract});
+
+            const FaucetContract = new ethers.Contract(
+                faucetContractAddress,
+                faucetContractAbi,
+                signer
+            );
+
+            const TokenContract = new ethers.Contract(
+                cashBunnyAddress,
+                IBEP20Abi,
+                signer
+            );
+
+            setRaffleContract(RaffleContract);
+            setFaucetContract(FaucetContract);
+            setTokenContract(TokenContract);
+      };
+
+        fetchContracts();
+        }
+        , 1000);
+        return () => clearInterval(interval);
+    }, [networkId, address, isConnected])
+    
+ 
     useEffect(() => {
       if (!isConnected || !address) return;
   
@@ -141,7 +181,6 @@ const Raffle: React.FC = () => {
         watch: true
     });
 
-    console.log(`Ticket price: ${ticketPrice}`);
     const {
         data: ticketsPerUser
     } = useContractRead({
@@ -183,6 +222,44 @@ const Raffle: React.FC = () => {
     });
 
     const totalTicketPrice = Number(formatEther(`${ticketPrice || 0}`) * numTickets);
+
+    const approveWithTokenContract = async () => {
+        try {
+            console.log({tokenContract});
+            const tx = await tokenContract.approve(raffleContractAddress, MaxUint256);
+            const receipt = await tx.wait();
+            console.log(`Transaction receipt: ${receipt}`);
+
+            setCurrentNonce(currentNonce++);
+            setTimeout(() => {
+                enterRaffleWithRaffleContract();
+              }
+              , 3000);
+        } catch (error) {
+            console.error(`Failed to approve: ${error}`);
+        }
+    } 
+
+    const enterRaffleWithRaffleContract = async () => {
+        try {
+            const tx = await raffleContract.enterRaffle(numTickets);
+            const receipt = await tx.wait();
+            console.log(`Transaction receipt: ${receipt}`);
+            setIsPlaying(false);
+            toaster.create({
+                title: "Success",
+                description: "Thank you for playing!",
+            });  
+        } catch (error) {
+            console.error(`Failed to enter raffle: ${error}`);
+            setIsPlaying(false);
+            toaster.create({
+                title: "Error",
+                description: "Transaction failed",
+            });  
+        }
+    }
+    
     const {
         write: approve
     } = useContractWrite({
@@ -311,7 +388,7 @@ const Raffle: React.FC = () => {
 
     const handleClickPlay = () => {
         setIsPlaying(true);
-        setCurrentNonce(currentNonce++);
+        // setCurrentNonce(currentNonce++);
         if (Number(formatEther(`${bunnyBalance || 0}`)) < totalTicketPrice) {
             setIsPlaying(false);
             toaster.create({
@@ -320,7 +397,7 @@ const Raffle: React.FC = () => {
             });
             return;
         }
-        approve();
+        approveWithTokenContract();
     }
     
     const handleSelectWinners = () => {

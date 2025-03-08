@@ -5,8 +5,8 @@ import { isMobile } from "react-device-detect";
 import { ethers } from "ethers";
 import metamaskLogo from "../assets/images/metamask.svg";
 
-const { parseUnits } = ethers.utils;
-const { Web3Provider } = ethers.providers;
+const { parseUnits } = ethers;
+const { BrowserProvider } = ethers;
 
 const footerFontSize = isMobile ? 10 : 14;
 
@@ -16,7 +16,7 @@ const AddToMetaMaskButton = ({ contractAddress, tokenSymbol, tokenDecimals }) =>
       // Create a provider using MetaMask's injected web3 provider
       if (typeof window.ethereum !== 'undefined') {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const provider = new Web3Provider(window.ethereum);
+        const provider = new BrowserProvider(window.ethereum);
         const signer = provider.getSigner();
 
         // Get the contract interface and ABI (replace with your token's ABI)

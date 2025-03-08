@@ -296,7 +296,7 @@ const Presale: React.FC = () => {
               boxShadow="lg"
             >
             {/* Welcome and Stats Section */}
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+            {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
               <Box 
                 p={2} 
                 // border="1px solid white"
@@ -364,7 +364,7 @@ const Presale: React.FC = () => {
                 </Box>
               </Flex>
               </Box>
-          </SimpleGrid>
+          </SimpleGrid> */}
             <Box w={isMobile?"88%":"auto"} ml={isMobile?5:"52%"} mt={2} >
               <ProgressRoot value={timeLeft != "00:00:00:00" ? progress : null} max={100}  maxW="sm" size="lg">
                 <HStack gap="5">

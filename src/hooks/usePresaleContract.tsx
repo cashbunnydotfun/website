@@ -6,7 +6,7 @@ import config from '../config';
 
 const { environment, presaleContractAddress, providerUrl } = config;
 const { formatEther } = ethers;
-const { JsonRpcProvider } = ethers.providers;
+const { JsonRpcProvider } = ethers;
 
 const usePresaleContract = (network, userAddress, referralCode) => {
 
