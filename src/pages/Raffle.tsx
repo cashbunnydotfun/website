@@ -46,7 +46,7 @@ import {
 } from '../components/ui/drawer'; // Ark UI Drawer components
 import ReCAPTCHA from "react-google-recaptcha";
 
-import { useAccount, useBalance, useContractWrite, useContractRead, useNetwork } from "wagmi";
+import { useAccount, useBalance, useContractWrite, useContractRead, usePublicClient } from "wagmi";
 import {ethers } from "ethers";
 import { isMobile } from "react-device-detect";
 import bnbLogo from "../assets/images/bnb.png";
@@ -87,7 +87,7 @@ const FaucetControls = ({isLoading, handleRequestTokens, ...props}) => {
 }
 
 const Raffle: React.FC = () => {
-    
+    const publicClient = usePublicClient()
     const { address, isConnected } = useAccount();
     // const { chain, chains } = useNetwork()
     const { capchaToken, recaptchaRef, handleRecaptcha } = useRecaptcha();
@@ -96,7 +96,18 @@ const Raffle: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     // console.log(`Address: ${address} | Connected: ${isConnected} token is ${token}` );
+    let [currentNonce, setCurrentNonce] = useState<number | null>(null);
 
+    useEffect(() => {
+      if (!isConnected || !address) return;
+  
+      // getTransactionCount can be called with "latest" or "pending"
+      publicClient.getTransactionCount({address}).then((nonce) => {
+        console.log(`Current nonce: ${nonce}`);
+        setCurrentNonce(nonce);
+      });
+    }, [publicClient, address, isConnected])
+    
     const { 
         data: totalPrizePool
      } = useBalance({
@@ -202,6 +213,7 @@ const Raffle: React.FC = () => {
         args: [
             numTickets
         ],
+        nonce: currentNonce++,
         onSuccess(data) {
             setIsPlaying(false);
             toaster.create({
