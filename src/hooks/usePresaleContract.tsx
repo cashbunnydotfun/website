@@ -1,11 +1,12 @@
 import { useEffect, useState, useMemo, useCallback } from 'react';
-import { ethers, JsonRpcProvider } from "ethers";
+import { ethers } from "ethers";
 import { generateBytes32String } from "../utils";
 
 import config from '../config';
 
 const { environment, presaleContractAddress, providerUrl } = config;
 const { formatEther } = ethers;
+const { JsonRpcProvider } = ethers.providers;
 
 const usePresaleContract = (network, userAddress, referralCode) => {
 
@@ -22,7 +23,6 @@ const usePresaleContract = (network, userAddress, referralCode) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log( process.env.REACT_APP_PROVIDER_URL)
     // Setup Provider
     const provider = useMemo(
         () =>
