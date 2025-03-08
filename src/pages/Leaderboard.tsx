@@ -28,17 +28,26 @@ const LeaderboardPage: React.FC = () => {
     const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
 
     const { 
-        isLoading: isLoadingLeaderboard, 
-        data: winners 
+      isLoading: isLoadingLeaderboard, 
+      data: winners 
     } = useContractRead({
-    address: raffleContractAddress,
-    abi: raffleContractAbi,
-    functionName: "getLeaderboard",
-    onSuccess() {
-      const allWinners = winners as Winner[];
-      setLeaderBoard((allWinners as Winner[]) || []);
-    },
-  });
+      address: raffleContractAddress,
+      abi: raffleContractAbi,
+      functionName: "getLeaderboard",
+      onSuccess(data) {
+        // Cast to your Winner[] type
+        const allWinners = data as Winner[];
+    
+        // Sort by timestamp descending (larger = newer).
+        const sortedWinners = allWinners.slice().sort(
+          (a, b) => Number(b.timestamp) - Number(a.timestamp)
+        );
+    
+        // Update your state with the sorted array
+        setLeaderBoard(sortedWinners);
+      },
+    });
+    
 
   return (
     <Container maxW="container.xl" p={2} >
