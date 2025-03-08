@@ -7,7 +7,7 @@ import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
 import { ethers } from "ethers";
-const { formatEther } = ethers;
+const { formatEther } = ethers.utils;
 
 interface Winner {
   prize: number;

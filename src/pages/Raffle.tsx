@@ -53,8 +53,8 @@ import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import useRecaptcha from '../hooks/useRecaptcha';
 
-const { formatEther, parseEther } = ethers;
-const { MaxUint256 } = ethers;
+const { formatEther, parseEther } = ethers.utils;
+const { MaxUint256 } = ethers.constants;
 
 import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
 
@@ -510,9 +510,7 @@ const Raffle: React.FC = () => {
                             </HStack>
                             </Box>
                             </VStack>
-
                             </DialogBody>
-
                             <DialogCloseTrigger />
                         </DialogContent>
                         </DialogRoot>
