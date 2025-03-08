@@ -58,7 +58,7 @@ export function convertDaysToReadableFormat(days) {
 }
 
 export function formatLargeNumber(num) {
-    num = Number(num); // Convert to number if it's not already
+    num = Number(num).toFixed(4); // Convert to number if it's not already
 
     if (num < 1000) {
         return num.toString(); // Convert the number to string for consistency
