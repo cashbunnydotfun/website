@@ -338,7 +338,7 @@ const Raffle: React.FC = () => {
                 as="section" 
                 borderRadius="2xl" 
                 p={8} 
-                pl={16}
+                pl={isMobile ? 8 : 16}
                 bg="gray.800" 
                 ml={isMobile?5: "20%"}
                 borderColor="gray.700"
