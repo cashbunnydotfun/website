@@ -188,6 +188,7 @@ const Raffle: React.FC = () => {
         ],
         onSuccess(data) {
             // setIsLoading(false);
+            setCurrentNonce(currentNonce++);
             enterRaffle();
         },
         onError(error) {
@@ -315,10 +316,12 @@ const Raffle: React.FC = () => {
     
     const handleSelectWinners = () => {
         console.log("Selecting winners...");
+        setCurrentNonce(currentNonce++);
         selectWinners();
     }
     
     const handleRequestTokens = () => {
+        setCurrentNonce(currentNonce++);
         if (capchaToken) {
             setIsRequestingTokens(true);
             console.log("Requesting tokens...");
