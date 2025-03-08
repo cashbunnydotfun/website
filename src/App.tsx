@@ -2,13 +2,17 @@
 import { Outlet } from "react-router-dom";
 import { LanguageProvider } from "./core/LanguageProvider";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { WagmiConfig } from "wagmi";
+import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { bsc, bscTestnet, localhost } from "viem/chains";
 // import { ToastContainer } from "react-toastify";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "./components/ui/provider"
 import { MenuProvider } from "./hooks/useMenuContext"; // Import the MenuProvider
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { walletConnectProvider } from '@web3modal/wagmi'
+import { publicProvider } from 'wagmi/providers/public'
 
 import React from "react";
 import ReactGA from 'react-ga';
@@ -31,12 +35,25 @@ function App() {
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  const chains = [bsc];
-  const wagmiConfig = defaultWagmiConfig({
-    chains,
-    projectId,
-    metadata,
-  });
+  // const wagmiConfig = defaultWagmiConfig({
+  //   chains,
+  //   projectId,
+  //   metadata,
+  // });
+  const { chains, publicClient } = configureChains([bsc], [
+    walletConnectProvider({ projectId }),
+    publicProvider(),
+  ])
+
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: [
+      new WalletConnectConnector({ chains, options: { projectId, showQrModal: true, metadata } }),
+      new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+      // new CoinbaseWalletConnector({ chains, options: { appName: metadata.name } }),
+    ],
+    publicClient,
+  })
 
   createWeb3Modal({ wagmiConfig, projectId, chains });
 

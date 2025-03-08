@@ -97,7 +97,14 @@ const Raffle: React.FC = () => {
 
     // console.log(`Address: ${address} | Connected: ${isConnected} token is ${token}` );
     let [currentNonce, setCurrentNonce] = useState<number | null>(null);
-
+    
+    const enterRaffleUsingEthers = async () => {
+        const signer = publicClient.getSigner();
+        const raffleContract = new ethers.Contract(raffleContractAddress, raffleContractAbi, signer);
+        const tx = await raffleContract.enterRaffle(numTickets);
+        await tx.wait();
+    }
+    
     useEffect(() => {
       if (!isConnected || !address) return;
   
