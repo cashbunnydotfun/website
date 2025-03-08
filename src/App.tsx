@@ -31,7 +31,7 @@ function App() {
   const metadata = {
     name: "CashBunny",
     description: "First meme coin with real utility",
-    url: "https://web3modal.com",
+    url: "https://cashbunny.fun",
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
