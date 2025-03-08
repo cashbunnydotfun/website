@@ -553,7 +553,7 @@ const Raffle: React.FC = () => {
                         </Box>
                     </VStack>
                 </GridItem>
-                 <GridItem colSpan={1} rowSpan={1} p={4} w="450px"  mt={bunnyBalance > 0 ? "-40px" : "-140px"}>
+                 <GridItem colSpan={1} rowSpan={1} p={4} w="450px"  mt={bunnyBalance > 0 ? "-40px" : isConnected ? "-140px" : "-40px"}>
                     <Text fontSize={"x-large"} color="#fffdb8"><b>Controls</b></Text>
                    <HStack w="450px">
                     <Box w="140px"><Text fontSize="16px"><b>Ticket Price</b></Text></Box>
@@ -660,7 +660,7 @@ const Raffle: React.FC = () => {
 
                       </Box>
                 </GridItem>
-                <GridItem colSpan={1} rowSpan={1} p={4} ml={50}  mt={bunnyBalance > 0 ? "-40px" : "-140px"}>
+                <GridItem colSpan={1} rowSpan={1} p={4} ml={50}  mt={bunnyBalance > 0 ? "-40px" : isConnected ? "-140px" : "-40px"}>
                     <Text fontSize={"x-large"} color="#fffdb8"><b>Statistics</b></Text>
                     <VStack  alignItems={"left"}>
                         <Box>
