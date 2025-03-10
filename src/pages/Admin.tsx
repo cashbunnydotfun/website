@@ -194,7 +194,7 @@ const Admin: React.FC = () => {
                 </Box>
                 <Flex direction="column" p={2}>
                 <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
-                <SimpleGrid columns={4} spacing={1} w="100%">
+                <SimpleGrid columns={4} spacing={1} w="100%" mt={-5}>
                         <Box>
                             <Text fontWeight={"bold"} fontSize="xs">Token Repo</Text>
                         </Box>
@@ -205,7 +205,7 @@ const Admin: React.FC = () => {
                             <Text fontWeight={"bold"} fontSize="xs">Faucet</Text>
                         </Box>
                         <Box>
-                            <Text fontWeight={"bold"} fontSize="xs">Fee Distributor</Text>
+                            <Text fontWeight={"bold"} fontSize="xs">Distributor</Text>
                         </Box>
                         <Box>
                             <Text fontSize="xs"><a style={{fontSize:"xs"}} color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
@@ -285,7 +285,7 @@ const Admin: React.FC = () => {
                   </Box>
                 <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" px={4} py={4}>
                     <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
-                    <SimpleGrid columns={4} spacing={1} w="80%">
+                    <SimpleGrid columns={4} spacing={1} w="80%" mt={-5}>
                         <Box>
                             <Text fontWeight={"bold"}>Token Repo</Text>
                         </Box>
@@ -296,7 +296,7 @@ const Admin: React.FC = () => {
                             <Text fontWeight={"bold"}>Faucet</Text>
                         </Box>
                         <Box>
-                            <Text fontWeight={"bold"}>$BUNNY</Text>
+                            <Text fontWeight={"bold"}>Fee Distributor</Text>
                         </Box>
                         <Box>
                             <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
