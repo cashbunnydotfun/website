@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input } from "@chakra-ui/react";
+import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input, SimpleGrid } from "@chakra-ui/react";
 import { Address, useContractRead, useContractWrite } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
 import bnbLogo from "../assets/images/bnb.png";
@@ -32,6 +32,7 @@ const tokenRepoAbi = tokenRepoArtifact.abi;
 const raffleContractAddress = "0xb0730270f910b0b44f50d325e9368fc660c483a9";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
+const faucetAddress = "0xffc581a73815cca97345f31665a259ff4cd0c5c3";
 
 const Admin: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -39,6 +40,7 @@ const Admin: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [targetAddress, setTargetAddress] = useState("");
     const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
+    const [refillFaucet, setRefillFaucet] = useState(false);
 
     // md5 hash
     const hash = MD5(process.env.REACT_APP_DUMMY_PW || "dummy").toString();
@@ -91,7 +93,7 @@ const Admin: React.FC = () => {
         functionName: "transfer",
         args: [
             cashBunnyAddress,
-            targetAddress,
+            refillFaucet ? faucetAddress : targetAddress,
             "5100000000000000000000",
         ],
         onSuccess(data) {
@@ -189,7 +191,83 @@ const Admin: React.FC = () => {
                         <Box><Text as="h3" color="#fffdb8"></Text></Box>
                     </HStack>
                 </Box>
+                <Flex direction="column" p={2}>
+                <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
+                <SimpleGrid columns={4} spacing={1} w="100%">
+                        <Box>
+                            <Text fontWeight={"bold"} fontSize="xs">Token Repo</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"} fontSize="xs">Raffle</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"} fontSize="xs">Faucet</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"} fontSize="xs">$BUNNY</Text>
+                        </Box>
+                        <Box>
+                            <Text fontSize="xs"><a style={{fontSize:"xs"}} color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
+                            {`${tokenRepoAddress?.slice(0, 2)}...${tokenRepoAddress?.slice(-2)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ raffleContractAddress} target="_blank">
+                            {`${raffleContractAddress?.slice(0, 2)}...${raffleContractAddress?.slice(-2)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ faucetAddress} target="_blank">
+                            {`${faucetAddress?.slice(0, 2)}...${faucetAddress?.slice(-2)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text ><a color="#fffdb8" href={"https://bscscan.com/address/"+ cashBunnyAddress} target="_blank">
+                            {`${cashBunnyAddress?.slice(0, 2)}...${cashBunnyAddress?.slice(-2)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text></Text>
+                        </Box>
+                    </SimpleGrid>                    
+                    <Grid mt={10}>
+                  <GridItem colspan={3} >
+                        <Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text>
+                    </GridItem>
+                    <GridItem colspan={1}>
+                        {convertDaysToReadableFormat(timeLeftToDraw)}
+                    </GridItem>
+                    <GridItem colspan={3}>
+                    <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
+                            {isLoading ? (<Spinner size="sm" />) : "Draw"} 
+                        </Button>
+                    </GridItem>
 
+                    <GridItem mt={10} colspan={3}>
+                        <Text fontWeight={"bold"} color="#fffdb8">Send airdrop</Text>
+                    </GridItem>
+                    <GridItem colspan={1}>
+                        <Input 
+                        placeholder="Enter address" 
+                        w={"300px"} 
+                        h={30} 
+                        onChange={(e) => {
+                            const address = e.target.value;
+                            console.log(address);
+                            if (!isAddress(address)) {
+                                console.log(`Invalid address: ${address}`);
+                                return;
+                            }
+                            setTargetAddress(address);
+                        }}
+                        
+                        />
+                        <Button w="120px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
+                            {isLoading ? (<Spinner size="sm" />) : "Send"} 
+                        </Button>
+                    </GridItem>
+                    </Grid> 
+                </Flex>
 
 
             </Flex>       
@@ -204,10 +282,73 @@ const Admin: React.FC = () => {
                           <Box><Text as="h3" color="#fffdb8"></Text></Box>
                       </HStack>
                   </Box>
-                <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" p={4}>
-                  <Grid columns={3} rows={2}>
-                  <GridItem colspan={3}>
-                        <Text fontWeight={"bold"}>Time left to next draw</Text>
+                <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" px={4} py={4}>
+                    <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
+                    <SimpleGrid columns={4} spacing={1} w="80%">
+                        <Box>
+                            <Text fontWeight={"bold"}>Token Repo</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"}>Raffle</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"}>Faucet</Text>
+                        </Box>
+                        <Box>
+                            <Text fontWeight={"bold"}>$BUNNY</Text>
+                        </Box>
+                        <Box>
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
+                            {`${tokenRepoAddress?.slice(0, 6)}...${tokenRepoAddress?.slice(-6)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ raffleContractAddress} target="_blank">
+                            {`${raffleContractAddress?.slice(0, 6)}...${raffleContractAddress?.slice(-6)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ faucetAddress} target="_blank">
+                            {`${faucetAddress?.slice(0, 6)}...${faucetAddress?.slice(-6)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ cashBunnyAddress} target="_blank">
+                            {`${cashBunnyAddress?.slice(0, 6)}...${cashBunnyAddress?.slice(-6)}`}
+                            </a></Text>
+                        </Box>
+                        <Box>
+                            <Text></Text>
+                        </Box>
+                    </SimpleGrid>
+                  {/* <Grid       
+                    templateRows="repeat(1, 1fr)"
+                    templateColumns="repeat(4, 1fr)"
+                    border="1px solid white"
+                    >
+                    <GridItem colspan={4}>
+                        <Text as="h4" fontWeight={"bold"}>Addresses</Text>
+                    </GridItem>
+                    <br />
+                    <GridItem >
+                        <Text fontWeight={"bold"}>Token Repo</Text>
+                    </GridItem>
+                    <GridItem>
+                        <Text>Test</Text>
+                    </GridItem>
+                    <GridItem>
+                        <Text fontWeight={"bold"}>Raffle</Text>
+                    </GridItem>
+
+                    </Grid> */}
+                    {/* <GridItem colspan={2}>
+                        <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ raffleContractAddress} target="_blank">
+                        {`${raffleContractAddress?.slice(0, 6)}...${raffleContractAddress?.slice(-6)}`}
+                        </a></Text>
+                    </GridItem> */}
+                    <Grid mt={10}>
+                  <GridItem colspan={3} >
+                        <Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text>
                     </GridItem>
                     <GridItem colspan={1}>
                         {convertDaysToReadableFormat(timeLeftToDraw)}
@@ -218,8 +359,8 @@ const Admin: React.FC = () => {
                         </Button>
                     </GridItem>
 
-                    <GridItem mt={5} colspan={3}>
-                        <Text fontWeight={"bold"}>Send airdrop</Text>
+                    <GridItem mt={10} colspan={3}>
+                        <Text fontWeight={"bold"} color="#fffdb8">Send airdrop</Text>
                     </GridItem>
                     <GridItem colspan={1}>
                         <Input 
