@@ -7,6 +7,7 @@ import HomePage from "./pages/Home";
 import Presale from "./pages/Presale";
 import Raffle from "./pages/Raffle";
 import LeaderBoard from "./pages/Leaderboard";
+import Admin from "./pages/Admin";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
       {
         path: "/leaderboard",
         element: <LeaderBoard />,
-      }
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+      },
       // {
       //   path: "/presale",
       //   element: <Presale />,
