@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input, SimpleGrid } from "@chakra-ui/react";
 import { Address, useContractRead, useContractWrite } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
-import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
 import { ethers, parseEther } from "ethers";
@@ -12,6 +11,7 @@ import Header from "../components/Header";
 import { send } from "react-ga";
 import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
 import { Toaster, toaster } from "../components/ui/toaster";
+import bnbLogo from "../assets/images/bnb.png";
 
 const { formatEther, isAddress } = ethers;
 
@@ -321,6 +321,34 @@ const Admin: React.FC = () => {
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
                     </GridItem>
+                    <GridItem mt={10} colspan={3}>
+                        <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
+                    </GridItem>                            
+                    <GridItem>
+                        <Input 
+                            placeholder="Enter amount" 
+                            w={"150px"} 
+                            h={30} 
+                            onChange={(e) => {
+                                const amount = e.target.value;
+                                console.log(amount);
+                                if (Number(amount) > 100000) {
+                                    console.log(`Invalid amount`);
+                                    return;
+                                }
+                                setTxAmount(Number(amount));
+                            }}
+                            
+                            />
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSell()}>
+                            {isLoading ? (<Spinner size="sm" />) : "Sell"} 
+                        </Button>     
+                        <HStack mt={5}>
+                            <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
+                            <Box><Text fontSize="xs">{commify(formatEther(`${feeDistributorBunnyBalance || 0}`), 4)} ($BUNNY)</Text></Box>
+                            <Box><Image src={bunnyLogo} w="15px" /></Box>   
+                        </HStack>              
+                    </GridItem>
                     </Grid> 
                 </Flex>
 
@@ -419,18 +447,18 @@ const Admin: React.FC = () => {
                     </GridItem>
                     <GridItem colspan={1}>
                         <Input 
-                        placeholder="Enter address" 
-                        w={"450px"} 
-                        h={30} 
-                        onChange={(e) => {
-                            const address = e.target.value;
-                            console.log(address);
-                            if (!isAddress(address)) {
-                                console.log(`Invalid address: ${address}`);
-                                return;
-                            }
-                            setTargetAddress(address);
-                        }}
+                            placeholder="Enter address" 
+                            w={"450px"} 
+                            h={30} 
+                            onChange={(e) => {
+                                const address = e.target.value;
+                                console.log(address);
+                                if (!isAddress(address)) {
+                                    console.log(`Invalid address: ${address}`);
+                                    return;
+                                }
+                                setTargetAddress(address);
+                            }}
                         
                         />
                         <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
@@ -458,7 +486,12 @@ const Admin: React.FC = () => {
                             />
                         <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
-                        </Button>                        
+                        </Button>     
+                        <HStack mt={5}>
+                            <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
+                            <Box><Text fontSize="xs">{commify(formatEther(`${feeDistributorBunnyBalance || 0}`), 4)} ($BUNNY)</Text></Box>
+                            <Box><Image src={bunnyLogo} w="15px" /></Box>   
+                        </HStack>              
                     </GridItem>
                     </Grid>                 
                 </Box>
