@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input, SimpleGrid } from "@chakra-ui/react";
-import { Address, useContractRead, useContractWrite } from "wagmi";
+import { Address, useAccount, useContractRead, useContractWrite } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
@@ -37,10 +37,12 @@ const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
 const faucetAddress = "0xffc581a73815cca97345f31665a259ff4cd0c5c3";
 const feeDistributor = "0xb9032B12F2738AdE7E1Eb5FC8a71E1bA820916a6";
+const bannedAddress = "0xEB66E7479555AaE66c2fAcE93443d8f1c7c547B3";
 
 const Admin: React.FC = () => {
     const [searchParams] = useSearchParams();
     const secret = searchParams.get("s") || ""; // Fallback to empty string
+    const { address, isConnected } = useAccount();
 
     const [isLoading, setIsLoading] = useState(false);
     const [targetAddress, setTargetAddress] = useState("");
@@ -340,7 +342,7 @@ const Admin: React.FC = () => {
                             }}
                             
                             />
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSell()}>
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress} onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
                         </Button>     
                         <HStack mt={5}>
@@ -484,7 +486,7 @@ const Admin: React.FC = () => {
                             }}
                             
                             />
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSell()}>
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress}  onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
                         </Button>     
                         <HStack mt={5}>
