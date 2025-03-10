@@ -189,7 +189,7 @@ interface StatsCardProps {
           >
             <StatsCard
               title={'Weekly Prize Entry Requirements'} 
-              stat={"To enter CashBunny's exciting weekly prize draws, here’s what you need: Hold at least $100 in BUNNY in your wallet to qualify."}/>
+              stat={"To enter CashBunny's exciting weekly prize draws, here’s what you need: Hold at least 2500 BUNNY in your wallet to qualify."}/>
             <StatsCard 
               title={'Safe and sound'} 
               stat={"Pay a 2,500 BUNNY entry fee – which will be automatically burned! ♻️ This deflationary feature means each entry reduces the total BUNNY supply, helping increase value over time."}/> 
