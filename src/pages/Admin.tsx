@@ -101,7 +101,7 @@ const Admin: React.FC = () => {
         args: [
             cashBunnyAddress,
             targetAddress,
-            "10150000000000000000000",
+            "5100000000000000000000",
         ],
         onSuccess(data) {
             setIsLoading(false);
