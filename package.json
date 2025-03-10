@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.5",
     "@web3modal/wagmi": "^3.5.7",
     "axios": "^1.6.7",
+    "crypto-js": "^4.2.0",
     "ethers": "^6.13.5",
     "framer-motion": "^11.0.28",
     "localforage": "^1.10.0",
