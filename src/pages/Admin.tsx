@@ -50,7 +50,7 @@ const Admin: React.FC = () => {
             <>
             <Container maxW="container.xl" p={2} >
                 <Box 
-                    ml={"20%"}  
+                    ml={isMobile ? 0 : "20%"}  
                     w={"80%"} 
                     color="white" 
                     display="flex"
