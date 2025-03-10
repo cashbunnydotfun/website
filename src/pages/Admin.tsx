@@ -5,7 +5,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
-import { ethers } from "ethers";
+import { ethers, parseEther } from "ethers";
 import MD5 from "crypto-js/md5";
 import { useSearchParams } from "react-router-dom"; // Import useSearchParams
 import Header from "../components/Header";
@@ -29,6 +29,9 @@ const IBEP20Abi = IBEP20Artifact.abi;
 const tokenRepoArtifact =  await import("../assets/TokenRepo.json");
 const tokenRepoAbi = tokenRepoArtifact.abi;
 
+const feeDistributorArtifact =  await import("../assets/FeeDistributor.json");
+const feeDistributorAbi = feeDistributorArtifact.abi;
+
 const raffleContractAddress = "0xb0730270f910b0b44f50d325e9368fc660c483a9";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
@@ -38,11 +41,13 @@ const feeDistributor = "0xb9032B12F2738AdE7E1Eb5FC8a71E1bA820916a6";
 const Admin: React.FC = () => {
     const [searchParams] = useSearchParams();
     const secret = searchParams.get("s") || ""; // Fallback to empty string
+
     const [isLoading, setIsLoading] = useState(false);
     const [targetAddress, setTargetAddress] = useState("");
     const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
     const [refillFaucet, setRefillFaucet] = useState(false);
-
+    const [txAmount, setTxAmount] = useState(0);
+    
     // md5 hash
     const hash = MD5(process.env.REACT_APP_DUMMY_PW || "dummy").toString();
 
@@ -76,6 +81,18 @@ const Admin: React.FC = () => {
         );
     }
     
+    const {
+        data: feeDistributorBunnyBalance,
+    } = useContractRead({
+        address: cashBunnyAddress,
+        abi: IBEP20Abi,
+        functionName: "balanceOf",
+        args: [feeDistributor],
+        watch: true,
+    });
+
+    console.log(`Fee distributor ${formatEther(`${feeDistributorBunnyBalance || 0}`)}`)
+
     let {
         data: timeLeftToDraw,
         refetch: refetchTimeLeftToDraw,
@@ -109,7 +126,7 @@ const Admin: React.FC = () => {
             setIsLoading(false);
             console.log("transaction error");
             const msg = error.message.indexOf("Token already transferred") > -1 ? "Already distributed tokens to this address" : 
-            error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
+            error.message.indexOf("Only owner") > -1 ? "Not authorized 🚫" : 
             error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
 
             toaster.create({
@@ -149,6 +166,38 @@ const Admin: React.FC = () => {
         }
     });
 
+    //handleSwapAmtAndDistribute
+
+    const {
+        write: handleSwapAmtAndDistribute
+    } = useContractWrite({
+        address: feeDistributor,
+        abi: feeDistributorAbi,
+        functionName: "handleSwapAmtAndDistribute",
+        args: [parseEther(`${txAmount}`)],
+        onSuccess(data) {
+            setIsLoading(false);
+            console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Fees distributed successfully",
+            });  
+        },
+        onError(error) {
+            setIsLoading(false);
+            console.log("transaction error");
+            const msg = error.message.indexOf("Caller is not authorized") > -1 ? "Not authorized 🚫" : 
+            error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
+            error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
+
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });  
+            
+        }
+    });
+
     const handleClickSendAirdrop = async () => {
         setIsLoading(true);
         sendAirdrop();
@@ -157,6 +206,11 @@ const Admin: React.FC = () => {
     const handleClickDraw = async () => {
         setIsLoading(true);
         draw();
+    }
+
+    const handleClickSell = async () => {
+        setIsLoading(true);
+        handleSwapAmtAndDistribute();
     }
 
     timeLeftToDraw = Number(`${timeLeftToDraw || 0}`) / 86400;
@@ -314,8 +368,8 @@ const Admin: React.FC = () => {
                             </a></Text>
                         </Box>
                         <Box>
-                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ cashBunnyAddress} target="_blank">
-                            {`${cashBunnyAddress?.slice(0, 6)}...${cashBunnyAddress?.slice(-6)}`}
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ feeDistributor} target="_blank">
+                            {`${feeDistributor?.slice(0, 6)}...${feeDistributor?.slice(-6)}`}
                             </a></Text>
                         </Box>
                         <Box>
@@ -382,6 +436,29 @@ const Admin: React.FC = () => {
                         <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
+                    </GridItem>
+                    <GridItem mt={10} colspan={3}>
+                        <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
+                    </GridItem>                            
+                    <GridItem>
+                        <Input 
+                            placeholder="Enter amount" 
+                            w={"150px"} 
+                            h={30} 
+                            onChange={(e) => {
+                                const amount = e.target.value;
+                                console.log(amount);
+                                if (Number(amount) > 100000) {
+                                    console.log(`Invalid amount`);
+                                    return;
+                                }
+                                setTxAmount(Number(amount));
+                            }}
+                            
+                            />
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSell()}>
+                            {isLoading ? (<Spinner size="sm" />) : "Sell"} 
+                        </Button>                        
                     </GridItem>
                     </Grid>                 
                 </Box>
