@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input } from "@chakra-ui/react";
 import { Address, useContractRead, useContractWrite } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
-import { commify } from "../utils";
 import bnbLogo from "../assets/images/bnb.png";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
@@ -11,6 +10,8 @@ import MD5 from "crypto-js/md5";
 import { useSearchParams } from "react-router-dom"; // Import useSearchParams
 import Header from "../components/Header";
 import { send } from "react-ga";
+import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
+import { Toaster, toaster } from "../components/ui/toaster";
 
 const { formatEther, isAddress } = ethers;
 
@@ -28,7 +29,7 @@ const IBEP20Abi = IBEP20Artifact.abi;
 const tokenRepoArtifact =  await import("../assets/TokenRepo.json");
 const tokenRepoAbi = tokenRepoArtifact.abi;
 
-const raffleContractAddress = "0x1D8b5c93E50C5971A63D5951E3dF55c66737AF8B";
+const raffleContractAddress = "0xb0730270f910b0b44f50d325e9368fc660c483a9";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
 
@@ -37,9 +38,11 @@ const Admin: React.FC = () => {
     const secret = searchParams.get("s") || ""; // Fallback to empty string
     const [isLoading, setIsLoading] = useState(false);
     const [targetAddress, setTargetAddress] = useState("");
+    const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
+
     // md5 hash
     const hash = MD5(process.env.REACT_APP_DUMMY_PW || "dummy").toString();
-    console.log(hash);
+
     if (secret !== hash) {
         return (
             <>
@@ -69,27 +72,15 @@ const Admin: React.FC = () => {
             </>
         );
     }
-    const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
-
-    const { 
-      isLoading: isLoadingLeaderboard, 
-      data: winners 
+    
+    let {
+        data: timeLeftToDraw,
+        refetch: refetchTimeLeftToDraw,
     } = useContractRead({
-      address: raffleContractAddress,
-      abi: raffleContractAbi,
-      functionName: "getLeaderboard",
-      onSuccess(data) {
-        // Cast to your Winner[] type
-        const allWinners = data as Winner[];
-    
-        // Sort by timestamp descending (larger = newer).
-        const sortedWinners = allWinners.slice().sort(
-          (a, b) => Number(b.timestamp) - Number(a.timestamp)
-        );
-    
-        // Update your state with the sorted array
-        setLeaderBoard(sortedWinners);
-      },
+        address: raffleContractAddress,
+        abi: raffleContractAbi,
+        functionName: "getTimeLeftToDraw",
+        watch: true,
     });
     
     const {
@@ -106,6 +97,10 @@ const Admin: React.FC = () => {
         onSuccess(data) {
             setIsLoading(false);
             console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Tokens transferred successfully",
+            });  
         },
         onError(error) {
             setIsLoading(false);
@@ -114,9 +109,39 @@ const Admin: React.FC = () => {
             error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
             error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
 
-            alert(msg);
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });  
+            
+        }
+    });
 
+    const {
+        write: draw,
+    } = useContractWrite({
+        address: raffleContractAddress,
+        abi: raffleContractAbi,
+        functionName: "selectWinners",
+        onSuccess(data) {
+            setIsLoading(false);
+            console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Draw successful",
+            });  
+        },
+        onError(error) {
+            setIsLoading(false);
+            console.log("transaction error");
+            const msg = error.message.indexOf("RaffleNotDueYet") > -1 ? "Raffle not due yet." : 
+            error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
+            error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
 
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });  
             
         }
     });
@@ -126,8 +151,16 @@ const Admin: React.FC = () => {
         sendAirdrop();
     }
 
+    const handleClickDraw = async () => {
+        setIsLoading(true);
+        draw();
+    }
+
+    timeLeftToDraw = Number(`${timeLeftToDraw || 0}`) / 86400;
+
   return (
     <Container maxW="container.xl" p={2} >
+        <Toaster />
         <Box 
             w={isMobile ? "90%" : "80%"}
             color="white"
@@ -173,13 +206,25 @@ const Admin: React.FC = () => {
                   </Box>
                 <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" p={4}>
                   <Grid columns={3} rows={2}>
+                  <GridItem colspan={3}>
+                        <Text fontWeight={"bold"}>Time left to next draw</Text>
+                    </GridItem>
+                    <GridItem colspan={1}>
+                        {convertDaysToReadableFormat(timeLeftToDraw)}
+                    </GridItem>
                     <GridItem colspan={3}>
+                    <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
+                            {isLoading ? (<Spinner size="sm" />) : "Draw"} 
+                        </Button>
+                    </GridItem>
+
+                    <GridItem mt={5} colspan={3}>
                         <Text fontWeight={"bold"}>Send airdrop</Text>
                     </GridItem>
                     <GridItem colspan={1}>
                         <Input 
                         placeholder="Enter address" 
-                        w={"280px"} 
+                        w={"450px"} 
                         h={30} 
                         onChange={(e) => {
                             const address = e.target.value;
@@ -203,7 +248,7 @@ const Admin: React.FC = () => {
           )}
       </Box>
 
-      {isLoadingLeaderboard && (
+      {isLoading && (
         <Box className="loader">
           <Spinner
             size="lg"
