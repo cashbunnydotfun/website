@@ -2,17 +2,13 @@
 import { Outlet } from "react-router-dom";
 import { LanguageProvider } from "./core/LanguageProvider";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { WagmiConfig, createConfig, configureChains } from "wagmi";
+import { WagmiConfig } from "wagmi";
 import { bsc, bscTestnet, localhost } from "viem/chains";
 // import { ToastContainer } from "react-toastify";
 import { switchNetwork, watchNetwork } from "wagmi/actions";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "./components/ui/provider"
 import { MenuProvider } from "./hooks/useMenuContext"; // Import the MenuProvider
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { walletConnectProvider } from '@web3modal/wagmi'
-import { publicProvider } from 'wagmi/providers/public'
 
 import React from "react";
 import ReactGA from 'react-ga';
@@ -31,29 +27,16 @@ function App() {
   const metadata = {
     name: "CashBunny",
     description: "First meme coin with real utility",
-    url: "https://cashbunny.fun",
+    url: "https://web3modal.com",
     icons: ["https://avatars.githubusercontent.com/u/37784886"],
   };
 
-  // const wagmiConfig = defaultWagmiConfig({
-  //   chains,
-  //   projectId,
-  //   metadata,
-  // });
-  const { chains, publicClient } = configureChains([bsc], [
-    walletConnectProvider({ projectId }),
-    publicProvider(),
-  ])
-
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors: [
-      new WalletConnectConnector({ chains, options: { projectId, showQrModal: true, metadata } }),
-      new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-      // new CoinbaseWalletConnector({ chains, options: { appName: metadata.name } }),
-    ],
-    publicClient,
-  })
+  const chains = [bsc];
+  const wagmiConfig = defaultWagmiConfig({
+    chains,
+    projectId,
+    metadata,
+  });
 
   createWeb3Modal({ wagmiConfig, projectId, chains });
 
