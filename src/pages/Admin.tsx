@@ -33,6 +33,7 @@ const raffleContractAddress = "0xb0730270f910b0b44f50d325e9368fc660c483a9";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
 const faucetAddress = "0xffc581a73815cca97345f31665a259ff4cd0c5c3";
+const feeDistributor = "0xb9032B12F2738AdE7E1Eb5FC8a71E1bA820916a6";
 
 const Admin: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -50,7 +51,7 @@ const Admin: React.FC = () => {
             <>
             <Container maxW="container.xl" p={2} >
                 <Box 
-                    ml={isMobile ? 0 : "20%"}  
+                    ml={isMobile ? "10%" : "20%"}  
                     w={"80%"} 
                     color="white" 
                     display="flex"
@@ -177,7 +178,7 @@ const Admin: React.FC = () => {
             borderRadius="2xl" 
             p={isMobile ? 2 : 8} 
             bg="gray.800" 
-            ml={isMobile?5: "20%"}
+            ml={isMobile? 5 : "20%"}
             borderColor="gray.700"
         >
           {isMobile ? (
@@ -204,7 +205,7 @@ const Admin: React.FC = () => {
                             <Text fontWeight={"bold"} fontSize="xs">Faucet</Text>
                         </Box>
                         <Box>
-                            <Text fontWeight={"bold"} fontSize="xs">$BUNNY</Text>
+                            <Text fontWeight={"bold"} fontSize="xs">Fee Distributor</Text>
                         </Box>
                         <Box>
                             <Text fontSize="xs"><a style={{fontSize:"xs"}} color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
@@ -222,8 +223,8 @@ const Admin: React.FC = () => {
                             </a></Text>
                         </Box>
                         <Box>
-                            <Text ><a color="#fffdb8" href={"https://bscscan.com/address/"+ cashBunnyAddress} target="_blank">
-                            {`${cashBunnyAddress?.slice(0, 2)}...${cashBunnyAddress?.slice(-2)}`}
+                            <Text ><a color="#fffdb8" href={"https://bscscan.com/address/"+ feeDistributor} target="_blank">
+                            {`${feeDistributor?.slice(0, 2)}...${feeDistributor?.slice(-2)}`}
                             </a></Text>
                         </Box>
                         <Box>
