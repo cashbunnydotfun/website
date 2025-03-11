@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Grid, GridItem, Input, SimpleGrid } from "@chakra-ui/react";
-import { Address, useAccount, useContractRead, useContractWrite } from "wagmi";
+import { Address, useAccount, useBalance, useContractRead, useContractWrite } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
 import bunnyLogo from "../assets/images/logo-clean-200x200.png";
 import { isMobile } from "react-device-detect";
@@ -94,7 +94,13 @@ const Admin: React.FC = () => {
             </>
         );
     }
-    
+
+    const { 
+        data: totalPrizePool
+     } = useBalance({
+        address: raffleContractAddress,
+    });
+
     const {
         data: feeDistributorBunnyBalance,
     } = useContractRead({
@@ -386,6 +392,18 @@ const Admin: React.FC = () => {
                             <Box>{Number(`${totalParticipants || 0}`)}</Box>
                         </VStack>
                     </Box>
+                    <Box mt={2}>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Balance</Text></Box>
+                            <Box>
+                                <HStack>
+                                    <Box>{commify(Number(`${totalPrizePool?.formatted || 0}`))}</Box>
+                                    <Box> <Image src={bnbLogo} w="20px"></Image></Box>
+                                    <Box> <Text fontSize="sm">(BNB)</Text></Box>
+                                </HStack>
+                            </Box>
+                        </VStack>
+                    </Box>
                     </SimpleGrid>
                   {/* <GridItem colspan={3} >
                         <Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text>
@@ -540,7 +558,7 @@ const Admin: React.FC = () => {
                             <Text></Text>
                         </Box>
                     </SimpleGrid>
-                    <SimpleGrid columns={3} spacing={1} w="80%" mt={10}>
+                    <SimpleGrid columns={4} spacing={1} w="90%" mt={10}>
                     <Box>
                         <VStack alignItems={"left"}>
                             <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text></Box>
@@ -558,10 +576,22 @@ const Admin: React.FC = () => {
                             <Box>{Number(`${totalTickets || 0}`)}</Box>
                         </VStack>
                     </Box>
-                    <Box ml={-20}>
+                    <Box ml={-10}>
                         <VStack alignItems={"left"}>
                             <Box><Text color="#fffdb8" fontWeight={"bold"}>Total participants</Text></Box>
                             <Box>{Number(`${totalParticipants || 0}`)}</Box>
+                        </VStack>
+                    </Box>
+                    <Box ml={-10}>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Balance</Text></Box>
+                            <Box>
+                                <HStack>
+                                    <Box>{commify(Number(`${totalPrizePool?.formatted || 0}`))}</Box>
+                                    <Box> <Image src={bnbLogo} w="20px"></Image></Box>
+                                    <Box> <Text fontSize="sm">(BNB)</Text></Box>
+                                </HStack>
+                            </Box>
                         </VStack>
                     </Box>
                     </SimpleGrid>
