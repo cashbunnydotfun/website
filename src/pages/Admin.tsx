@@ -49,7 +49,8 @@ const Admin: React.FC = () => {
     const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
     const [refillFaucet, setRefillFaucet] = useState(false);
     const [txAmount, setTxAmount] = useState(0);
-    
+    const [isClearing, setIsClearing] = useState(false);
+
     // md5 hash
     const hash = MD5(process.env.REACT_APP_DUMMY_PW || "dummy").toString();
 
@@ -200,6 +201,36 @@ const Admin: React.FC = () => {
         }
     });
 
+    const {
+        write: clearBlacklist
+    } = useContractWrite({
+        address: tokenRepoAddress,
+        abi: tokenRepoAbi,
+        functionName: "clearBlacklist",
+        args: [cashBunnyAddress],
+        onSuccess(data) {
+            setIsClearing(false);
+            console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Blacklist cleared successfully",
+            });  
+        },
+        onError(error) {
+            setIsClearing(false);
+            console.log("transaction error");
+            const msg = error.message.indexOf("Caller is not authorized") > -1 ? "Not authorized 🚫" : 
+            error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
+            error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
+
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });  
+            
+        }
+    });
+
     const handleClickSendAirdrop = async () => {
         setIsLoading(true);
         sendAirdrop();
@@ -213,6 +244,11 @@ const Admin: React.FC = () => {
     const handleClickSell = async () => {
         setIsLoading(true);
         handleSwapAmtAndDistribute();
+    }
+
+    const handleClickClearBlacklist = async () => {
+        setIsClearing(true);
+        clearBlacklist();
     }
 
     timeLeftToDraw = Number(`${timeLeftToDraw || 0}`) / 86400;
@@ -252,32 +288,32 @@ const Admin: React.FC = () => {
                 <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
                 <SimpleGrid columns={4} spacing={1} w="100%" mt={-5}>
                         <Box>
-                            <Text fontWeight={"bold"} fontSize="xs">Token Repo</Text>
-                        </Box>
-                        <Box>
                             <Text fontWeight={"bold"} fontSize="xs">Raffle</Text>
                         </Box>
-                        <Box>
+                        <Box ml={-2}>
                             <Text fontWeight={"bold"} fontSize="xs">Faucet</Text>
                         </Box>
+                        <Box ml={-2}>
+                            <Text fontWeight={"bold"} fontSize="xs">Token Repo</Text>
+                        </Box>                       
                         <Box>
                             <Text fontWeight={"bold"} fontSize="xs">Distributor</Text>
-                        </Box>
-                        <Box>
-                            <Text fontSize="xs"><a style={{fontSize:"xs"}} color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
-                            {`${tokenRepoAddress?.slice(0, 2)}...${tokenRepoAddress?.slice(-2)}`}
-                            </a></Text>
                         </Box>
                         <Box>
                             <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ raffleContractAddress} target="_blank">
                             {`${raffleContractAddress?.slice(0, 2)}...${raffleContractAddress?.slice(-2)}`}
                             </a></Text>
                         </Box>
-                        <Box>
+                        <Box ml={-2}>
                             <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ faucetAddress} target="_blank">
                             {`${faucetAddress?.slice(0, 2)}...${faucetAddress?.slice(-2)}`}
                             </a></Text>
                         </Box>
+                        <Box  ml={-2}>
+                            <Text fontSize="xs"><a style={{fontSize:"xs"}} color="#fffdb8" href={"https://bscscan.com/address/"+ tokenRepoAddress} target="_blank">
+                            {`${tokenRepoAddress?.slice(0, 2)}...${tokenRepoAddress?.slice(-2)}`}
+                            </a></Text>
+                        </Box>                        
                         <Box>
                             <Text ><a color="#fffdb8" href={"https://bscscan.com/address/"+ feeDistributor} target="_blank">
                             {`${feeDistributor?.slice(0, 2)}...${feeDistributor?.slice(-2)}`}
@@ -295,7 +331,7 @@ const Admin: React.FC = () => {
                         {convertDaysToReadableFormat(timeLeftToDraw)}
                     </GridItem>
                     <GridItem colspan={3}>
-                    <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
+                    <Button w="140px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
                             {isLoading ? (<Spinner size="sm" />) : "Draw"} 
                         </Button>
                     </GridItem>
@@ -319,9 +355,12 @@ const Admin: React.FC = () => {
                         }}
                         
                         />
-                        <Button w="120px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
+                        <Button w="140px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
+                        <Button mt={2} w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
+                            {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                        </Button>                        
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
@@ -342,7 +381,7 @@ const Admin: React.FC = () => {
                             }}
                             
                             />
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress} onClick={() => handleClickSell()}>
+                        <Button w="140px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress} onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
                         </Button>     
                         <HStack mt={5}>
@@ -465,6 +504,9 @@ const Admin: React.FC = () => {
                         />
                         <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
+                        </Button>
+                        <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
+                            {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
                         </Button>
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
