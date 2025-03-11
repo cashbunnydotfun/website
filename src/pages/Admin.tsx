@@ -243,6 +243,14 @@ const Admin: React.FC = () => {
 
     const handleClickSell = async () => {
         setIsLoading(true);
+        if (txAmount == 0 || txAmount > 100000) {
+            console.log(`Invalid amount`);
+            toaster.create({
+                title: "Error",
+                description: "Invalid amount",
+            });
+            return;
+        }
         handleSwapAmtAndDistribute();
     }
 
