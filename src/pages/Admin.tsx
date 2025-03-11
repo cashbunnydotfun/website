@@ -8,7 +8,7 @@ import { ethers, parseEther } from "ethers";
 import MD5 from "crypto-js/md5";
 import { useSearchParams } from "react-router-dom"; // Import useSearchParams
 import Header from "../components/Header";
-import { send } from "react-ga";
+import { send, set } from "react-ga";
 import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
 import { Toaster, toaster } from "../components/ui/toaster";
 import bnbLogo from "../assets/images/bnb.png";
@@ -243,12 +243,14 @@ const Admin: React.FC = () => {
 
     const handleClickSell = async () => {
         setIsLoading(true);
+        console.log(`Tx amount is ${txAmount} cond ${Number(txAmount) > 100000}`);
         if (txAmount == 0 || txAmount > 100000) {
             console.log(`Invalid amount`);
             toaster.create({
                 title: "Error",
-                description: "Invalid amount",
+                description: "Invalid amount, max 100,000",
             });
+            setIsLoading(false);
             return;
         }
         handleSwapAmtAndDistribute();
@@ -380,12 +382,8 @@ const Admin: React.FC = () => {
                             h={30} 
                             onChange={(e) => {
                                 const amount = e.target.value;
-                                console.log(amount);
-                                if (Number(amount) > 100000) {
-                                    console.log(`Invalid amount`);
-                                    return;
-                                }
-                                setTxAmount(Number(amount));
+                                console.log(`Amount is ${amount}`);
+                                setTxAmount(amount);
                             }}
                             
                             />
@@ -527,12 +525,7 @@ const Admin: React.FC = () => {
                             h={30} 
                             onChange={(e) => {
                                 const amount = e.target.value;
-                                console.log(amount);
-                                if (Number(amount) > 100000) {
-                                    console.log(`Invalid amount`);
-                                    return;
-                                }
-                                setTxAmount(Number(amount));
+                                setTxAmount(amount);
                             }}
                             
                             />
