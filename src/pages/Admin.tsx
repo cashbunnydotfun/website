@@ -118,6 +118,24 @@ const Admin: React.FC = () => {
     });
     
     const {
+        data: totalTickets
+    } = useContractRead({
+        address: raffleContractAddress,
+        abi: raffleContractAbi,
+        functionName: "getTotalTickets",
+        watch: true,
+    });
+
+    const {
+        data: totalParticipants
+    } = useContractRead({
+        address: raffleContractAddress,
+        abi: raffleContractAbi,
+        functionName: "getTotalParticipants",
+        watch: true,
+    });
+
+    const {
         write: sendAirdrop,
     } = useContractWrite({
         address: tokenRepoAddress,
@@ -344,8 +362,32 @@ const Admin: React.FC = () => {
                             <Text></Text>
                         </Box>
                     </SimpleGrid>                    
-                    <Grid mt={10}>
-                  <GridItem colspan={3} >
+                    <SimpleGrid columns={1} spacing={1} w="80%" mt={10}>
+                    <Box>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text></Box>
+                            <Box> {convertDaysToReadableFormat(timeLeftToDraw)}</Box>
+                            <Box>
+                            <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
+                                {isLoading ? (<Spinner size="sm" />) : "Draw"} 
+                            </Button>
+                            </Box>
+                        </VStack>
+                    </Box>
+                    <Box mt={5}>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Total tickets</Text></Box>
+                            <Box>{Number(`${totalTickets || 0}`)}</Box>
+                        </VStack>
+                    </Box>
+                    <Box mt={2}>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Total participants</Text></Box>
+                            <Box>{Number(`${totalParticipants || 0}`)}</Box>
+                        </VStack>
+                    </Box>
+                    </SimpleGrid>
+                  {/* <GridItem colspan={3} >
                         <Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text>
                     </GridItem>
                     <GridItem colspan={1}>
@@ -355,9 +397,9 @@ const Admin: React.FC = () => {
                     <Button w="140px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
                             {isLoading ? (<Spinner size="sm" />) : "Draw"} 
                         </Button>
-                    </GridItem>
-
-                    <GridItem mt={10} colspan={3}>
+                    </GridItem> */}
+                    <Grid mt={2}>
+                    <GridItem mt={5} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Send airdrop</Text>
                     </GridItem>
                     <GridItem colspan={1}>
@@ -498,43 +540,37 @@ const Admin: React.FC = () => {
                             <Text></Text>
                         </Box>
                     </SimpleGrid>
-                  {/* <Grid       
-                    templateRows="repeat(1, 1fr)"
-                    templateColumns="repeat(4, 1fr)"
-                    border="1px solid white"
-                    >
-                    <GridItem colspan={4}>
-                        <Text as="h4" fontWeight={"bold"}>Addresses</Text>
-                    </GridItem>
-                    <br />
-                    <GridItem >
-                        <Text fontWeight={"bold"}>Token Repo</Text>
-                    </GridItem>
-                    <GridItem>
-                        <Text>Test</Text>
-                    </GridItem>
-                    <GridItem>
-                        <Text fontWeight={"bold"}>Raffle</Text>
-                    </GridItem>
-
-                    </Grid> */}
-                    {/* <GridItem colspan={2}>
-                        <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ raffleContractAddress} target="_blank">
-                        {`${raffleContractAddress?.slice(0, 6)}...${raffleContractAddress?.slice(-6)}`}
-                        </a></Text>
-                    </GridItem> */}
-                    <Grid mt={10}>
-                  <GridItem colspan={3} >
-                        <Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text>
-                    </GridItem>
-                    <GridItem colspan={1}>
-                        {convertDaysToReadableFormat(timeLeftToDraw)}
-                    </GridItem>
-                    <GridItem colspan={3}>
+                    <SimpleGrid columns={3} spacing={1} w="80%" mt={10}>
+                    <Box>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next draw</Text></Box>
+                            <Box> {convertDaysToReadableFormat(timeLeftToDraw)}</Box>
+                            <Box>
+                            <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
+                                {isLoading ? (<Spinner size="sm" />) : "Draw"} 
+                            </Button>
+                            </Box>
+                        </VStack>
+                    </Box>
+                    <Box>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Total tickets</Text></Box>
+                            <Box>{Number(`${totalTickets || 0}`)}</Box>
+                        </VStack>
+                    </Box>
+                    <Box>
+                        <VStack alignItems={"left"}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Total participants</Text></Box>
+                            <Box>{Number(`${totalParticipants || 0}`)}</Box>
+                        </VStack>
+                    </Box>
+                    </SimpleGrid>
+                    <Grid>
+                    {/* <GridItem colspan={3}>
                     <Button w="120px" colorScheme="pink" size="md" mt={2}  h={30} onClick={() => handleClickDraw()}>
                             {isLoading ? (<Spinner size="sm" />) : "Draw"} 
                         </Button>
-                    </GridItem>
+                    </GridItem> */}
 
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Send airdrop</Text>
