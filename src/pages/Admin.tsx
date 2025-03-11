@@ -558,7 +558,7 @@ const Admin: React.FC = () => {
                             <Box>{Number(`${totalTickets || 0}`)}</Box>
                         </VStack>
                     </Box>
-                    <Box>
+                    <Box ml={-20}>
                         <VStack alignItems={"left"}>
                             <Box><Text color="#fffdb8" fontWeight={"bold"}>Total participants</Text></Box>
                             <Box>{Number(`${totalParticipants || 0}`)}</Box>
