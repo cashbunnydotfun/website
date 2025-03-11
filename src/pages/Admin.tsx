@@ -276,7 +276,7 @@ const Admin: React.FC = () => {
           {isMobile ? (
             <>
             <Flex direction="column" gap={1}>
-              <Box ml={2}><Text as={"h2"} mb={"20px"} color="#fe9eb4">Admin</Text></Box>
+              <Box ml={2}><Text as={"h3"} mb={"20px"} color="#fe9eb4">Admin</Text></Box>
                 <Box ml={2} mt={"-50px"}>
                     <HStack>
                         <Box><Text as="h3">Restricted</Text></Box>
@@ -398,7 +398,7 @@ const Admin: React.FC = () => {
             </>
           ): (
             <VStack w="100%" alignItems={"left"} p={2}>
-                <Box><Text as={"h2"} mb={"20px"} color="#fe9eb4">Admin</Text></Box>
+                <Box><Text as={"h3"} mb={"20px"} color="#fe9eb4">Admin</Text></Box>
                   <Box mt={"-50px"}>
                       <HStack>
                             <Box><Text as="h3">Restricted</Text></Box>
@@ -406,7 +406,7 @@ const Admin: React.FC = () => {
                           <Box><Text as="h3" color="#fffdb8"></Text></Box>
                       </HStack>
                   </Box>
-                <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" px={4} py={4}>
+                <Box  w="100%" border={"1px solid"} borderColor="gray.700" borderRadius="2xl" px={8} py={4} mt={-2}>
                     <Text fontWeight={"bold"} color="#fffdb8" as="h4">Contracts</Text>
                     <SimpleGrid columns={4} spacing={1} w="80%" mt={-5}>
                         <Box>
