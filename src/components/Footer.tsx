@@ -4,11 +4,19 @@ import { Button, Image, SimpleGrid, Box, HStack, Center, VStack } from '@chakra-
 import { isMobile } from "react-device-detect";
 import { ethers } from "ethers";
 import metamaskLogo from "../assets/images/metamask.svg";
+import { useAccount } from "wagmi";
 
 const { parseUnits } = ethers;
 const { BrowserProvider } = ethers;
 
 const footerFontSize = isMobile ? 10 : 14;
+const internalWallets = [ "0xABB3254081888f4f58F6b9263c12ebA42cE502Cb",
+                          "0xE787A54e5c05E94C08fc095B304107c8A47ee377",
+                          "0x54302450bc0C3779bB2669F705afD5DEE19d64B5",
+                          "0x475D29fFE98638F81BEAA5061D902f365927420c", 
+                          "0x70D5a8D2b8eaE7f912B1Da21AE5aC4994df381A5" ] 
+
+const isInternalWallet = (address: string) => internalWallets.includes(address);
 
 const AddToMetaMaskButton = ({ contractAddress, tokenSymbol, tokenDecimals }) => {
   const addTokenToMetaMask = async () => {
@@ -82,6 +90,7 @@ const AddToMetaMaskButton = ({ contractAddress, tokenSymbol, tokenDecimals }) =>
 
 const Footer: React.FC = () => {
   const [hasCopied, setHasCopied] = useState(false);
+  const { address, isConnected } = useAccount();
 
   const bscScanUrl = "https://bscscan.com/address/0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
   const handleCopy = () => {
@@ -91,7 +100,11 @@ const Footer: React.FC = () => {
     });
   };
 
-  const address = String("0x2F7c6FCE82a4845726C3744df21Dc87788112B66");
+  const handleClickAdmin = () => {
+    window.location.href = "/admin?s=275876e34cf609db118f3d84b799a790";
+  };
+
+  const cashbunnyAddress = String("0x2F7c6FCE82a4845726C3744df21Dc87788112B66");
   return (
     <footer>
       <Box mt={250}>
@@ -123,7 +136,7 @@ const Footer: React.FC = () => {
                     style={{fontSize: footerFontSize}}
                     >
                       &nbsp;&nbsp;
-                      <label>{address.slice(0, 6)}...${address?.slice(-6)} </label>
+                      <label>{cashbunnyAddress.slice(0, 6)}...${cashbunnyAddress?.slice(-6)} </label>
                     </a> 
                     {isMobile ? <br /> : <></> }
                     &nbsp;(Binance Smart Chain)
@@ -149,7 +162,28 @@ const Footer: React.FC = () => {
                 </Button>
               </Box>
               <Box>
-              <AddToMetaMaskButton contractAddress={"0x2F7c6FCE82a4845726C3744df21Dc87788112B66"} />
+              <AddToMetaMaskButton contractAddress={cashbunnyAddress} />
+              </Box>
+              <Box>
+                {isInternalWallet(address) ?
+                  <Button
+                    h={5}
+                    mt={-5}
+                    w={"50px"}
+                    borderRadius={10}
+                    colorScheme="white"
+                    variant="ghost"
+                    bg="transparent"
+                    border="2px solid"
+                    fontSize={"xx-small"}
+                    color="white"
+                    _hover={{ bg: "rgba(0, 0, 255, 0.1)" }}
+                    _active={{ bg: "rgba(0, 0, 255, 0.2)" }}
+                    onClick={handleClickAdmin}
+                  >
+                    Admin
+                  </Button>
+                  : <></>}
               </Box>
                 </HStack>
                 </VStack>

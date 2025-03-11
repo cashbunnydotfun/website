@@ -12,7 +12,18 @@ import { send, set } from "react-ga";
 import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
 import { Toaster, toaster } from "../components/ui/toaster";
 import bnbLogo from "../assets/images/bnb.png";
-
+import {
+    DrawerRoot,
+    DrawerTrigger,
+    DrawerBackdrop,
+    DrawerContent,
+    DrawerCloseTrigger,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerBody,
+    DrawerFooter,
+    DrawerActionTrigger,
+} from '../components/ui/drawer'; // Ark UI Drawer components
 const { formatEther, isAddress } = ethers;
 
 interface Winner {
@@ -368,9 +379,45 @@ const Admin: React.FC = () => {
                         <Button disabled={targetAddress == ""} w="140px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
-                        <Button mt={2} w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
-                            {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
-                        </Button>                        
+                        <DrawerRoot>
+                        <DrawerTrigger asChild>
+                            <Button 
+                                border={ "1px solid" }
+                                borderColor={"gray"}
+                                variant="outline" 
+                                h={30} 
+                                ml={2} 
+                                mt={2}
+                                w="150px" 
+                            >
+                                {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
+                            </Button>
+                        </DrawerTrigger>
+                        <DrawerBackdrop />
+                        <DrawerContent>
+                            <Box mt="80%" ml={5}>
+                            <DrawerHeader>
+                                <DrawerTitle>
+                                    <Text as="h3">Advanced</Text>
+                                </DrawerTitle>
+                                <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                                    <Button variant="ghost" size="sm">×</Button>
+                                </DrawerCloseTrigger>
+                            </DrawerHeader>
+                            <DrawerBody>
+                            <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
+                                {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                            </Button> 
+                            <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box>
+                            <Box mt={10}>
+                            <DrawerActionTrigger asChild>
+                                <Button display={"none"}></Button>
+                            </DrawerActionTrigger>
+                            </Box>                                
+                            </DrawerBody>
+                            </Box>
+                        </DrawerContent>
+                    </DrawerRoot>                       
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
@@ -511,9 +558,44 @@ const Admin: React.FC = () => {
                         <Button disabled={targetAddress === ""} w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
-                        <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
-                            {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
-                        </Button>
+                        <DrawerRoot>
+                        <DrawerTrigger asChild>
+                            <Button 
+                                border={ "1px solid" }
+                                borderColor={"gray"}
+                                variant="outline" 
+                                h={30} 
+                                ml={2} 
+                                w="100px" 
+                            >
+                                {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
+                            </Button>
+                        </DrawerTrigger>
+                        <DrawerBackdrop />
+                        <DrawerContent>
+                            <Box mt="80%" ml={5}>
+                            <DrawerHeader>
+                                <DrawerTitle>
+                                    <Text as="h3">Advanced</Text>
+                                </DrawerTitle>
+                                <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                                    <Button variant="ghost" size="sm">×</Button>
+                                </DrawerCloseTrigger>
+                            </DrawerHeader>
+                            <DrawerBody>
+                            <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
+                                {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                            </Button> 
+                            <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box>
+                            <Box mt={10}>
+                            <DrawerActionTrigger asChild>
+                                <Button display={"none"}></Button>
+                            </DrawerActionTrigger>
+                            </Box>                                
+                            </DrawerBody>
+                            </Box>
+                        </DrawerContent>
+                    </DrawerRoot>                        
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
