@@ -355,7 +355,7 @@ const Admin: React.FC = () => {
                         }}
                         
                         />
-                        <Button w="140px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
+                        <Button disabled={targetAddress == ""} w="140px" mt={2} colorScheme="pink" size="md"  h={30} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
                         <Button mt={2} w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
@@ -502,7 +502,7 @@ const Admin: React.FC = () => {
                             }}
                         
                         />
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
+                        <Button disabled={targetAddress === ""} w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
                         </Button>
                         <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickClearBlacklist()}>
@@ -528,7 +528,7 @@ const Admin: React.FC = () => {
                             }}
                             
                             />
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress}  onClick={() => handleClickSell()}>
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress || txAmount == 0}  onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
                         </Button>     
                         <HStack mt={5}>
