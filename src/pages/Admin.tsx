@@ -111,6 +111,16 @@ const Admin: React.FC = () => {
         watch: true,
     });
 
+    const {
+        data: tokenRepoBunnyBalance,
+    } = useContractRead({
+        address: cashBunnyAddress,
+        abi: IBEP20Abi,
+        functionName: "balanceOf",
+        args: [tokenRepoAddress],
+        watch: true,
+    });
+
     console.log(`Fee distributor ${formatEther(`${feeDistributorBunnyBalance || 0}`)}`)
 
     let {
@@ -465,6 +475,40 @@ const Admin: React.FC = () => {
                                 </DrawerCloseTrigger>
                             </DrawerHeader>
                             <DrawerBody>
+                             <Box>
+                                <HStack>
+                                    <Box>
+                                        <Text>Balance</Text>
+                                    </Box>
+                                    <Box>
+                                        <Text fontSize={"sm"} color="white">{commify(formatEther(`${tokenRepoBunnyBalance || 0}`))}</Text>
+                                    </Box>
+                                    <Box>
+                                        <Image src={bunnyLogo} w="15px" />
+                                    </Box>
+                                    <Box>
+                                        <Text fontSize={"sm"} color="white">(BUNNY)</Text>
+                                    </Box>
+                                </HStack>    
+                            </Box>
+                            <Box>
+                            <HStack>
+                                <Box>
+                                    <Text>Max transfer</Text>
+                                </Box>
+                                <Box>
+                                    <Text fontSize={"sm"} color="white">5,100</Text>
+                                </Box>
+                                <Box>
+                                    <Image src={bunnyLogo} w="15px" />
+                                </Box>
+                                <Box>
+                                    <Text fontSize={"sm"} color="white">(BUNNY)</Text>
+                                </Box>
+                            </HStack>
+                            
+                            </Box>   
+                            <Box mt={10}>
                             <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
                                 {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
                             </Button> 
@@ -473,11 +517,12 @@ const Admin: React.FC = () => {
                             <DrawerActionTrigger asChild>
                                 <Button display={"none"}></Button>
                             </DrawerActionTrigger>
-                            </Box>                                
+                            </Box>                                  
+                            </Box>                              
                             </DrawerBody>
                             </Box>
                         </DrawerContent>
-                    </DrawerRoot>                       
+                        </DrawerRoot>                       
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
@@ -606,7 +651,9 @@ const Admin: React.FC = () => {
                         <Text fontWeight={"bold"} color="#fffdb8">Send airdrop</Text>
                     </GridItem>
                     <GridItem colspan={1}>
-                        <Input 
+                        <HStack>
+                            <Box>
+                            <Input 
                             placeholder="Enter address" 
                             w={"450px"} 
                             h={30} 
@@ -623,15 +670,17 @@ const Admin: React.FC = () => {
                         />
                         <Button disabled={targetAddress === ""} w="120px" colorScheme="pink" size="md"  h={30} ml={2} onClick={() => handleClickSendAirdrop()}>
                             {isLoading ? (<Spinner size="sm" />) : "Send"} 
-                        </Button>
-                        <DrawerRoot>
+                        </Button>                                
+                            </Box>
+                            <Box>
+                            <DrawerRoot>
                         <DrawerTrigger asChild>
                             <Button 
                                 border={ "1px solid" }
                                 borderColor={"gray"}
                                 variant="outline" 
-                                h={30} 
-                                ml={2} 
+                                h={30}
+                                mt={"1px"} 
                                 w="100px" 
                             >
                                 {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
@@ -661,7 +710,15 @@ const Admin: React.FC = () => {
                             </DrawerBody>
                             </Box>
                         </DrawerContent>
-                    </DrawerRoot>                        
+                        </DrawerRoot>                                    
+                            </Box>
+                        </HStack>
+                        <HStack mt={5}>
+                            <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
+                            <Box><Text fontSize="xs">{commify(formatEther(`${tokenRepoBunnyBalance || 0}`), 4)} ($BUNNY)</Text></Box>
+                            <Box><Image src={bunnyLogo} w="15px" /></Box>   
+                        </HStack>
+                    
                     </GridItem>
                     <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Distribute fees</Text>
