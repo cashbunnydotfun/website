@@ -277,7 +277,7 @@ const Raffle: React.FC = () => {
             setCurrentNonce(currentNonce++);
             setTimeout(() => {
                 enterRaffle();
-              }, 3000);
+              }, 1500);
         },
         onError(error) {
             console.error(`transaction failed: ${error.message}`);
