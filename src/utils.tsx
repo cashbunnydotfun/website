@@ -48,6 +48,27 @@ export function generateBytes32String(text) {
   return "0x" + hex.padEnd(64, "0"); // Ensure it's padded to 64 hex characters (32 bytes)
 }
 
+export function timeUntilNextBurn(lastBurnTime) {
+  const oneWeekInSeconds = 7 * 24 * 60 * 60; // 1 week in seconds
+  const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
+  const nextBurnTime = lastBurnTime + oneWeekInSeconds;
+  const timeLeftInSeconds = nextBurnTime - currentTime;
+
+  if (timeLeftInSeconds <= 0) {
+    return "Burn is available now!";
+  }
+
+  return convertSecondsToReadableFormat(timeLeftInSeconds);
+}
+
+export function convertSecondsToReadableFormat(seconds) {
+  const days = Math.floor(seconds / (24 * 60 * 60));
+  const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
+  const minutes = Math.floor((seconds % (60 * 60)) / 60);
+
+  return `${days} days, ${hours} hours, ${minutes} min.`;
+}
+
 export function convertDaysToReadableFormat(days) {
   const totalMinutes = Math.floor(days * 24 * 60);
   const d = Math.floor(totalMinutes / (24 * 60));

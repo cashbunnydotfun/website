@@ -9,7 +9,7 @@ import MD5 from "crypto-js/md5";
 import { useSearchParams } from "react-router-dom"; // Import useSearchParams
 import Header from "../components/Header";
 import { send, set } from "react-ga";
-import { commify, convertDaysToReadableFormat, formatLargeNumber } from "../utils";
+import { commify, convertDaysToReadableFormat, timeUntilNextBurn } from "../utils";
 import { Toaster, toaster } from "../components/ui/toaster";
 import bnbLogo from "../assets/images/bnb.png";
 import {
@@ -43,11 +43,15 @@ const tokenRepoAbi = tokenRepoArtifact.abi;
 const feeDistributorArtifact =  await import("../assets/FeeDistributor.json");
 const feeDistributorAbi = feeDistributorArtifact.abi;
 
+const burnerArtifact =  await import("../assets/Burner.json");
+const burnerAbi = burnerArtifact.abi;
+
 const raffleContractAddress = "0xb0730270f910b0b44f50d325e9368fc660c483a9";
 const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
 const faucetAddress = "0xffc581a73815cca97345f31665a259ff4cd0c5c3";
 const feeDistributor = "0xb9032B12F2738AdE7E1Eb5FC8a71E1bA820916a6";
+const burnerAddress = "0x6dcda73c584f1069c6bf671506dd34050d591e6d";
 const bannedAddress = "0xEB66E7479555AaE66c2fAcE93443d8f1c7c547B3";
 
 const Admin: React.FC = () => {
@@ -95,6 +99,15 @@ const Admin: React.FC = () => {
         );
     }
 
+    const {
+        data: lastBurnTime
+    } = useContractRead({
+        address: burnerAddress,
+        abi: burnerAbi,
+        functionName: "lastBurnTime",
+        watch: true,
+    });
+
     const { 
         data: totalPrizePool
      } = useBalance({
@@ -108,6 +121,16 @@ const Admin: React.FC = () => {
         abi: IBEP20Abi,
         functionName: "balanceOf",
         args: [feeDistributor],
+        watch: true,
+    });
+
+    const {
+        data: burnerBalance
+    } = useContractRead({
+        address: cashBunnyAddress,
+        abi: IBEP20Abi,
+        functionName: "balanceOf",
+        args: [burnerAddress],
         watch: true,
     });
 
@@ -202,8 +225,8 @@ const Admin: React.FC = () => {
         onError(error) {
             setIsLoading(false);
             console.log("transaction error");
-            const msg = error.message.indexOf("RaffleNotDueYet") > -1 ? "Raffle not due yet." : 
-            error.message.indexOf("Only owner") > -1 ? "You are not authorized" : 
+            const msg = error.message.indexOf("RaffleNotDueYet") > -1 ? "Raffle draw not due yet 🚫." : 
+            error.message.indexOf("Only owner") > -1 ? "You are not authorized 🚫" : 
             error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
 
             toaster.create({
@@ -276,6 +299,35 @@ const Admin: React.FC = () => {
         }
     });
 
+    const {
+        write: executeWeeklyBurn
+    } = useContractWrite({
+        address: burnerAddress,
+        abi: burnerAbi,
+        functionName: "executeWeeklyBurn",
+        onSuccess(data) {
+            setIsLoading(false);
+            console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Weekly burn executed successfully",
+            });  
+        },
+        onError(error) {
+            setIsLoading(false);
+            console.log("transaction error");
+            const msg = error.message.indexOf("NotAuthority") > -1 ? "Not authorized 🚫" :
+            error.message.indexOf("TimeNotElapsed") > -1 ? "Not due yet 🚫" :  
+            error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
+
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });  
+            
+        }
+    });
+    
     const handleClickSendAirdrop = async () => {
         setIsLoading(true);
         sendAirdrop();
@@ -306,8 +358,14 @@ const Admin: React.FC = () => {
         clearBlacklist();
     }
 
+    const handleClickExecuteWeeklyBurn = async () => {
+        setIsLoading(true);
+        executeWeeklyBurn();
+    }
+
     timeLeftToDraw = Number(`${timeLeftToDraw || 0}`) / 86400;
 
+    console.log({lastBurnTime});
   return (
     <Container maxW="container.xl" p={2} >
         <Toaster />
@@ -548,6 +606,20 @@ const Admin: React.FC = () => {
                             <Box><Image src={bunnyLogo} w="15px" /></Box>   
                         </HStack>              
                     </GridItem>
+                    <GridItem mt={10} colspan={3}>
+                        <VStack alignItems={"left"} mt={5}>
+                            <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
+                            <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
+                            <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
+                                {isClearing ? (<Spinner size="sm" />) : "Execute"} 
+                            </Button> 
+                            <HStack mt={5}>
+                                <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
+                                <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
+                                <Box><Image src={bunnyLogo} w="15px" /></Box>   
+                            </HStack> 
+                            </VStack>
+                    </GridItem>
                     </Grid> 
                 </Flex>
 
@@ -742,6 +814,23 @@ const Admin: React.FC = () => {
                             <Box><Text fontSize="xs">{commify(formatEther(`${feeDistributorBunnyBalance || 0}`), 4)} ($BUNNY)</Text></Box>
                             <Box><Image src={bunnyLogo} w="15px" /></Box>   
                         </HStack>              
+                    </GridItem>
+                    {/* <GridItem mt={10} colspan={3}>
+                        <Text fontWeight={"bold"} color="#fffdb8">Weekly Burn</Text>
+                    </GridItem> */}
+                    <GridItem>
+                        <VStack alignItems={"left"} mt={5}>
+                        <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
+                        <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
+                        <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
+                            {isClearing ? (<Spinner size="sm" />) : "Execute"} 
+                        </Button> 
+                        <HStack mt={5}>
+                            <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
+                            <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
+                            <Box><Image src={bunnyLogo} w="15px" /></Box>   
+                        </HStack> 
+                        </VStack>
                     </GridItem>
                     </Grid>                 
                 </Box>
