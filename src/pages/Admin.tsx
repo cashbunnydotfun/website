@@ -682,7 +682,7 @@ const Admin: React.FC = () => {
                                         h={30}
                                         onChange={(e) => {
                                             const amount = e.target.value;
-                                            if (Number(amount) > 100000) {
+                                            if (Number(amount) > 10000000) {
                                                 return;
                                             }
                                             setBurnAmount(amount);
@@ -698,20 +698,55 @@ const Admin: React.FC = () => {
                                         {isBurning ? (<Spinner size="sm" />) : "Execute"}
                                     </Button>
                                     </HStack>
-                                    <VStack alignItems={"left"} mt={5}>
+                                    <VStack alignItems={"left"} mt={10}>
                                         <Box>
                                             <HStack>
-                                                <Box>
-                                                <Text color="#fffdb8" fontWeight={"bold"}>Burning  </Text>
+                                                <Box w="70px">
+                                                <Text color="#fffdb8">Burning  </Text>
                                                 </Box>
                                                 <Box w="100px">
                                                     <Text fontSize={"sm"} color="white">{commify(burnAmount, 2)}</Text>
                                                 </Box>
-                                                <Box>
-                                                <Text color="#fffdb8" fontWeight={"bold"}>$BUNNY </Text>
-                                                </Box>
+                                                <Box >
+                                                <Image src={bunnyLogo} w="15px" />
+                                            </Box>
+                                            <Box>
+                                                <Text fontSize={"sm"} color="white">(BUNNY)</Text>
+                                            </Box>
                                             </HStack>
+                                            <Box>
+                                            <HStack>
+                                                <Box w="70px" color="#fffdb8">
+                                                    <Text>Balance</Text>
+                                                </Box>
+                                                <Box w="100px">
+                                                    <Text fontSize={"sm"} color="white">{commify(formatEther(`${burnerBalance || 0}`))}</Text>
+                                                </Box>
+                                                <Box>
+                                                    <Image src={bunnyLogo} w="15px" />
+                                                </Box>
+                                                <Box>
+                                                    <Text fontSize={"sm"} color="white">(BUNNY)</Text>
+                                                </Box>
+                                            </HStack>    
+                                        </Box>
+                                        <Box>
+                                        <HStack>
+                                            <Box w="70px" color="#fffdb8">
+                                                <Text>Max</Text>
+                                            </Box>
+                                            <Box w="100px">
+                                                <Text fontSize={"sm"} color="white">10,000,000</Text>
+                                            </Box>
+                                            <Box >
+                                                <Image src={bunnyLogo} w="15px" />
+                                            </Box>
+                                            <Box>
+                                                <Text fontSize={"sm"} color="white">(BUNNY)</Text>
+                                            </Box>
+                                        </HStack>
                                         
+                                        </Box>
                                         </Box>
                                     </VStack>
                                 {/* <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
@@ -972,7 +1007,7 @@ const Admin: React.FC = () => {
                                         h={30}
                                         onChange={(e) => {
                                             const amount = e.target.value;
-                                            if (Number(amount) > 100000) {
+                                            if (Number(amount) > 10000000) {
                                                 return;
                                             }
                                             setBurnAmount(amount);
