@@ -404,7 +404,7 @@ const Admin: React.FC = () => {
                             <Text fontWeight={"bold"} fontSize="xs">Raffle</Text>
                         </Box>
                         <Box ml={-2}>
-                            <Text fontWeight={"bold"} fontSize="xs">Faucet</Text>
+                            <Text fontWeight={"bold"} fontSize="xs">Burner</Text>
                         </Box>
                         <Box ml={-2}>
                             <Text fontWeight={"bold"} fontSize="xs">Token Repo</Text>
@@ -418,8 +418,8 @@ const Admin: React.FC = () => {
                             </a></Text>
                         </Box>
                         <Box ml={-2}>
-                            <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ faucetAddress} target="_blank">
-                            {`${faucetAddress?.slice(0, 2)}...${faucetAddress?.slice(-2)}`}
+                            <Text fontSize="xs"><a color="#fffdb8" href={"https://bscscan.com/address/"+ burnerAddress} target="_blank">
+                            {`${burnerAddress?.slice(0, 2)}...${burnerAddress?.slice(-2)}`}
                             </a></Text>
                         </Box>
                         <Box  ml={-2}>
@@ -646,7 +646,7 @@ const Admin: React.FC = () => {
                             <Text fontWeight={"bold"}>Raffle</Text>
                         </Box>
                         <Box>
-                            <Text fontWeight={"bold"}>Faucet</Text>
+                            <Text fontWeight={"bold"}>Burner</Text>
                         </Box>
                         <Box>
                             <Text fontWeight={"bold"}>Fee Distributor</Text>
@@ -662,8 +662,8 @@ const Admin: React.FC = () => {
                             </a></Text>
                         </Box>
                         <Box>
-                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ faucetAddress} target="_blank">
-                            {`${faucetAddress?.slice(0, 6)}...${faucetAddress?.slice(-6)}`}
+                            <Text><a color="#fffdb8" href={"https://bscscan.com/address/"+ burnerAddress} target="_blank">
+                            {`${burnerAddress?.slice(0, 6)}...${burnerAddress?.slice(-6)}`}
                             </a></Text>
                         </Box>
                         <Box>
