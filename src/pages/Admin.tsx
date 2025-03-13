@@ -65,6 +65,8 @@ const Admin: React.FC = () => {
     const [refillFaucet, setRefillFaucet] = useState(false);
     const [txAmount, setTxAmount] = useState(0);
     const [isClearing, setIsClearing] = useState(false);
+    const [burnAmount, setBurnAmount] = useState(0);
+    const [isBurning, setIsBurning] = useState(false);
 
     // md5 hash
     const hash = MD5(process.env.REACT_APP_DUMMY_PW || "dummy").toString();
@@ -143,8 +145,6 @@ const Admin: React.FC = () => {
         args: [tokenRepoAddress],
         watch: true,
     });
-
-    console.log(`Fee distributor ${formatEther(`${feeDistributorBunnyBalance || 0}`)}`)
 
     let {
         data: timeLeftToDraw,
@@ -306,7 +306,7 @@ const Admin: React.FC = () => {
         abi: burnerAbi,
         functionName: "executeWeeklyBurn",
         onSuccess(data) {
-            setIsLoading(false);
+            setIsBurning(false);
             console.log("transaction successful");
             toaster.create({
                 title: "Success",
@@ -314,7 +314,7 @@ const Admin: React.FC = () => {
             });  
         },
         onError(error) {
-            setIsLoading(false);
+            setIsBurning(false);
             console.log("transaction error");
             const msg = error.message.indexOf("NotAuthority") > -1 ? "Not authorized 🚫" :
             error.message.indexOf("TimeNotElapsed") > -1 ? "Not due yet 🚫" :  
@@ -325,6 +325,35 @@ const Admin: React.FC = () => {
                 description: msg,
             });  
             
+        }
+    });
+
+    const {
+        write: executeWeeklyBurnByAmt
+    } = useContractWrite({
+        address: burnerAddress,
+        abi: burnerAbi,
+        functionName: "executeWeeklyBurnByAmt",
+        args: [parseEther(`${burnAmount}`)],
+        onSuccess(data) {
+            setIsBurning(false);
+            console.log("transaction successful");
+            toaster.create({
+                title: "Success",
+                description: "Weekly burn executed successfully",
+            });  
+        },
+        onError(error) {
+            setIsBurning(false);
+            console.log("transaction error");
+            const msg = error.message.indexOf("NotAuthority") > -1 ? "Not authorized 🚫" :
+            error.message.indexOf("TimeNotElapsed") > -1 ? "Not due yet 🚫" :  
+            error.message.toString().indexOf("User rejected the request.") > -1  ? "Rejected operation" : error.message;
+
+            toaster.create({
+                title: "Error",
+                description: msg,
+            });
         }
     });
     
@@ -359,13 +388,17 @@ const Admin: React.FC = () => {
     }
 
     const handleClickExecuteWeeklyBurn = async () => {
-        setIsLoading(true);
+        setIsBurning(true);
         executeWeeklyBurn();
+    }
+
+    const handleClickExecuteWeeklyBurnByAmt = async () => {
+        setIsBurning(true);
+        executeWeeklyBurnByAmt();
     }
 
     timeLeftToDraw = Number(`${timeLeftToDraw || 0}`) / 86400;
 
-    console.log({lastBurnTime});
   return (
     <Container maxW="container.xl" p={2} >
         <Toaster />
@@ -610,14 +643,92 @@ const Admin: React.FC = () => {
                         <VStack alignItems={"left"} mt={5}>
                             <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
                             <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
+                            <HStack>
+                            <Box>
                             <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
-                                {isClearing ? (<Spinner size="sm" />) : "Execute"} 
-                            </Button> 
-                            <HStack mt={3}>
-                                <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
-                                <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
-                                <Box><Image src={bunnyLogo} w="15px" /></Box>   
-                            </HStack> 
+                                {isBurning ? (<Spinner size="sm" />) : "Execute"} 
+                            </Button>
+                            </Box>
+                            <Box>
+                            <DrawerRoot>
+                            <DrawerTrigger asChild>
+                                <Button 
+                                    border={ "1px solid" }
+                                    borderColor={"gray"}
+                                    variant="outline" 
+                                    h={30}
+                                    mt={"1px"} 
+                                    w="100px" 
+                                >
+                                    {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
+                                </Button>
+                            </DrawerTrigger>
+                            <DrawerBackdrop />
+                            <DrawerContent>
+                                <Box mt="80%" ml={5}>
+                                <DrawerHeader>
+                                    <DrawerTitle>
+                                        <Text as="h3">Advanced</Text>
+                                    </DrawerTitle>
+                                    <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                                        <Button variant="ghost" size="sm">×</Button>
+                                    </DrawerCloseTrigger>
+                                </DrawerHeader>
+                                <DrawerBody>
+                                    <HStack>
+                                    <Input 
+                                        placeholder="Enter amount"
+                                        w={"150px"}
+                                        h={30}
+                                        onChange={(e) => {
+                                            const amount = e.target.value;
+                                            if (Number(amount) > 100000) {
+                                                return;
+                                            }
+                                            setBurnAmount(amount);
+                                        }}
+                                    />
+                                    <Button 
+                                        w="100px" 
+                                        size="md"  
+                                        h={30} 
+                                        disabled={address == bannedAddress || burnAmount == 0}  
+                                        onClick={() => handleClickExecuteWeeklyBurnByAmt()}
+                                    >
+                                        {isBurning ? (<Spinner size="sm" />) : "Execute"}
+                                    </Button>
+                                    </HStack>
+                                    <VStack alignItems={"left"} mt={5}>
+                                        <Box>
+                                            <HStack>
+                                                <Box>
+                                                <Text color="#fffdb8" fontWeight={"bold"}>Burning  </Text>
+                                                </Box>
+                                                <Box w="100px">
+                                                    <Text fontSize={"sm"} color="white">{commify(burnAmount, 2)}</Text>
+                                                </Box>
+                                                <Box>
+                                                <Text color="#fffdb8" fontWeight={"bold"}>$BUNNY </Text>
+                                                </Box>
+                                            </HStack>
+                                        
+                                        </Box>
+                                    </VStack>
+                                {/* <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
+                                    {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                                </Button> 
+                                <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box> */}
+                                <Box mt={10}>
+                                <DrawerActionTrigger asChild>
+                                    <Button display={"none"}></Button>
+                                </DrawerActionTrigger>
+                                </Box>                                
+                                </DrawerBody>
+                                </Box>
+                            </DrawerContent>
+                            </DrawerRoot> 
+                            </Box>
+                        </HStack>
                             </VStack>
                     </GridItem>
                     </Grid> 
@@ -746,43 +857,43 @@ const Admin: React.FC = () => {
                             </Box>
                             <Box>
                             <DrawerRoot>
-                        <DrawerTrigger asChild>
-                            <Button 
-                                border={ "1px solid" }
-                                borderColor={"gray"}
-                                variant="outline" 
-                                h={30}
-                                mt={"1px"} 
-                                w="100px" 
-                            >
-                                {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
-                            </Button>
-                        </DrawerTrigger>
-                        <DrawerBackdrop />
-                        <DrawerContent>
-                            <Box mt="80%" ml={5}>
-                            <DrawerHeader>
-                                <DrawerTitle>
-                                    <Text as="h3">Advanced</Text>
-                                </DrawerTitle>
-                                <DrawerCloseTrigger asChild mt="82%" mr={5}>
-                                    <Button variant="ghost" size="sm">×</Button>
-                                </DrawerCloseTrigger>
-                            </DrawerHeader>
-                            <DrawerBody>
-                            <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
-                                {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
-                            </Button> 
-                            <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box>
-                            <Box mt={10}>
-                            <DrawerActionTrigger asChild>
-                                <Button display={"none"}></Button>
-                            </DrawerActionTrigger>
-                            </Box>                                
-                            </DrawerBody>
-                            </Box>
-                        </DrawerContent>
-                        </DrawerRoot>                                    
+                            <DrawerTrigger asChild>
+                                <Button 
+                                    border={ "1px solid" }
+                                    borderColor={"gray"}
+                                    variant="outline" 
+                                    h={30}
+                                    mt={"1px"} 
+                                    w="100px" 
+                                >
+                                    {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
+                                </Button>
+                            </DrawerTrigger>
+                            <DrawerBackdrop />
+                            <DrawerContent>
+                                <Box mt="80%" ml={5}>
+                                <DrawerHeader>
+                                    <DrawerTitle>
+                                        <Text as="h3">Advanced</Text>
+                                    </DrawerTitle>
+                                    <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                                        <Button variant="ghost" size="sm">×</Button>
+                                    </DrawerCloseTrigger>
+                                </DrawerHeader>
+                                <DrawerBody>
+                                <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
+                                    {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                                </Button> 
+                                <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box>
+                                <Box mt={10}>
+                                <DrawerActionTrigger asChild>
+                                    <Button display={"none"}></Button>
+                                </DrawerActionTrigger>
+                                </Box>                                
+                                </DrawerBody>
+                                </Box>
+                            </DrawerContent>
+                            </DrawerRoot>                                    
                             </Box>
                         </HStack>
                         <HStack mt={5}>
@@ -822,9 +933,93 @@ const Admin: React.FC = () => {
                         <VStack alignItems={"left"}>
                         <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
                         <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
-                        <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
-                            {isClearing ? (<Spinner size="sm" />) : "Execute"} 
-                        </Button> 
+                        <HStack>
+                            <Box>
+                            <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
+                                {isBurning ? (<Spinner size="sm" />) : "Execute"} 
+                            </Button>
+                            </Box>
+                            <Box>
+                            <DrawerRoot>
+                            <DrawerTrigger asChild>
+                                <Button 
+                                    border={ "1px solid" }
+                                    borderColor={"gray"}
+                                    variant="outline" 
+                                    h={30}
+                                    mt={"1px"} 
+                                    w="100px" 
+                                >
+                                    {isLoading ? <Spinner size="sm" /> : <Text fontSize={isMobile?"12px": "13px"}>Advanced</Text>}
+                                </Button>
+                            </DrawerTrigger>
+                            <DrawerBackdrop />
+                            <DrawerContent>
+                                <Box mt="80%" ml={5}>
+                                <DrawerHeader>
+                                    <DrawerTitle>
+                                        <Text as="h3">Advanced</Text>
+                                    </DrawerTitle>
+                                    <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                                        <Button variant="ghost" size="sm">×</Button>
+                                    </DrawerCloseTrigger>
+                                </DrawerHeader>
+                                <DrawerBody>
+                                    <HStack>
+                                    <Input 
+                                        placeholder="Enter amount"
+                                        w={"150px"}
+                                        h={30}
+                                        onChange={(e) => {
+                                            const amount = e.target.value;
+                                            if (Number(amount) > 100000) {
+                                                return;
+                                            }
+                                            setBurnAmount(amount);
+                                        }}
+                                    />
+                                    <Button 
+                                        w="100px" 
+                                        size="md"  
+                                        h={30} 
+                                        disabled={address == bannedAddress || burnAmount == 0}  
+                                        onClick={() => handleClickExecuteWeeklyBurnByAmt()}
+                                    >
+                                        {isBurning ? (<Spinner size="sm" />) : "Execute"}
+                                    </Button>
+                                    </HStack>
+                                    <VStack alignItems={"left"} mt={5}>
+                                        <Box>
+                                            <HStack>
+                                                <Box>
+                                                <Text color="#fffdb8" fontWeight={"bold"}>Burning  </Text>
+                                                </Box>
+                                                <Box w="100px">
+                                                    <Text fontSize={"sm"} color="white">{commify(burnAmount, 2)}</Text>
+                                                </Box>
+                                                <Box>
+                                                <Text color="#fffdb8" fontWeight={"bold"}>$BUNNY </Text>
+                                                </Box>
+                                            </HStack>
+                                        
+                                        </Box>
+                                    </VStack>
+                                {/* <Button w="150px" disabled={address == bannedAddress} colorScheme="pink" size="md"  h={30} onClick={() => handleClickClearBlacklist()}>
+                                    {isClearing ? (<Spinner size="sm" />) : "Clear blacklist"} 
+                                </Button> 
+                                <Box mt={5} w="250px"><Text fontSize="sm">⚠️ This action will remove all addresses from the airdrop blacklist, proceed with caution.</Text></Box> */}
+                                <Box mt={10}>
+                                <DrawerActionTrigger asChild>
+                                    <Button display={"none"}></Button>
+                                </DrawerActionTrigger>
+                                </Box>                                
+                                </DrawerBody>
+                                </Box>
+                            </DrawerContent>
+                            </DrawerRoot> 
+                            </Box>
+                        </HStack>
+
                         <HStack mt={3}>
                             <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
                             <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
