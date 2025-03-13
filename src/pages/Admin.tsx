@@ -818,8 +818,8 @@ const Admin: React.FC = () => {
                     {/* <GridItem mt={10} colspan={3}>
                         <Text fontWeight={"bold"} color="#fffdb8">Weekly Burn</Text>
                     </GridItem> */}
-                    <GridItem>
-                        <VStack alignItems={"left"} mt={5}>
+                    <GridItem mt={10} >
+                        <VStack alignItems={"left"}>
                         <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
                         <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
                         <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
