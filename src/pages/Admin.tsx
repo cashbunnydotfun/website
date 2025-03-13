@@ -613,7 +613,7 @@ const Admin: React.FC = () => {
                             <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
                                 {isClearing ? (<Spinner size="sm" />) : "Execute"} 
                             </Button> 
-                            <HStack mt={5}>
+                            <HStack mt={3}>
                                 <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
                                 <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
                                 <Box><Image src={bunnyLogo} w="15px" /></Box>   
@@ -825,7 +825,7 @@ const Admin: React.FC = () => {
                         <Button w="120px" colorScheme="pink" size="md"  h={30} disabled={address == bannedAddress} onClick={() => handleClickExecuteWeeklyBurn()}>
                             {isClearing ? (<Spinner size="sm" />) : "Execute"} 
                         </Button> 
-                        <HStack mt={5}>
+                        <HStack mt={3}>
                             <Box><Text fontSize="xs"><b>Balance: </b></Text>     </Box> 
                             <Box><Text fontSize="xs">{commify(formatEther(`${burnerBalance || 0}`), 4)} ($BUNNY)</Text></Box>
                             <Box><Image src={bunnyLogo} w="15px" /></Box>   
