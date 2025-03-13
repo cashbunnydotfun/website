@@ -630,7 +630,7 @@ const Admin: React.FC = () => {
                             }}
                             
                             />
-                        <Button w="140px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress} onClick={() => handleClickSell()}>
+                        <Button w="140px" colorScheme="pink" size="md"  h={30} ml={2} disabled={address == bannedAddress  || txAmount == 0} onClick={() => handleClickSell()}>
                             {isLoading ? (<Spinner size="sm" />) : "Sell"} 
                         </Button>     
                         <HStack mt={5}>
@@ -639,7 +639,7 @@ const Admin: React.FC = () => {
                             <Box><Image src={bunnyLogo} w="15px" /></Box>   
                         </HStack>              
                     </GridItem>
-                    <GridItem mt={10} colspan={3}>
+                    <GridItem mt={5} colspan={3}>
                         <VStack alignItems={"left"} mt={5}>
                             <Box><Text color="#fffdb8" fontWeight={"bold"}>Time left to next weekly burn</Text></Box>
                             <Box> {timeUntilNextBurn(Number(lastBurnTime))}</Box>
