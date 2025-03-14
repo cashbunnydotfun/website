@@ -632,8 +632,8 @@ const Raffle: React.FC = () => {
                             sitekey={"6Lfv6usqAAAAADYXDpnryHtHCtXoO19wXn_aGdWx"} 
                             onChange={handleRecaptcha}
                         />
-                        </div>
-                    </VStack> */}
+                        </div>*/}
+                    </VStack> 
                     </Box>
                     </Flex>
                 </>
