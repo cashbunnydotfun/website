@@ -620,7 +620,7 @@ const Raffle: React.FC = () => {
                         </DialogContent>
                         </DialogRoot>
                         </Box>
-                        <VStack gap={1} alignItems={"left"} mt={10}>
+                        {/* <VStack gap={1} alignItems={"left"} mt={10}>
                             <Box>
                                 <Text fontSize={"medium"} color="white"><b>No $BUNNY?</b></Text>
                             </Box>
@@ -633,7 +633,7 @@ const Raffle: React.FC = () => {
                             onChange={handleRecaptcha}
                         />
                         </div>
-                    </VStack>
+                    </VStack> */}
                     </Box>
                     </Flex>
                 </>
@@ -721,47 +721,50 @@ const Raffle: React.FC = () => {
 
                     
                         {bunnyBalance == 0 ? 
-                        (<Box mt={20} p={2}> 
+                        (
+                        // <Box mt={20} p={2}> 
                                             
-                        <DrawerRoot>
-                            <VStack gap={1} alignItems={"left"}>
-                            <Box >
-                                <Text fontSize={"medium"} color="white"><b>No $BUNNY?</b></Text>
-                            </Box>
+                        // <DrawerRoot>
+                        //     <VStack gap={1} alignItems={"left"}>
+                        //     <Box >
+                        //         <Text fontSize={"medium"} color="white"><b>No $BUNNY?</b></Text>
+                        //     </Box>
 
-                            </VStack> 
-                        <DrawerTrigger asChild>
-                            <FaucetControls handleRequestTokens={handleRequestTokens} isLoading={isRequestingTokens}/>
-                        </DrawerTrigger>
-                        <DrawerBackdrop />
-                        <DrawerContent>
-                            <DrawerHeader>
-                                <DrawerTitle>
-                                    <Text as="h3">Unwrap WETH</Text>
-                                </DrawerTitle>
-                                <DrawerCloseTrigger asChild mt="82%" mr={5}>
-                                    <Button variant="ghost" size="sm">×</Button>
-                                </DrawerCloseTrigger>
-                            </DrawerHeader>
-                            <DrawerBody>
-                                {/* <Input
-                                    placeholder="Enter amount to unwrap"
-                                    onChange={(e) => setWrapAmount(e.target.value)}
-                                    w="80%"
-                                /> */}
-                            </DrawerBody>
-                            {/* <DrawerFooter>
-                            </DrawerFooter> */}
-                        </DrawerContent>
-                        </DrawerRoot>
-                        <div id="recaptchaContainer" className="rc-anchor-normal-mine" style={{marginTop:"20px", border:"2px solid gray.800"}}>
-                          <ReCAPTCHA
-                            theme="dark"
-                            sitekey={"6Lfv6usqAAAAADYXDpnryHtHCtXoO19wXn_aGdWx"} 
-                            onChange={handleRecaptcha}
-                        />
-                        </div>
-                        </Box>) : null}
+                        //     </VStack> 
+                        // <DrawerTrigger asChild>
+                        //     <FaucetControls handleRequestTokens={handleRequestTokens} isLoading={isRequestingTokens}/>
+                        // </DrawerTrigger>
+                        // <DrawerBackdrop />
+                        // <DrawerContent>
+                        //     <DrawerHeader>
+                        //         <DrawerTitle>
+                        //             <Text as="h3">Unwrap WETH</Text>
+                        //         </DrawerTitle>
+                        //         <DrawerCloseTrigger asChild mt="82%" mr={5}>
+                        //             <Button variant="ghost" size="sm">×</Button>
+                        //         </DrawerCloseTrigger>
+                        //     </DrawerHeader>
+                        //     <DrawerBody>
+                        //         {/* <Input
+                        //             placeholder="Enter amount to unwrap"
+                        //             onChange={(e) => setWrapAmount(e.target.value)}
+                        //             w="80%"
+                        //         /> */}
+                        //     </DrawerBody>
+                        //     {/* <DrawerFooter>
+                        //     </DrawerFooter> */}
+                        // </DrawerContent>
+                        // </DrawerRoot>
+                        // <div id="recaptchaContainer" className="rc-anchor-normal-mine" style={{marginTop:"20px", border:"2px solid gray.800"}}>
+                        //   <ReCAPTCHA
+                        //     theme="dark"
+                        //     sitekey={"6Lfv6usqAAAAADYXDpnryHtHCtXoO19wXn_aGdWx"} 
+                        //     onChange={handleRecaptcha}
+                        // />
+                        // </div>
+                        // </Box>
+                        <></>
+                    ) : null}
 
                       </Box>
                 </GridItem>
