@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
                   </Text>
                 </Heading>
                   <Text color={"white"} w={isMobile? "80vw" : "600px"}>
-                    Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility — launching on Binance Smart Chain.
+                    Make money with weekly raffles and benefit from perpetual fee burning. First meme token with real utility on Binance Smart Chain.
                   </Text>
                   <HStack minW={100} justify={{ base: 'center', md: 'flex-start' }}>
                     {/* <a href="https://#" onClick={()=>gaEventTracker('deadbeef')} target="_blank">
