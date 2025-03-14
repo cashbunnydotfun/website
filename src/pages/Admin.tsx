@@ -51,7 +51,7 @@ const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const tokenRepoAddress = "0x4882585b8a5c9B4766071485421A6D7E05b25963";
 const faucetAddress = "0xffc581a73815cca97345f31665a259ff4cd0c5c3";
 const feeDistributor = "0xb9032B12F2738AdE7E1Eb5FC8a71E1bA820916a6";
-const burnerAddress = "0x6dcda73c584f1069c6bf671506dd34050d591e6d";
+const burnerAddress = "0xeb444577a4898a61ee4190ff5e3e3470007102b6";
 const bannedAddress = "0xEB66E7479555AaE66c2fAcE93443d8f1c7c547B3";
 
 const Admin: React.FC = () => {
