@@ -70,7 +70,7 @@ import {
              <b>ended</b> 🎆
             </a>
           </StepsContent>
-          <StepsContent index={1}>Decentralized raffle and deflationary fee burning 🔥</StepsContent>
+          <StepsContent index={1}>Decentralized raffle and deflationary fee burning 🔥 <br /> Raffle has started! </StepsContent>
           <StepsContent index={2}>Staking vaults with $BUNNY rewards 💰 </StepsContent>
           <StepsContent index={3}>Lending vaults launch 🏦</StepsContent>
           <StepsCompletedContent>
