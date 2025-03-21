@@ -462,7 +462,7 @@ const Raffle: React.FC = () => {
                     <Text fontSize={"medium"} color="#fffdb8"><b>Controls</b></Text>
                    <HStack w="450px">
                     <Box w="90px"><Text fontSize="small"><b>Ticket Price</b></Text></Box>
-                    <Box w="80px" fontSize="small">{commify(formatEther(`${ticketPrice || 0}`))}</Box>
+                    <Box w="80px" fontSize="small">{commify(formatEther(`${ticketPrice || 0}`), 0)}</Box> 
                     <Box><Image src={bunnyLogo} w={"20px"}/></Box>
                     <Box><Text fontSize="small" color="ivory">($BUNNY)</Text></Box>
 
@@ -662,7 +662,7 @@ const Raffle: React.FC = () => {
                     <Text fontSize={"x-large"} color="#fffdb8"><b>Controls</b></Text>
                    <HStack w="450px">
                     <Box w="140px"><Text fontSize="16px"><b>Ticket Price</b></Text></Box>
-                    <Box w="120px">{commify(formatEther(`${ticketPrice || 0}`))}</Box>
+                    <Box w="120px">{commify(formatEther(`${ticketPrice || 0}`), 0)}</Box>
                     <Box><Image src={bunnyLogo} w={"20px"}/></Box>
                     <Box><Text color="ivory">($BUNNY)</Text></Box>
 
@@ -774,19 +774,19 @@ const Raffle: React.FC = () => {
                         <Box>
                         <HStack>
                             <Box w="220px"><Text fontSize="16px"><b>Total tickets held:</b></Text></Box>
-                            <Box >#{commify(ticketsPerUser?.toString() || 0)} tickets</Box>
+                            <Box >#{commify(ticketsPerUser?.toString() || 0, 0)} tickets</Box>
                         </HStack>
                         </Box>
                         <Box>
                         <HStack>
                             <Box w="220px"><Text fontSize="16px"><b>Purchasing:</b></Text></Box>
-                            <Box>#{commify(numTickets)} tickets</Box>
+                            <Box>#{commify(numTickets, 0)} tickets</Box>
                         </HStack>
                         </Box>
                         <Box>
                         <HStack>
                             <Box w="220px"><Text fontSize="16px"><b>Total Cost</b></Text></Box>
-                            <Box>{commify(`${formatEther(`${ticketPrice || 0}`) * numTickets}`)} </Box>
+                            <Box>{commify(`${formatEther(`${ticketPrice || 0}`) * numTickets}`, 0)} </Box>
                             <Box>$BUNNY</Box>
                         </HStack>
                         </Box>
