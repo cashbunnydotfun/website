@@ -121,9 +121,8 @@ const LeaderboardPage: React.FC = () => {
                     )}
                     {leaderboard.length != 0 &&
                         leaderboard.map((addr, index) => {
-                          console.log({addr});
                           let winnerAddress = addr.winner;
-                          if (winnerAddress === "0x0000000000000000000000000000000000000000") {
+                          if (winnerAddress == "0x0000000000000000000000000000000000000000") {
                             winnerAddress = "0x475D29fFE98638F81BEAA5061D902f365927420c";
                           }
                           return (
@@ -209,13 +208,18 @@ const LeaderboardPage: React.FC = () => {
                     </>
                 )}
                 {leaderboard.length != 0 &&
-                    leaderboard.map((addr, index) => (
+                    leaderboard.map((addr, index) => {
+                      let winnerAddress = addr.winner;
+                      if (winnerAddress == "0x0000000000000000000000000000000000000000") {
+                        winnerAddress = "0x475D29fFE98638F81BEAA5061D902f365927420c";
+                      }
+                      return (
                     <tr key={index}>
                         <td style={{ width: "5%" }}>{index + 1}</td>
                         <td style={{ width: "10%" }}>
                          <>
-                         <a href={"https://bscscan.com/address/"+addr.winner} target="_blank" rel="noreferrer">
-                            {addr.winner?.slice(0, 6)}...${addr.winner?.slice(-6)}
+                         <a href={"https://bscscan.com/address/"+winnerAddress} target="_blank" rel="noreferrer">
+                            {winnerAddress?.slice(0, 6)}...${winnerAddress?.slice(-6)}
                          </a>
                           </>
                         </td>
@@ -232,7 +236,8 @@ const LeaderboardPage: React.FC = () => {
                         ).toDateString()}
                         </td>
                     </tr>
-                    ))}
+                    ) 
+                  })}
                 </tbody>
             </table>                    
                 </Box>
