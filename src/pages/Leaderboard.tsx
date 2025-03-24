@@ -120,33 +120,40 @@ const LeaderboardPage: React.FC = () => {
                         </>
                     )}
                     {leaderboard.length != 0 &&
-                        leaderboard.map((addr, index) => (
-                        <tr key={index}>
-                            <td style={{ width: "1px" }} >
-                              <Text color="white">{index + 1}</Text>
-                            </td>
-                            <td style={{ width: "5px" }}>
-                            <>
-                            <a href={"https://bscscan.com/address/"+addr.winner} target="_blank" rel="noreferrer">
-                                {addr.winner?.slice(0, 4)}...${addr.winner?.slice(-4)}
-                            </a>
-                              </>
-                            </td>
-                            <td style={{ width: "auto" }}>
-                            <HStack>
-                              <Box>
-                                <Text color="white">{commify(formatEther(`${addr.prize}`))}</Text>
-                              </Box>
-                              <Box> <Image src={bnbLogo} alt="BNB Logo" boxSize="20px" /> </Box>
-                            </HStack>
-                            </td>
-                            {/* <td style={{ width: "25%" }}>
-                            {new Date(
-                                Number(addr.timestamp) * 1000
-                            ).toDateString()}
-                            </td> */}
-                        </tr>
-                        ))}
+                        leaderboard.map((addr, index) => {
+                          console.log({addr});
+                          let winnerAddress = addr.winner;
+                          if (winnerAddress === "0x0000000000000000000000000000000000000000") {
+                            winnerAddress = "0x475D29fFE98638F81BEAA5061D902f365927420c";
+                          }
+                          return (
+                            <tr key={index}>
+                                <td style={{ width: "1px" }} >
+                                  <Text color="white">{index + 1}</Text>
+                                </td>
+                                <td style={{ width: "5px" }}>
+                                <>
+                                <a href={"https://bscscan.com/address/"+winnerAddress} target="_blank" rel="noreferrer">
+                                    {winnerAddress?.slice(0, 4)}...${winnerAddress?.slice(-4)}
+                                </a>
+                                  </>
+                                </td>
+                                <td style={{ width: "auto" }}>
+                                <HStack>
+                                  <Box>
+                                    <Text color="white">{commify(formatEther(`${addr.prize}`))}</Text>
+                                  </Box>
+                                  <Box> <Image src={bnbLogo} alt="BNB Logo" boxSize="20px" /> </Box>
+                                </HStack>
+                                </td>
+                                {/* <td style={{ width: "25%" }}>
+                                {new Date(
+                                    Number(addr.timestamp) * 1000
+                                ).toDateString()}
+                                </td> */}
+                            </tr>
+                            )
+                        })}
                   </tbody>
                 </table>     
             </Flex>       
