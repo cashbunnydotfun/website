@@ -369,8 +369,8 @@ const Admin: React.FC = () => {
 
     const handleClickSell = async () => {
         setIsLoading(true);
-        console.log(`Tx amount is ${txAmount} cond ${Number(txAmount) > 100000}`);
-        if (txAmount == 0 || txAmount > 100000) {
+        console.log(`Tx amount is ${txAmount} cond ${Number(txAmount) > 10000000}`);
+        if (txAmount == 0 || txAmount > 10000000) {
             console.log(`Invalid amount`);
             toaster.create({
                 title: "Error",
@@ -716,10 +716,10 @@ const Admin: React.FC = () => {
                                             </HStack>
                                             <Box>
                                             <HStack>
-                                                <Box w="70px" color="#fffdb8">
+                                                <Box w="70px" color="#fffdb8" fontSize={"sm"}>
                                                     <Text>Balance</Text>
                                                 </Box>
-                                                <Box w="100px">
+                                                <Box w="100px" fontSize={"sm"}>
                                                     <Text fontSize={"sm"} color="white">{commify(formatEther(`${burnerBalance || 0}`))}</Text>
                                                 </Box>
                                                 <Box>
@@ -733,7 +733,7 @@ const Admin: React.FC = () => {
                                         <Box>
                                         <HStack>
                                             <Box w="70px" color="#fffdb8">
-                                                <Text>Max</Text>
+                                                <Text fontSize={"sm"}>Max</Text>
                                             </Box>
                                             <Box w="100px">
                                                 <Text fontSize={"sm"} color="white">10,000,000</Text>
