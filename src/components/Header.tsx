@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react";
 // import { LanguageContext, LanguageContextType } from "../core/LanguageProvider";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useAccount } from "wagmi";
-import Logo from "../assets/images/logo-clean-200x200.png";
+import Logo from "../assets/images/logo-all-bg-circled-60x60.png";
 // import { isMobile } from 'react-device-detect';
 import { Link, Image } from '@chakra-ui/react';
 import { useMenu } from "../hooks/useMenuContext"; // Import useMenu hook for context
