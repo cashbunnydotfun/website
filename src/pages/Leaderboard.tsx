@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Image, Text, Box, Container, VStack, Spinner, HStack } from "@chakra-ui/react";
+import { Flex, Image, Text, Box, Container, VStack, Spinner, HStack, Button } from "@chakra-ui/react";
 import { Address, useContractRead } from "wagmi";
 import { CirclesWithBar } from "react-loader-spinner";
 import { commify } from "../utils";
@@ -26,6 +26,10 @@ const cashBunnyAddress = "0x2F7c6FCE82a4845726C3744df21Dc87788112B66";
 const LeaderboardPage: React.FC = () => {
 
     const [leaderboard, setLeaderBoard] = useState<Winner[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sortField, setSortField] = useState<'rank' | 'prize'>('rank');
+    const [sortAscending, setSortAscending] = useState(false); // false = descending
+    const itemsPerPage = 10;
 
     const { 
       isLoading: isLoadingLeaderboard, 
@@ -48,6 +52,43 @@ const LeaderboardPage: React.FC = () => {
       },
     });
     
+    // Sort leaderboard based on current sort field and order
+    const sortedLeaderboard = [...leaderboard].sort((a, b) => {
+      if (sortField === 'rank') {
+        // Sort by timestamp (rank)
+        if (sortAscending) {
+          return Number(a.timestamp) - Number(b.timestamp); // Oldest first
+        } else {
+          return Number(b.timestamp) - Number(a.timestamp); // Newest first
+        }
+      } else {
+        // Sort by prize
+        if (sortAscending) {
+          return Number(a.prize) - Number(b.prize); // Smallest first
+        } else {
+          return Number(b.prize) - Number(a.prize); // Largest first
+        }
+      }
+    });
+    
+    // Calculate pagination
+    const totalPages = Math.ceil(sortedLeaderboard.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedLeaderboard = sortedLeaderboard.slice(startIndex, endIndex);
+    
+    // Handle sort toggle
+    const handleSort = (field: 'rank' | 'prize') => {
+      if (field === sortField) {
+        // Toggle sort direction if clicking same field
+        setSortAscending(!sortAscending);
+      } else {
+        // Change field and reset to descending
+        setSortField(field);
+        setSortAscending(false);
+      }
+      setCurrentPage(1); // Reset to first page when sorting changes
+    };
 
   return (
     <Container maxW="container.xl" p={2} >
@@ -70,7 +111,7 @@ const LeaderboardPage: React.FC = () => {
         >
           {isMobile ? (
             <>
-            <Flex direction="column" gap={1}>
+            <Flex direction="column" gap={1} w="100%">
               <Box ml={2}><Text as={"h2"} mb={"20px"} color="#fe9eb4">Leaderboard</Text></Box>
                 <Box ml={2} mt={"-50px"}>
                     <HStack>
@@ -79,17 +120,21 @@ const LeaderboardPage: React.FC = () => {
                         <Box><Text as="h3" color="#fffdb8"></Text></Box>
                     </HStack>
                 </Box>
-                <table className="table token-content table-borderless" style={{ width: isMobile ? "100px": "100%" }}>
+                <Box overflowX="auto" w="100%">
+                <table className="table token-content table-borderless" style={{ width: "100%", minWidth: "300px" }}>
                   <thead>
                     <tr>
-                    <th style={{ width: "1px" }} scope="col">
-                    <Text color={"#fffdb8"}><b>Rank</b></Text>
+                    <th style={{ width: "1px", cursor: "pointer" }} scope="col" onClick={() => handleSort('rank')}>
+                    <HStack>
+                      <Box><Text color={"#fffdb8"} fontSize="sm"><b>Rank </b></Text></Box>
+                      <Box><Text color={"#fffdb8"} fontSize={isMobile ? "xx-small" : "md"}><b>{sortField === 'rank' ? (sortAscending ? '↑' : '↓') : ''}</b></Text></Box>
+                    </HStack>
                     </th>
                     <th style={{ width: "5px" }} scope="col">
                     <Text color={"#fffdb8"}><b>Address</b></Text>
                     </th>
-                    <th style={{ width: "auto" }} scope="col">
-                      <Text color={"#fffdb8"}><b>Prize</b></Text>
+                    <th style={{ width: "auto", cursor: "pointer" }} scope="col" onClick={() => handleSort('prize')}>
+                      <Text color={"#fffdb8"}><b>Prize {sortField === 'prize' ? (sortAscending ? '↑' : '↓') : ''}</b></Text>
                     </th>
                     {/* <th style={{ width: "25%" }} scope="col">
                       <Text color={"#fffdb8"}><b>Date</b></Text>
@@ -120,15 +165,16 @@ const LeaderboardPage: React.FC = () => {
                         </>
                     )}
                     {leaderboard.length != 0 &&
-                        leaderboard.map((addr, index) => {
+                        paginatedLeaderboard.map((addr, index) => {
                           let winnerAddress = addr.winner;
                           if (winnerAddress == "0x0000000000000000000000000000000000000000") {
                             winnerAddress = "0x475D29fFE98638F81BEAA5061D902f365927420c";
                           }
+                          const actualIndex = startIndex + index;
                           return (
-                            <tr key={index}>
+                            <tr key={actualIndex}>
                                 <td style={{ width: "1px" }} >
-                                  <Text color="white">{index + 1}</Text>
+                                  <Text color="white">{actualIndex + 1}</Text>
                                 </td>
                                 <td style={{ width: "5px" }}>
                                 <>
@@ -154,7 +200,42 @@ const LeaderboardPage: React.FC = () => {
                             )
                         })}
                   </tbody>
-                </table>     
+                </table>
+                </Box>
+                {/* Pagination Controls for Mobile */}
+                {totalPages > 1 && (
+                  <Flex mt={4} justify="center" align="center" gap={1} w="100%" px={2} ml={{base: "-20%", md: "5%"}}>
+                    <Button
+                      size="sm"
+                      h="32px"
+                      fontSize="xs"
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      isDisabled={currentPage === 1}
+                      colorScheme="pink"
+                      variant="outline"
+                    >
+                      Prev
+                    </Button>
+                    
+                    <HStack spacing={1}>
+                      <Text fontSize="sm" color="gray.400">
+                        Page {currentPage} of {totalPages}
+                      </Text>
+                    </HStack>
+                    
+                    <Button
+                      size="sm"
+                      h="32px"
+                      fontSize="xs"
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      isDisabled={currentPage === totalPages}
+                      colorScheme="pink"
+                      variant="outline"
+                    >
+                      Next
+                    </Button>
+                  </Flex>
+                )}
             </Flex>       
             </>
           ): (
@@ -171,14 +252,14 @@ const LeaderboardPage: React.FC = () => {
                 <table >
                 <thead>
                 <tr>
-                    <th style={{ width: "5%" }} scope="col">
-                    <Text color={"#fffdb8"}><b>Rank</b></Text>
+                    <th style={{ width: "5%", cursor: "pointer" }} scope="col" onClick={() => handleSort('rank')}>
+                    <Text color={"#fffdb8"}><b>Rank {sortField === 'rank' ? (sortAscending ? '↑' : '↓') : ''}</b></Text>
                     </th>
                     <th style={{ width: "10%" }} scope="col">
                     <Text color={"#fffdb8"}><b>Address</b></Text>
                     </th>
-                    <th style={{ width: "10%" }} scope="col">
-                      <Text color={"#fffdb8"}><b>Prize</b></Text>
+                    <th style={{ width: "10%", cursor: "pointer" }} scope="col" onClick={() => handleSort('prize')}>
+                      <Text color={"#fffdb8"}><b>Prize {sortField === 'prize' ? (sortAscending ? '↑' : '↓') : ''}</b></Text>
                     </th>
                     <th style={{ width: "25%" }} scope="col">
                       <Text color={"#fffdb8"}><b>Date</b></Text>
@@ -208,14 +289,15 @@ const LeaderboardPage: React.FC = () => {
                     </>
                 )}
                 {leaderboard.length != 0 &&
-                    leaderboard.map((addr, index) => {
+                    paginatedLeaderboard.map((addr, index) => {
                       let winnerAddress = addr.winner;
                       if (winnerAddress == "0x0000000000000000000000000000000000000000") {
                         winnerAddress = "0x475D29fFE98638F81BEAA5061D902f365927420c";
                       }
+                      const actualIndex = startIndex + index;
                       return (
-                    <tr key={index}>
-                        <td style={{ width: "5%" }}>{index + 1}</td>
+                    <tr key={actualIndex}>
+                        <td style={{ width: "5%" }}>{actualIndex + 1}</td>
                         <td style={{ width: "10%" }}>
                          <>
                          <a href={"https://bscscan.com/address/"+winnerAddress} target="_blank" rel="noreferrer">
@@ -239,7 +321,55 @@ const LeaderboardPage: React.FC = () => {
                     ) 
                   })}
                 </tbody>
-            </table>                    
+            </table>
+            {/* Pagination Controls for Desktop */}
+            {totalPages > 1 && (
+              <Flex mt={6} justify="center" align="center" gap={3}>
+                <Button
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  isDisabled={currentPage === 1}
+                  colorScheme="pink"
+                  variant="outline"
+                >
+                  Previous
+                </Button>
+                
+                <HStack spacing={2}>
+                  {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                    let pageNum;
+                    if (totalPages <= 7) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 4) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= totalPages - 3) {
+                      pageNum = totalPages - 6 + i;
+                    } else {
+                      pageNum = currentPage - 3 + i;
+                    }
+                    
+                    return (
+                      <Button
+                        key={pageNum}
+                        onClick={() => setCurrentPage(pageNum)}
+                        colorScheme={currentPage === pageNum ? "pink" : "gray"}
+                        variant={currentPage === pageNum ? "solid" : "outline"}
+                      >
+                        {pageNum}
+                      </Button>
+                    );
+                  })}
+                </HStack>
+                
+                <Button
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  isDisabled={currentPage === totalPages}
+                  colorScheme="pink"
+                  variant="outline"
+                >
+                  Next
+                </Button>
+              </Flex>
+            )}                    
                 </Box>
             </VStack>
 
