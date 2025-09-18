@@ -214,7 +214,7 @@ const LeaderboardPage: React.FC = () => {
                       colorScheme="pink"
                       variant="outline"
                     >
-                      Prev
+                      <Text color="white" size="sm">Prev</Text>
                     </Button>
                     
                     <HStack spacing={1}>
@@ -232,7 +232,7 @@ const LeaderboardPage: React.FC = () => {
                       colorScheme="pink"
                       variant="outline"
                     >
-                      Next
+                      <Text color="white" size="sm">Next</Text>
                     </Button>
                   </Flex>
                 )}
